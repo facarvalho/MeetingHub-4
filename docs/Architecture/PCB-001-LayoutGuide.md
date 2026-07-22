@@ -73,9 +73,77 @@ sem restrição de painel.
 
 ## 3.3 Desenhar o contorno da placa
 
-No KiCad: selecione a camada **Edge.Cuts** na lista de camadas, use a
-ferramenta de linha/retângulo para desenhar o contorno com as dimensões
-decididas acima.
+### 3.3.1 Antes de desenhar
+
+- Decida qual caminho de gabinete você vai seguir (ver discussão anterior:
+  pronto de catálogo vs. sob medida via PCBWay/JLC3D/JLCMC/sanduíche de
+  acrílico). Isso muda o que "certo" significa aqui:
+  - **Gabinete pronto**: o contorno precisa bater **exatamente** com as
+    dimensões internas do datasheet do gabinete escolhido, incluindo folga
+    para nervuras/trilhos internos (ribs) que muitos cases plásticos têm
+    perto das bordas - meça ou confira o desenho técnico do fabricante do
+    case, não confie só na medida externa.
+  - **Gabinete sob medida (depois)**: o contorno pode ser um retângulo
+    simples, do tamanho que sobrar depois de posicionar os componentes de
+    painel (Fase 3.2) mais uma margem de ~3-5mm em cada lado. O case vai
+    ser cortado/impresso sob medida em cima do STEP/Gerber que você
+    exportar depois - não precisa acertar de primeira.
+- Ajuste o **grid** antes de desenhar: `Ver → Grid Properties` (ou ícone de
+  grade na barra lateral), defina 1mm (ou 0.5mm se quiser mais precisão nos
+  cantos). Desenhar "a olho" sem grid é a causa mais comum de contorno
+  com gaps.
+
+### 3.3.2 Passo a passo no KiCad
+
+1. Na lista de camadas (lado direito, por padrão), clique em **Edge.Cuts**
+   para selecioná-la como camada ativa - ela costuma aparecer em amarelo.
+2. Use a ferramenta **Add Rectangle** (ícone de retângulo na barra de
+   ferramentas da direita, ou tecla de atalho `R`) se o contorno for um
+   retângulo simples. Clique num canto, arraste até o canto oposto, clique
+   de novo para fechar.
+3. Se o contorno **não** for um retângulo simples (ex.: um recorte para os
+   jacks ficarem mais pra fora, ou canto chanfrado), use **Add Line**
+   (atalho `Alt+L` ou ícone de linha) segmento por segmento, sempre
+   fechando no ponto onde começou.
+4. **Não confie no clique do mouse para a medida exata.** Depois de
+   desenhar aproximadamente, clique com o botão direito em cada segmento
+   → **Properties** (ou tecla `E`) e digite os valores exatos de
+   **Start X/Y** e **End X/Y** manualmente. É assim que se garante que o
+   contorno tem, por exemplo, exatamente 90mm x 60mm, e não "89.7mm porque
+   a mão tremeu".
+5. Para cantos arredondados (comum em gabinetes sob medida, fica mais
+   fácil de imprimir/cortar): no KiCad 7, selecione os dois segmentos que
+   formam o canto e use **Edit → Fillet Lines** - digite o raio desejado
+   (ex.: 3mm) e ele substitui o canto vivo por um arco automaticamente, já
+   com a geometria fechada corretamente.
+
+### 3.3.3 Furos de fixação (mounting holes)
+
+- Adicione um footprint do tipo `MountingHole` (biblioteca
+  `MountingHole.pretty`, ex. `MountingHole_3.2mm_M3`) em cada canto da
+  placa, com uma margem de **5-6mm da borda** (menos que isso e o furo
+  pode rachar o FR4 na fabricação).
+- Se o gabinete já está escolhido, a posição desses furos precisa bater
+  com os furos/trilhos de fixação do case - confira o desenho técnico
+  antes de posicionar, não centralize "bonito" sem checar.
+- Se o gabinete é sob medida (depois), posicione os furos primeiro e
+  peça pro fabricante do case alinhar os dele aos seus - é mais fácil que
+  o contrário.
+
+### 3.3.4 Conferir se o contorno fechou corretamente
+
+Um contorno com gap (não fechado) é o erro mais comum nesta fase, e só
+aparece na hora de gerar Gerbers/fabricar se você não checar antes:
+
+1. Rode o DRC (adiantando um pouco a Fase 8, só para o contorno): **Inspect
+   → Design Rules Checker → Run DRC**. Um contorno aberto aparece como
+   erro do tipo *"board outline"* ou *"Unclosed board outline"*.
+2. Alternativa visual: abra a **visualização 3D** (`View → 3D Viewer`, ou
+   `Alt+3`) - se o contorno não fechou, a placa aparece "furada" ou com
+   formato estranho em vez de uma peça sólida.
+3. Só depois de confirmar o contorno fechado e sem erros é que vale a pena
+   seguir para a Fase 4 (posicionamento definitivo) com confiança de que a
+   geometria da placa está correta.
 
 
 # Fase 4 - Posicionamento
