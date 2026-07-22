@@ -12,24 +12,104 @@ que essa validação cobre e o que **não** cobre, para orientar a revisão
 técnica completa antes da fabricação.
 
 
-# 2. O que foi implementado
+# 2. O que foi construído
 
-Cinco folhas hierárquicas em `hardware/KiCad/MeetingHub-4/`:
+O projeto foi organizado em cinco folhas hierárquicas em
+`hardware/KiCad/MeetingHub-4/`:
 
-| Folha | Arquivo | Conteúdo |
-|---|---|---|
-| POWER | POWER.kicad_sch | J1 (USB-C, só VBUS/GND), F1 (fusível 500mA), D1 (TVS 5V), C1/C2 (filtro), TP1 (test point) |
-| TRRS_INPUTS | TRRS.kicad_sch | J2-J5, 4 entradas TRRS CTIA (notebooks 1-4) |
-| AUDIO_MIXER | MIXER.kicad_sch | RV1-RV4 (volume individual), U1 NE5532 (somador L/R), RV5 (master) |
-| HEADPHONE_AMP | HPAMP.kicad_sch | U2 NJM4556A (ganho ~2x por canal), J6 (jack do headset do usuário) |
-| MIC_SWITCHING | MICSW.kicad_sch | SW1 (mute) + K1-K4 (relé G5V-1) + D2-D5 (flyback) |
+## POWER (POWER.kicad_sch)
 
-Todos os 70 componentes (66 ativos/passivos + GND) têm footprint THT
-atribuído. BOM gerada em `hardware/BOM/BOM-MeetingHub-4.csv` e PDF do
-esquemático em `hardware/Schematics/MeetingHub-4-Schematic.pdf`.
+- Conector USB-C de alimentação (J1)
+- Fusível de proteção (F1, 500mA)
+- Diodo TVS de proteção (D1)
+- Filtragem da alimentação +5V_AUDIO (C1/C2)
+- Ponto de teste (TP1)
+
+**Observação:** esta folha **não possui regulador de tensão**. A alimentação
+`+5V_AUDIO` corresponde ao VBUS do USB-C, protegido e filtrado, sem
+regulação ativa.
+
+## TRRS_INPUTS (TRRS.kicad_sch)
+
+- Quatro conectores TRRS para os notebooks (J2-J5)
+- Distribuição dos sinais de áudio provenientes dos notebooks
+
+## AUDIO_MIXER (MIXER.kicad_sch)
+
+- Potenciômetros de ajuste individual dos canais (RV1-RV4) + master (RV5)
+- Mixer estéreo **ativo** baseado em amplificador operacional NE5532 (U1)
+- Rede de realimentação do somador
+- Geração da referência **VBIAS** por divisor resistivo (10 kΩ / 10 kΩ) com
+  capacitor de desacoplamento
+
+**Observação:** o VBIAS é utilizado como referência de meia tensão para os
+amplificadores operacionais (U1 e U2). Ele **não** fornece polarização aos
+microfones, que permanecem utilizando a alimentação fornecida pelo notebook,
+conforme os requisitos de transparência do SCH-004/SCH-007.
+
+## HEADPHONE_AMP (HPAMP.kicad_sch)
+
+- Amplificador para fones de ouvido baseado em NJM4556A (U2)
+- Acoplamento de entrada/saída por capacitor
+- Desacoplamento da alimentação
+- Conector TRRS do headset do operador (J6)
+
+## MIC_SWITCHING (MICSW.kicad_sch)
+
+- Chave de mute (SW1)
+- Quatro relés Omron G5V-1 (K1-K4)
+- Diodos flyback (D2-D5)
+- Seleção individual dos quatro microfones
+- Conectores JST-XH para botões externos (SW1-SW5)
+
+Ao final, o projeto contém **66 componentes**, todos com footprints
+atribuídos (exceto símbolos globais de alimentação). BOM gerada em
+`hardware/BOM/BOM-MeetingHub-4.csv` e PDF do esquemático em
+`hardware/Schematics/MeetingHub-4-Schematic.pdf`.
 
 
-# 3. O que foi validado, e como
+# 3. Diagramas de bloco
+
+Diagrama único de topologia mista tende a confundir alimentação com sinal.
+Por isso, três diagramas separados:
+
+## 3.1 Distribuição de alimentação
+
+```text
+USB-C (J1)
+   │
+ POWER
+   │ +5V_AUDIO
+   ├──► AUDIO_MIXER    (U1 NE5532)
+   ├──► HEADPHONE_AMP  (U2 NJM4556A)
+   └──► MIC_SWITCHING  (bobinas dos relés K1-K4, via SW2-SW5)
+```
+
+## 3.2 Caminho de áudio (Notebook -> Headset)
+
+```text
+TRRS_INPUTS                 AUDIO_MIXER                HEADPHONE_AMP
+J2 NB1_L/R ──┐
+J3 NB2_L/R ──┤   volume            soma            MIX_L/R    ganho     J6
+J4 NB3_L/R ──┼──► individual ──► ativa (U1) ───────────────► (U2) ──► Headset
+J5 NB4_L/R ──┘   (RV1-RV4)                                             (L/R)
+```
+
+## 3.3 Caminho do microfone (Headset -> Notebook selecionado)
+
+```text
+Headset (J6, sleeve)
+   │ HEADSET_MIC
+ MIC_SWITCHING (SW1 mute + K1-K4 seleção)
+   │
+   ├──► NB1_MIC ──► J2 (TRRS_INPUTS)
+   ├──► NB2_MIC ──► J3
+   ├──► NB3_MIC ──► J4
+   └──► NB4_MIC ──► J5      (apenas um relé deve ficar energizado por vez)
+```
+
+
+# 4. O que foi validado, e como
 
 - **Conectividade estrutural**: `kicad-cli sch export netlist` rodado
   repetidamente (múltiplas vezes, de forma determinística) sobre o projeto
@@ -51,7 +131,7 @@ fonte, etc.), que só roda pela interface gráfica nesta versão do
 partir do KiCad 8).
 
 
-# 4. Limitação importante da revisão
+# 5. Limitação importante da revisão
 
 A validação acima foi feita **sobre o projeto completo** (todas as 5 folhas
 + raiz), não sobre fragmentos isolados. Ainda assim, a revisão foi
@@ -65,7 +145,7 @@ visual (inspeção do PDF renderizado). Não substitui:
   simular ou bancar o circuito fisicamente.
 
 
-# 5. Decisões técnicas tomadas durante a implementação
+# 6. Decisões técnicas tomadas durante a implementação
 
 Pontos que exigem confirmação humana antes de rotear a PCB:
 
@@ -93,7 +173,7 @@ Pontos que exigem confirmação humana antes de rotear a PCB:
   outro símbolo com `extends` seja adicionado no futuro.
 
 
-# 6. Pendências antes da fabricação
+# 7. Pendências antes da fabricação
 
 Confirmadas nesta revisão, ainda em aberto:
 
@@ -112,7 +192,7 @@ Confirmadas nesta revisão, ainda em aberto:
   fabricação.
 
 
-# 7. Status
+# 8. Status
 
 Esquemático estruturalmente válido e pronto para a etapa de layout de PCB.
-Não aprovado para fabricação - depende das pendências da seção 6.
+Não aprovado para fabricação - depende das pendências da seção 7.
