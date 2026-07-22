@@ -1,0 +1,35 @@
+Designators,Quantity,Value,Footprint
+"C1, C4, C21",3,100nF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+"C2, C3, C16, C19",4,10uF,Capacitor_THT:CP_Radial_D5.0mm_P2.00mm
+"C5, C6, C7, C8, C9, C10, C11, C12, C13, C14, C15, C18",12,1uF,Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm
+"C17, C20",2,220uF,Capacitor_THT:CP_Radial_D8.0mm_P3.50mm
+D1,1,PTVS5V0Z1USK (TVS 5V),Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal
+"D2, D3, D4, D5",4,1N4148,Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal
+F1,1,500mA,Fuse:Fuse_Bourns_MF-RG500
+J1,1,USB-C POWER IN,Connector_USB:USB_C_Receptacle_GCT_USB4085
+J2,1,TRRS Notebook 1,Connector_Audio:Jack_3.5mm_PJ320D_Horizontal
+J3,1,TRRS Notebook 2,Connector_Audio:Jack_3.5mm_PJ320D_Horizontal
+J4,1,TRRS Notebook 3,Connector_Audio:Jack_3.5mm_PJ320D_Horizontal
+J5,1,TRRS Notebook 4,Connector_Audio:Jack_3.5mm_PJ320D_Horizontal
+J6,1,Headset (User),Connector_Audio:Jack_3.5mm_PJ320D_Horizontal
+K1,1,Select NB1,Relay_THT:Relay_SPDT_Omron_G5V-1
+K2,1,Select NB2,Relay_THT:Relay_SPDT_Omron_G5V-1
+K3,1,Select NB3,Relay_THT:Relay_SPDT_Omron_G5V-1
+K4,1,Select NB4,Relay_THT:Relay_SPDT_Omron_G5V-1
+"R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12",12,10k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
+"R13, R17",2,100k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
+"R14, R15, R18, R19",4,1k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
+"R16, R20",2,47,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
+RV1,1,10k Vol NB1,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
+RV2,1,10k Vol NB2,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
+RV3,1,10k Vol NB3,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
+RV4,1,10k Vol NB4,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
+RV5,1,10k Master,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
+SW1,1,MUTE,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
+SW2,1,Select NB1,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
+SW3,1,Select NB2,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
+SW4,1,Select NB3,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
+SW5,1,Select NB4,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
+TP1,1,+5V_AUDIO,TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm
+U1,1,NE5532,Package_DIP:DIP-8_W7.62mm
+U2,1,NJM4556A,Package_DIP:DIP-8_W7.62mm
