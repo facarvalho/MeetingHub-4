@@ -1,4 +1,3 @@
-# MeetingHub-4
 # SCH-001 - Electrical Block Diagram
 
 Version: 0.1  
@@ -267,27 +266,4 @@ Características:
 * sem conversão digital;
 * sem processamento;
 * compatibilidade com detecção nativa de headset.
-
----
-
-# 9. Próximas Etapas
-
-Após aprovação deste documento:
-
-1. Seleção definitiva dos componentes.
-2. Desenvolvimento do esquemático elétrico.
-3. Revisão de engenharia.
-4. Desenvolvimento da PCB.
-5. Fabricação do protótipo.
-6. Testes funcionais.
-
----
-
-# Histórico
-
-| Versão | Data    | Descrição                     |
-| ------ | ------- | ----------------------------- |
-| 0.1    | Inicial | Criação do diagrama funcional |
-
-````
 
