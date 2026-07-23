@@ -31,5 +31,6 @@ SW3,1,Select NB2,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
 SW4,1,Select NB3,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
 SW5,1,Select NB4,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
 TP1,1,+5V_AUDIO,TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm
+TP2,1,GND (jumper anchor for U1 pin 4),TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm
 U1,1,NE5532,Package_DIP:DIP-8_W7.62mm
 U2,1,NJM4556A,Package_DIP:DIP-8_W7.62mm

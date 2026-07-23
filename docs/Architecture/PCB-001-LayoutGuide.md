@@ -233,7 +233,20 @@ nenhum caminho com folga confiável, e (d) tentativa manual na tela pelo
 usuário, mesma conclusão. **Solução prática**: jumper manual (fio curto
 soldado) do pino 4 do U1 (ou da via já presente ali) até um ponto
 acessível do plano de GND, na placa já montada - resolve eletricamente
-sem precisar de mais trilha na PCB. O DRC real vai continuar acusando
+sem precisar de mais trilha na PCB.
+
+Pra facilitar essa solda, foi adicionado **TP2** (mesmo footprint do
+TP1, `TestPoint_THTPad_D1.5mm_Drill0.7mm`), conectado ao net GND, na
+posição (67.0mm, 125.62mm) - só 8mm de distância do pino 4 do U1, e
+verificado como dentro do plano principal (folga de 4.8mm de qualquer
+outra trilha/pad). É um footprint só-mecânico, adicionado direto no
+`.kicad_pcb` sem símbolo no esquemático (mesmo caso do MH1-4) - por
+isso também aparece com `[extra_footprint]` no DRC, esperado e seguro
+de ignorar. Ao montar a placa: solde um fio curto entre a via do pino 4
+do U1 e o TP2 - os dois ficam bem próximos e são fáceis de alcançar com
+ferro de solda.
+
+O DRC real vai continuar acusando
 esse único item; é esperado e esta é a explicação registrada.
 
 **Pendente**: os 6mm de folga usados na validação são só entre âncoras
