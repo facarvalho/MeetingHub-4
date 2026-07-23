@@ -60,9 +60,6 @@ Arquivo bruto: [BOM-MeetingHub-4.csv](BOM-MeetingHub-4.csv)
 
 # 4. Status de fabricação
 
-Todos os itens abaixo, antes listados como pendência, estão concluídos:
-
-- ✅ ERC via KiCad - sem erros pendentes.
 - ✅ Layout de PCB completo (posicionamento de jacks, potenciômetros,
   relés; separação áudio/alimentação por face do gabinete - ver PCB-001
   Fases 3-5).
@@ -71,8 +68,16 @@ Todos os itens abaixo, antes listados como pendência, estão concluídos:
   potenciômetros RV1-RV5 - ver PCB-001 Fase 8).
 - ✅ Placa migrada para 4 camadas (planos dedicados de GND e +5V_AUDIO nas
   camadas internas - ver PCB-001 Fase 6).
-- ✅ Gerbers, furação e demais arquivos de fabricação exportados e
-  validados (`kicad-cli pcb export gerbers` limpo).
+- ✅ Gerbers, furação (Excellon) e posições de montagem exportados e
+  validados via `kicad-cli` (sem erro de exportação).
+- ⚠️ **ERC (Electrical Rules Checker) do esquemático ainda não foi
+  confirmado.** Esta versão do KiCad (7.0.11) não expõe ERC por linha de
+  comando nem por script Python (diferente do DRC de PCB, para o qual foi
+  encontrado um caminho via `pcbnew.WriteDRCReport` - ver PCB-001) - só
+  roda pela interface gráfica. **Rode antes de fabricar**: no Schematic
+  Editor, **Inspect → Electrical Rules Checker → Run ERC**, revise
+  qualquer erro/aviso e me envie o relatório se quiser ajuda para
+  interpretar.
 
 **Pendente real, fora do escopo deste BOM**: conferência mecânica final
 dos footprints acima (J1-J6, K1-K4, RV1-RV5) contra os datasheets das
