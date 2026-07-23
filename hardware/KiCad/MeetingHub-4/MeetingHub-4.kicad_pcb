@@ -1253,7 +1253,7 @@
 
   (footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" (layer "F.Cu")
     (tstamp 2536048b-e2c4-48a9-ba0e-7b7daed6ce4b)
-    (at 310 135)
+    (at 290 135)
     (descr "CP, Radial series, Radial, pin pitch=2.00mm, , diameter=5mm, Electrolytic Capacitor")
     (tags "CP Radial series Radial pin pitch 2.00mm  diameter 5mm Electrolytic Capacitor")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -2367,7 +2367,7 @@
 
   (footprint "Connector_USB:USB_C_Receptacle_GCT_USB4085" (layer "F.Cu")
     (tstamp 4dc54e1c-46b4-4e4e-b6c9-19557890f875)
-    (at 290 100)
+    (at 270 100)
     (descr "USB 2.0 Type C Receptacle, https://gct.co/Files/Drawings/USB4085.pdf")
     (tags "USB Type-C Receptacle Through-hole Right angle")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -2843,7 +2843,7 @@
 
   (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (layer "F.Cu")
     (tstamp 57142b7b-7d30-4d2c-a1be-a106099d56e8)
-    (at 185 218)
+    (at 194 232)
     (descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
     (tags "connector JST XH vertical")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -3209,7 +3209,7 @@
 
   (footprint "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 71f02bff-5e92-4059-8d35-c2385f1aa369)
-    (at 310 120)
+    (at 290 120)
     (descr "Diode, DO-41_SOD81 series, Axial, Horizontal, pin pitch=10.16mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/DO-41%20(Plastic).pdf")
     (tags "Diode DO-41_SOD81 series Axial Horizontal pin pitch 10.16mm  length 5.2mm diameter 2.7mm")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -3519,7 +3519,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp 7db89c87-4bdb-4bab-b251-b985ce45a095)
-    (at 290 135)
+    (at 270 135)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -3577,7 +3577,7 @@
 
   (footprint "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm" (layer "F.Cu")
     (tstamp 7dbfdb44-7ed7-4bc3-848e-09ea63ff96f1)
-    (at 270 120)
+    (at 250 120)
     (descr "THT pad as test Point, diameter 1.5mm, hole diameter 0.7mm")
     (tags "test point THT pad")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -3674,7 +3674,7 @@
 
   (footprint "Fuse:Fuse_Bourns_MF-RG500" (layer "F.Cu")
     (tstamp 849b5135-7f63-49d1-913a-6350d7c20e0f)
-    (at 290 120)
+    (at 270 120)
     (descr "PTC Resettable Fuse, Ihold = 5.0A, Itrip=8.5A, http://www.bourns.com/docs/Product-Datasheets/mfrg.pdf")
     (tags "ptc resettable fuse polyfuse THT")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -3860,7 +3860,7 @@
 
   (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (layer "F.Cu")
     (tstamp 87290aa7-1eed-4255-95f2-6123b60d1b53)
-    (at 140 218)
+    (at 140 232)
     (descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
     (tags "connector JST XH vertical")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -4388,7 +4388,7 @@
 
   (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (layer "F.Cu")
     (tstamp 9aebd40b-fa7c-4cd3-8380-ab46d10989c6)
-    (at 170 218)
+    (at 176 232)
     (descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
     (tags "connector JST XH vertical")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -5410,7 +5410,7 @@
 
   (footprint "Connector_Audio:Jack_3.5mm_PJ320D_Horizontal" (layer "F.Cu")
     (tstamp b0cb94d2-04fd-481c-acc1-8f13003e1b89)
-    (at 190 230)
+    (at 230 232)
     (descr "Headphones with microphone connector, 3.5mm, 4 pins (http://www.qingpu-electronics.com/en/products/WQP-PJ320D-72.html)")
     (tags "3.5mm jack mic microphone phones headphones 4pins audio plug")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -5588,7 +5588,7 @@
 
   (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (layer "F.Cu")
     (tstamp b690b345-4027-4a0f-a2e1-8a04bdba7906)
-    (at 155 218)
+    (at 158 232)
     (descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
     (tags "connector JST XH vertical")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -6036,7 +6036,7 @@
 
   (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (layer "F.Cu")
     (tstamp d0b27165-71e0-4234-b0c1-713144e777aa)
-    (at 200 218)
+    (at 212 232)
     (descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
     (tags "connector JST XH vertical")
     (property "Sheetfile" "MICSW.kicad_sch")
