@@ -70,14 +70,30 @@ Arquivo bruto: [BOM-MeetingHub-4.csv](BOM-MeetingHub-4.csv)
   camadas internas - ver PCB-001 Fase 6).
 - ✅ Gerbers, furação (Excellon) e posições de montagem exportados e
   validados via `kicad-cli` (sem erro de exportação).
-- ⚠️ **ERC (Electrical Rules Checker) do esquemático ainda não foi
-  confirmado.** Esta versão do KiCad (7.0.11) não expõe ERC por linha de
-  comando nem por script Python (diferente do DRC de PCB, para o qual foi
-  encontrado um caminho via `pcbnew.WriteDRCReport` - ver PCB-001) - só
-  roda pela interface gráfica. **Rode antes de fabricar**: no Schematic
-  Editor, **Inspect → Electrical Rules Checker → Run ERC**, revise
-  qualquer erro/aviso e me envie o relatório se quiser ajuda para
-  interpretar.
+- ✅ ERC rodado (via KiCad, pelo usuário) e os problemas reais encontrados
+  foram corrigidos - ver PCB-001 Fase 9 para o detalhe de cada um:
+  - **TP1 nunca esteve realmente ligado a +5V_AUDIO** (nem no esquemático,
+    nem na PCB) - o pino ficava visualmente sobre um fio existente sem
+    junção elétrica. Corrigido em ambos os arquivos.
+  - **TP2 também não estava ligado a GND na PCB** (footprint só-mecânico,
+    adicionado sem net). Corrigido - agora no net GND de fato.
+  - `power_pin_not_driven` no U1 (pinos V+/V-): corrigido com dois símbolos
+    `power:PWR_FLAG` em POWER.kicad_sch, o idioma padrão do KiCad para
+    quando a alimentação vem de um conector (J1/USB-C) em vez de um símbolo
+    de alimentação dedicado.
+  - `lib_symbol_issues` em J2-J6 (AudioJack4): o símbolo estava referenciado
+    como `Connector:AudioJack4`, biblioteca que não existe mais nessa
+    posição no KiCad atual (o símbolo foi movido para `Connector_Audio`).
+    Corrigido o `lib_id` para `Connector_Audio:AudioJack4` (geometria e
+    pinos idênticos, conferido byte a byte contra a biblioteca do sistema).
+  - Avisos não corrigidos, por não serem defeitos: `pin_not_connected` no
+    pino 10 dos relés K1-K4 (pino duplicado do contato reverso do G5V-1,
+    não usado nesta topologia SPDT - normal); ~232 `endpoint_off_grid`
+    (cosmético, não afeta conectividade); USB-C D+/D-/CC/SBU/SHIELD sem uso
+    (intencional, ver DR-002/DR-003 - J1 é usado só como entrada de
+    alimentação).
+  - **Recomendado**: rode o ERC de novo depois de puxar essas mudanças,
+    para confirmar que os erros/avisos acima realmente sumiram.
 
 **Pendente real, fora do escopo deste BOM**: conferência mecânica final
 dos footprints acima (J1-J6, K1-K4, RV1-RV5) contra os datasheets das

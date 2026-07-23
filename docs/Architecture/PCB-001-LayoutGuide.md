@@ -464,3 +464,44 @@ Depois de gerado tudo, me chame de volta e eu confiro:
 - se a BOM final bate com o `.kicad_pcb`;
 - se sobrou algum footprint sem valor/referência antes de fechar o pacote
   de fabricação.
+
+
+# Fase 11 - Correções pós-ERC (TP1/TP2 sem net na PCB)
+
+Rodando o ERC real do esquemático (via GUI, só possível nessa versão do
+KiCad pela interface - ver BOM-002-AsBuilt Seção 4), apareceu
+`pin_not_connected` no TP1. Investigando, o pino do TP1 ficava
+visualmente sobre um fio existente no esquemático (folha POWER) sem
+**junção** elétrica ali - um erro clássico do KiCad (sobreposição visual
+≠ conexão). Corrigido no esquemático com uma `junction` no ponto exato.
+
+Verificando a PCB depois disso, o problema era pior do que só o
+esquemático: **o pad do TP1 na placa também não tinha net nenhum**
+(`unconnected-(TP1-Pad1)`), e o **TP2 também não** (net vazio) - ambos os
+pontos de teste eram fisicamente flutuantes na placa final, apesar da
+documentação dizer que estavam em +5V_AUDIO/GND. Corrigido via script
+Python (`pcbnew`): atribuído o net `+5V_AUDIO` ao pad do TP1 e `GND` ao
+pad do TP2, seguido de recálculo dos planos (`ZONE_FILLER.Fill`) para que
+o anel de solda de cada pad realmente conecte ao plano interno
+correspondente. Confirmado depois via `board.GetConnectivity().GetUnconnectedCount(False)`
+= 0 e novo `WriteDRCReport` sem erros reais.
+
+Também corrigido, pelo mesmo ERC: o `power_pin_not_driven` no U1
+(pinos V+/V-) - adicionados dois símbolos `power:PWR_FLAG` em
+POWER.kicad_sch (idioma padrão do KiCad para quando a alimentação de um
+net vem de um pino de conector, aqui o VBUS do J1/USB-C, e não de um
+símbolo de alimentação dedicado); e o `lib_symbol_issues` em J2-J6 - o
+`lib_id` estava apontando para `Connector:AudioJack4`, biblioteca antiga
+que não existe mais nessa posição no KiCad instalado (o símbolo foi
+reorganizado para `Connector_Audio` em versões mais novas da biblioteca
+padrão). Corrigido o `lib_id` para `Connector_Audio:AudioJack4` -
+geometria e pinos conferidos byte a byte contra a biblioteca do sistema
+antes da troca, sem diferença.
+
+**Lição para o próximo projeto**: pontos de teste (TP) adicionados direto
+na PCB (sem símbolo no esquemático, como o TP2) precisam ter o net
+atribuído manualmente e conferido - eles não aparecem no ERC do
+esquemático (não existem lá) nem geram erro óbvio de DRC se ficarem sem
+net (não há pad vizinho pra reclamar de "não conectado" com um único
+pad isolado). A forma de pegar isso foi checando net-a-net via script,
+não só olhando o relatório de DRC.

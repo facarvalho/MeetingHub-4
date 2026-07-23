@@ -5,7 +5,7 @@
   (paper "A4")
 
   (lib_symbols
-    (symbol "Connector:AudioJack4" (in_bom yes) (on_board yes)
+    (symbol "Connector_Audio:AudioJack4" (in_bom yes) (on_board yes)
       (property "Reference" "J" (at 0 8.89 0)
         (effects (font (size 1.27 1.27)))
       )
@@ -342,7 +342,7 @@
     )
   )
 
-  (symbol (lib_id "Connector:AudioJack4") (at 50 78 0) (unit 1)
+  (symbol (lib_id "Connector_Audio:AudioJack4") (at 50 78 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 78cc5c98-d27c-4128-951a-38fc7a232fc2)
     (property "Reference" "J3" (at 50 71.65 0)
@@ -370,7 +370,7 @@
     )
   )
 
-  (symbol (lib_id "Connector:AudioJack4") (at 50 154 0) (unit 1)
+  (symbol (lib_id "Connector_Audio:AudioJack4") (at 50 154 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9d9207a5-f4a4-432b-b996-622428e32e98)
     (property "Reference" "J5" (at 50 147.65 0)
@@ -423,7 +423,7 @@
     )
   )
 
-  (symbol (lib_id "Connector:AudioJack4") (at 50 40 0) (unit 1)
+  (symbol (lib_id "Connector_Audio:AudioJack4") (at 50 40 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid c0ec0197-9ffe-4c5d-86ae-abc76cf8b823)
     (property "Reference" "J2" (at 50 33.65 0)
@@ -451,7 +451,7 @@
     )
   )
 
-  (symbol (lib_id "Connector:AudioJack4") (at 50 116 0) (unit 1)
+  (symbol (lib_id "Connector_Audio:AudioJack4") (at 50 116 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid c77d1dfe-12b9-4037-9784-8bd3079bef5b)
     (property "Reference" "J4" (at 50 109.65 0)
