@@ -218,36 +218,46 @@ conectados via `pcbnew`, clearance pad-a-pad e trilha-a-pad por camada,
 `kicad-cli pcb export gerbers` limpo) e confirmado por DRC real na tela
 a cada rodada.
 
-**Limitação conhecida e aceita: pino 4 do U1 (GND)**. Esse pino
-especificamente não tem caminho de cobre disponível para o plano
-principal de GND, dentro da folga mínima de fabricação (0.15mm) - só a
-via direta no próprio pad, sem conexão ao plano. Causa raiz: num
-encapsulamento DIP-8, o pino 4 fica fisicamente entre o pino 3 e o pino
-5 (é assim que a numeração do encapsulamento dá a volta), então esse
-aperto local é inerente à pinagem do chip, não ao layout ao redor -
-confirmado tentando: (a) alargar o pitch X e depois também o Y do grid
-do mixer (2 rodadas completas de re-layout + reroteamento), (b) girar o
-U1 90° (mesma pinagem, mesmo aperto, só muda a direção), (c) busca
-exaustiva por script (A*, bulge de trilha vizinha) não encontrando
-nenhum caminho com folga confiável, e (d) tentativa manual na tela pelo
-usuário, mesma conclusão. **Solução prática**: jumper manual (fio curto
-soldado) do pino 4 do U1 (ou da via já presente ali) até um ponto
-acessível do plano de GND, na placa já montada - resolve eletricamente
-sem precisar de mais trilha na PCB.
+**Resolvido: pino 4 do U1 (GND), via migração para 4 camadas.** Esse
+pino especificamente não tinha caminho de cobre disponível para o plano
+de GND na placa de 2 camadas, dentro da folga mínima de fabricação
+(0.15mm). Causa raiz: num encapsulamento DIP-8, o pino 4 fica
+fisicamente entre o pino 3 e o pino 5 (é assim que a numeração do
+encapsulamento dá a volta), então esse aperto local é inerente à
+pinagem do chip, não ao layout ao redor - confirmado tentando: (a)
+alargar o pitch X e depois também o Y do grid do mixer (2 rodadas
+completas de re-layout + reroteamento), (b) girar o U1 90° (mesma
+pinagem, mesmo aperto, só muda a direção), (c) busca exaustiva por
+script (A*, bulge de trilha vizinha) não encontrando nenhum caminho com
+folga confiável, e (d) tentativa manual na tela pelo usuário, mesma
+conclusão.
 
-Pra facilitar essa solda, foi adicionado **TP2** (mesmo footprint do
-TP1, `TestPoint_THTPad_D1.5mm_Drill0.7mm`), conectado ao net GND, na
-posição (67.0mm, 125.62mm) - só 8mm de distância do pino 4 do U1, e
-verificado como dentro do plano principal (folga de 4.8mm de qualquer
-outra trilha/pad). É um footprint só-mecânico, adicionado direto no
-`.kicad_pcb` sem símbolo no esquemático (mesmo caso do MH1-4) - por
-isso também aparece com `[extra_footprint]` no DRC, esperado e seguro
-de ignorar. Ao montar a placa: solde um fio curto entre a via do pino 4
-do U1 e o TP2 - os dois ficam bem próximos e são fáceis de alcançar com
-ferro de solda.
+Dado que nenhum ajuste de posicionamento ataca a causa real (a pinagem
+do próprio chip), a solução foi migrar a placa pra **4 camadas** com um
+plano de GND dedicado (ver Fase 6) - isso elimina o problema
+estruturalmente, já que o pino 4 passa a tocar o plano diretamente pelo
+próprio furo passante, sem competir por espaço com nenhuma trilha de
+sinal. Confirmado por DRC real headless (`pcbnew.WriteDRCReport`, ver
+nota abaixo): **0 pads não conectados, 0 erros reais**.
 
-O DRC real vai continuar acusando
-esse único item; é esperado e esta é a explicação registrada.
+**TP2** (mesmo footprint do TP1, `TestPoint_THTPad_D1.5mm_Drill0.7mm`),
+conectado ao net GND, posição (67.0mm, 125.62mm), foi mantido como
+ponto de teste genérico de GND (útil pra encostar multímetro/osciloscópio)
+- a instrução de jumper manual que estava na serigrafia foi removida,
+já que não é mais necessária.
+
+**Nota sobre validação nesta fase**: descobri que `pcbnew.WriteDRCReport()`
+gera um relatório de DRC real e completo mesmo sem GUI (diferente do que
+foi assumido no início do projeto, de que esta versão do KiCad não tinha
+DRC via linha de comando/script) - as checagens aproximadas por
+script usadas em fases anteriores da sessão foram substituídas por essa
+função sempre que possível daqui pra frente. Um efeito colateral notado:
+rodar essa função fora do ambiente do KiCad completo (sem a tabela de
+bibliotecas de footprint configurada) gera avisos falsos de
+`lib_footprint_issues` ("footprint not found in library") para
+praticamente todo componente - isso é uma limitação do ambiente headless
+usado para gerar o relatório, não um problema real da placa; não
+acontece rodando DRC pela GUI do KiCad.
 
 **Pendente**: os 6mm de folga usados na validação são só entre âncoras
 (centro do footprint), não entre corpos reais - potenciômetro RK097,
@@ -296,22 +306,44 @@ oposta à alimentação, em vez de uma folha de esquemático específica.
 
 # Fase 6 - Plano de terra
 
-- Plano de GND cobrindo toda a placa na camada **Bottom** (B.Cu).
-- Sinal na camada **Top** (F.Cu), usando o plano de baixo como retorno.
-- Cada capacitor de desacoplamento (C4/C14/C21) deve ter a via de GND o
-  mais curta possível - idealmente o próprio pad encostando numa via para
-  o plano, sem trilha longa entre o capacitor e o plano.
+**Atualizado: a placa foi migrada de 2 para 4 camadas de cobre**
+especificamente para resolver de forma definitiva o problema descrito na
+Fase 8 (pino 4 do U1 preso num bolsão de GND isolado, mesmo depois de
+duas rodadas de re-layout). Com 2 camadas, o plano de GND competia por
+espaço com trilha de sinal na mesma camada (B.Cu), e em alguns pontos do
+grid do mixer não sobrava espaço legal pro preenchedor de zona conectar
+certos pads sem violar clearance. A solução profissional padrão pra esse
+problema é dedicar camadas inteiras só a planos, sem nenhuma trilha de
+sinal competindo por espaço nelas - é o que foi aplicado:
+
+- **F.Cu** (topo) e **B.Cu** (fundo): só sinal - é onde o Freerouting
+  roteia as ~105 nets de sinal (áudio, mic, controle de relé).
+- **In1.Cu** (camada interna 1): plano de **GND** sólido, cobrindo a
+  placa inteira, sem nenhuma trilha de sinal.
+- **In2.Cu** (camada interna 2): plano de **+5V_AUDIO** sólido, mesma
+  cobertura.
+- Como todos os 66 componentes são passantes (THT), qualquer pino de GND
+  ou +5V_AUDIO já toca essas duas camadas internas diretamente pelo
+  próprio furo - não precisa de trilha nem via extra na maioria dos
+  casos. **Exceção**: os pinos "R2" (blindagem) dos conectores TRRS
+  (J2-J6), que são SMD só na camada F.Cu no footprint
+  `Jack_3.5mm_PJ320D_Horizontal` - esses 5 pontos precisaram de uma via
+  dedicada descendo até o plano de GND, já aplicada.
+- Para configurar isso no KiCad (se for reproduzir do zero): **File →
+  Board Setup → Physical Stackup**, mude "Copper Layers" pra 4, e marque
+  In1.Cu/In2.Cu como tipo **Power** (não Signal) em **Board Setup →
+  Layers** - isso é o que impede o autorroteador de jogar trilha de
+  sinal nessas camadas.
 - **Aterramento em estrela** (já decidido em SCH-008/DR-002): o retorno de
   GND de POWER e o retorno de GND do bloco analógico (TRRS/MIXER/HPAMP)
-  devem se encontrar em um único ponto físico - não deixe o plano de GND
-  "livre" sem pensar em onde a corrente de retorno da alimentação
-  efetivamente entra no plano analógico.
-- Cuidado especial com **K1-K4**: a corrente de acionamento da bobina do
-  relé (vindo de +5V_AUDIO, passando por SW2-SW5) não deve compartilhar o
-  mesmo trecho de plano de GND que a linha de retorno de MIC/áudio -
-  prefira que a corrente da bobina "entre e saia" pela região de POWER
-  (atrás), não atravessando por baixo da fileira de P2/pots/mixer no meio
-  da placa.
+  devem se encontrar em um único ponto físico - com o plano interno
+  dedicado, isso já é naturalmente satisfeito (todo o plano é um nó só).
+- Cuidado que **deixou de ser necessário** com o plano dedicado: a
+  preocupação original sobre a corrente da bobina de K1-K4 compartilhar
+  trecho de plano com o retorno de MIC/áudio não se aplica mais do mesmo
+  jeito, já que o plano de GND agora não tem nenhuma trilha de sinal
+  competindo por caminho dentro dele - mas ainda vale posicionar K1-K4
+  perto da região de POWER por organização geral do layout.
 
 
 # Fase 7 - Roteamento
@@ -400,10 +432,19 @@ MH3, MH4) sem se preocupar.
 
 # Fase 10 - Fabricação
 
+**Placa de 4 camadas** (ver Fase 6) - ao pedir orçamento/fabricação no
+site do fabricante, selecione explicitamente **"4 layers"** (ou
+equivalente) nas opções do pedido, não o padrão de 2 camadas. Isso
+normalmente custa mais que 2 camadas (a maioria dos fabricantes cobra
+uns 30-70% a mais pra lotes pequenos), mas é obrigatório - os gerbers
+gerados já incluem as camadas internas (`In1_Cu`, `In2_Cu`), então o
+fabricante vai perceber que são 4 camadas pelos próprios arquivos, mas
+confirme a opção do pedido bate antes de finalizar a compra.
+
 Arquivos a gerar (via **File → Fabrication Outputs** no PCB Editor, ou
 `kicad-cli pcb export` linha de comando):
 
-- **Gerbers** (todas as camadas de cobre + máscara + silk + Edge.Cuts)
+- **Gerbers** (todas as 4 camadas de cobre + máscara + silk + Edge.Cuts)
 - **Excellon** (arquivo de furação)
 - **BOM final** - já temos uma gerada em `hardware/BOM/BOM-MeetingHub-4.csv`;
   confirme que ela ainda bate com o `.kicad_pcb` final antes de enviar.
