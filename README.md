@@ -36,6 +36,8 @@ hardware/
   PCB/                    Netlist exportada
   Gerbers/                Gerbers + furação prontos para fabricação (zip pronto para upload)
 
+mechanical/                Modelo 3D do gabinete (OpenSCAD, rascunho v0.1)
+
 production/                Guias de como pedir a fabricação (PCB, gabinete)
 
 LICENSE.md                Licença comercial de uso (com royalty)
