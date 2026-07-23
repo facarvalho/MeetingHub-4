@@ -63,9 +63,10 @@ Arquivo bruto: [BOM-MeetingHub-4.csv](BOM-MeetingHub-4.csv)
 - ✅ Layout de PCB completo (posicionamento de jacks, potenciômetros,
   relés; separação áudio/alimentação por face do gabinete - ver PCB-001
   Fases 3-5).
-- ✅ DRC real (via KiCad) limpo: 0 pads não conectados, 0 erros. Único
-  aviso remanescente é cosmético e aceito (divergência de biblioteca dos
-  potenciômetros RV1-RV5 - ver PCB-001 Fase 8).
+- ✅ DRC real (via KiCad, confirmado 23/07/2026): 0 pads não conectados,
+  0 erros. Únicos 5 avisos remanescentes são cosméticos e aceitos
+  (divergência de biblioteca dos potenciômetros RV1-RV5 - ver PCB-001
+  Fase 8).
 - ✅ Placa migrada para 4 camadas (planos dedicados de GND e +5V_AUDIO nas
   camadas internas - ver PCB-001 Fase 6).
 - ✅ Gerbers, furação (Excellon) e posições de montagem exportados e
@@ -110,8 +111,8 @@ Arquivo bruto: [BOM-MeetingHub-4.csv](BOM-MeetingHub-4.csv)
     manual: o realinhamento aproximou demais o D1 do pino D+ do J1
     (que fica ao lado, sem uso), quase encostando os dois - corrigido
     afastando o D1 um passo de grade extra.
-  - **Recomendado**: rode o ERC de novo depois de puxar essas mudanças,
-    para confirmar 0 erros e 0 (ou quase 0) avisos restantes.
+  - **Confirmado pelo usuário via relatório real do KiCad (23/07/2026,
+    16:27): 0 erros, 0 avisos.** ERC 100% limpo.
 
 **Pendente real, fora do escopo deste BOM**: conferência mecânica final
 dos footprints acima (J1-J6, K1-K4, RV1-RV5) contra os datasheets das
