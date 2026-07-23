@@ -1,0 +1,15 @@
+# KiCad lock files (created while a project file is open in the GUI)
+*.lck
+
+# KiCad automatic backups (Backups → Archive Project, and periodic autosave)
+*-backups/
+_autosave-*
+*.kicad_pcb-bak
+*.kicad_sch-bak
+fp-info-cache
+
+# Manual/full project zip backups
+hardware/KiCad/*.zip
+
+# DRC/ERC report exports (regenerate on demand, not meant to be versioned)
+*.rpt
