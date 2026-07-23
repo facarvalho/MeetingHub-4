@@ -34,6 +34,9 @@ hardware/
   Schematics/             PDF do esquemático exportado
   BOM/                    Lista de materiais (conceitual e as-built)
   PCB/                    Netlist exportada
+  Gerbers/                Gerbers + furação prontos para fabricação (zip pronto para upload)
+
+production/                Guias de como pedir a fabricação (PCB, gabinete)
 
 LICENSE.md                Licença comercial de uso (com royalty)
 CHANGELOG.md              Histórico de marcos do projeto
@@ -48,6 +51,7 @@ CHANGELOG.md              Histórico de marcos do projeto
 5. **[PCB-001](docs/Architecture/PCB-001-LayoutGuide.md)** — guia completo de layout de PCB (fases 2 a 10), incluindo todas as decisões e correções aplicadas até o estado final.
 6. **[BOM-002-AsBuilt](hardware/BOM/BOM-002-AsBuilt.md)** — lista de materiais real, extraída do projeto final.
 7. **[TEST-001](docs/Architecture/TEST-001-BringUpGuide.md)** — guia de teste da placa montada, da inspeção visual ao funcionamento completo com os 4 notebooks.
+8. **[PCBWay-OrderGuide](production/PCBWay-OrderGuide.md)** — passo a passo para pedir a fabricação da placa no PCBWay.
 
 ## Estado do hardware
 
