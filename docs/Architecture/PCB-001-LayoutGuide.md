@@ -298,11 +298,18 @@ Ordem de roteamento (a sua está correta):
 
 1. No PCB Editor: **Inspect → Design Rules Checker** (ou o ícone de
    "bug"/lupa na barra de ferramentas).
-2. Antes de rodar, confira **File → Board Setup → Design Rules** - ajuste
-   a largura mínima de trilha e o espaçamento mínimo para os valores da
-   fabricante que você for usar (ex.: JLCPCB padrão é 0.153mm de trilha e
-   0.127mm de espaçamento mínimos - use algo folgado tipo 0.25mm/0.2mm já
-   que esta placa não é densa).
+2. Antes de rodar, confira **File → Board Setup → Design Rules →
+   Constraints** e ajuste **Minimum track width** e **Minimum clearance**
+   para um piso de segurança acima do mínimo de fábrica (JLCPCB padrão é
+   0.153mm de trilha e 0.127mm de espaçamento).
+   **Correção em relação à sugestão original deste guia**: com a placa já
+   roteada (Fase 7, via Freerouting), a maioria das trilhas de sinal usa
+   0.2mm e o clearance validado a sessão inteira é 0.15mm - usar 0.25mm/
+   0.2mm (a sugestão original, escrita antes do roteamento existir) criaria
+   ~400 falsos "erro de largura de trilha" em trilhas que já estão
+   corretas. Use **0.2mm de trilha mínima e 0.15mm de clearance mínimo**
+   em vez disso - ainda folgado acima do mínimo da JLCPCB, mas compatível
+   com o que já foi roteado.
 3. Clique em **Run DRC**. Corrija um erro de cada vez, rodando de novo
    depois de cada correção - não tente corrigir tudo de uma vez e rodar
    só no final.
@@ -312,6 +319,14 @@ Ordem de roteamento (a sua está correta):
 5. Só considere a Fase 8 concluída com **zero erros e zero warnings não
    justificados** (um warning de "trilha curta" ou similar pode ser
    aceitável, mas documente por quê).
+
+**Warning aceito e documentado**: os 4 furos de fixação (MH1-MH4, Fase
+3.3.3) disparam `[extra_footprint]` (severidade warning) porque são
+footprints só-mecânicos, adicionados direto no `.kicad_pcb` e sem símbolo
+correspondente no esquemático - isso é esperado e seguro para
+`MountingHole`, que não tem função elétrica e por isso normalmente não
+entra no esquemático. Pode ignorar esse warning específico (@MH1, MH2,
+MH3, MH4) sem se preocupar.
 
 
 # Fase 9 - Revisão mecânica em escala 1:1
