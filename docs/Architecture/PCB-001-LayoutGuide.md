@@ -526,3 +526,50 @@ topologia SPDT). Corrigido adicionando **no connect** explícito
 (`no_connect`) em cada um desses 13 pinos - a forma correta e
 definitiva de zerar esse tipo de erro no ERC, em vez de deixá-lo como
 aviso pendente na documentação.
+
+Depois de 0 erros confirmados, sobraram 232 avisos `endpoint_off_grid`
+- praticamente todo pino e fio das 5 folhas. Causa raiz: o esquemático
+inteiro foi desenhado usando posições redondas em milímetros (ex.:
+55.0, 85.0, 115.0mm), que **não são múltiplos da grade de 1.27mm
+(50 mil)** que o teste do ERC usa como referência - então quase todo
+símbolo cai "fora da grade" mesmo tendo sido posicionado de forma
+perfeitamente deliberada.
+
+Corrigir isso manualmente, símbolo por símbolo, seria arriscado demais
+nessa escala (~70 componentes, centenas de fios, 5 arquivos) - fácil
+desconectar algo sem perceber. Em vez disso, usei uma propriedade
+matemática: se eu aplicar a **mesma função de arredondamento** (`snap
+para o múltiplo de 1.27mm mais próximo`) em toda coordenada do arquivo
+(posição de símbolo, ponta de fio, junção), dois pontos que já eram
+**exatamente iguais** antes (a definição de "conectado" no formato do
+KiCad) continuam exatamente iguais depois - a função é determinística,
+então mesma entrada sempre dá a mesma saída. Isso permite realinhar o
+projeto inteiro para a grade sem, em princípio, alterar nenhuma conexão.
+
+Escrevi um script (`snap_grid.py`) que faz exatamente isso: parseia
+cada folha em uma árvore (sem tocar no `lib_symbols`, que é só a
+biblioteca em cache, não a instância no papel), acha cada símbolo/fio/
+junção/rótulo global/no-connect no nível do esquemático, e arredonda
+suas coordenadas. Rodei nas 5 folhas (716 ajustes só na AUDIO_MIXER, a
+maior).
+
+**Validação**: `kicad-cli sch export netlist` tem um formato de saída
+(`kicadsexpr`) que lista cada rede e seus nós - rodei antes e depois do
+realinhamento e comparei rede a rede (por conjunto de nós, ignorando
+nome/código de rede, que mudam). Confirmou 1 problema real: o
+realinhamento aproximou o D1 (proteção TVS) do pino D+ do J1 (USB-C,
+sem uso) o suficiente para os dois caírem no mesmo ponto da grade,
+mesclando duas redes que deviam continuar separadas - um caso exatamente
+do tipo "dois pontos statisticamente próximos colapsam no mesmo
+quadrado de grade" que eu já esperava como risco teórico antes de
+começar. Corrigido afastando o D1 um passo de grade extra (e o fio que
+liga ao GND, que dependia da posição antiga do D1). Uma segunda rodada
+de `export netlist` confirmou as 72 redes do projeto batendo nó a nó,
+sem nenhuma diferença.
+
+**Lição**: esse tipo de "snap em massa" é seguro em expectativa, mas
+não é risco zero - vale sempre validar com uma ferramenta de
+comparação de conectividade (netlist, não só contagem de erro/aviso)
+depois de qualquer transformação geométrica em lote, porque um DRC/ERC
+limpo não garante que a topologia não mudou, só que não violou as
+regras verificadas.

@@ -97,11 +97,21 @@ Arquivo bruto: [BOM-MeetingHub-4.csv](BOM-MeetingHub-4.csv)
     como **erro** de qualquer forma. Corrigido adicionando marcadores
     "no connect" explícitos em cada pino, a forma padrão do KiCad de dizer
     "sei que este pino está solto de propósito".
-  - Não corrigido, por ser cosmético: ~233 `endpoint_off_grid` (pinos/fios
-    fora da grade de verificação do ERC, não afeta conectividade real).
+  - `endpoint_off_grid` (233 avisos, praticamente todo pino/fio do
+    esquemático): causa raiz identificada - o esquemático inteiro foi
+    desenhado em posições redondas em milímetros, que não são múltiplos
+    da grade de 1.27mm (50 mil) que o ERC usa para esse teste. Corrigido
+    via script que realinha cada símbolo, fio e junção das 5 folhas para
+    o múltiplo de 1.27mm mais próximo, preservando a topologia elétrica
+    (dois pontos que já coincidiam continuam coincidindo, porque usam a
+    mesma função determinística de arredondamento). **Validado com
+    `kicad-cli sch export netlist` antes/depois - as 72 redes do projeto
+    batem nó a nó, nenhuma mudou.** Um único caso precisou de ajuste
+    manual: o realinhamento aproximou demais o D1 do pino D+ do J1
+    (que fica ao lado, sem uso), quase encostando os dois - corrigido
+    afastando o D1 um passo de grade extra.
   - **Recomendado**: rode o ERC de novo depois de puxar essas mudanças,
-    para confirmar 0 erros restantes (só os avisos de grade, que são
-    estéticos).
+    para confirmar 0 erros e 0 (ou quase 0) avisos restantes.
 
 **Pendente real, fora do escopo deste BOM**: conferência mecânica final
 dos footprints acima (J1-J6, K1-K4, RV1-RV5) contra os datasheets das
