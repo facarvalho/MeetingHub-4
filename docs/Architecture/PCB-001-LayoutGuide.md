@@ -127,16 +127,30 @@ trás, fora do caminho.
 
 ### 3.3.3 Furos de fixação (mounting holes)
 
-- Adicione um footprint do tipo `MountingHole` (biblioteca
-  `MountingHole.pretty`, ex. `MountingHole_3.2mm_M3`) em cada canto da
-  placa, com uma margem de **5-6mm da borda** (menos que isso e o furo
-  pode rachar o FR4 na fabricação).
-- Se o gabinete já está escolhido, a posição desses furos precisa bater
-  com os furos/trilhos de fixação do case - confira o desenho técnico
-  antes de posicionar, não centralize "bonito" sem checar.
-- Se o gabinete é sob medida (depois), posicione os furos primeiro e
-  peça pro fabricante do case alinhar os dele aos seus - é mais fácil que
-  o contrário.
+**Aplicado diretamente no `.kicad_pcb`**: 4 footprints `MountingHole_3.2mm_M3`
+(furo não-plaqueado 3.2mm, sem net, próprio para parafuso M3), um em cada
+canto, com 6mm de margem da borda (dentro da faixa 5-6mm recomendada, sem
+colidir com nenhum componente - os 4 cantos estavam livres):
+
+| Referência | Posição (X, Y) | Canto |
+|---|---|---|
+| MH1 | 66.0mm, 91.0mm | superior esquerdo |
+| MH2 | 319.0mm, 91.0mm | superior direito |
+| MH3 | 66.0mm, 239.0mm | inferior esquerdo |
+| MH4 | 319.0mm, 239.0mm | inferior direito |
+
+(Placa vai de x=60-325mm, y=85-245mm; margem de 6mm em cada eixo a partir
+da borda.)
+
+- Se o gabinete já está escolhido, confira se essa posição bate com os
+  furos/trilhos de fixação do case antes de fabricar - se não bater, é só
+  mover os 4 footprints no KiCad (Properties → X/Y) para a posição certa,
+  a geometria do furo em si não muda.
+- Se o gabinete é sob medida (depois), essas posições viram a referência
+  para o fabricante do case alinhar os furos dele.
+- Validado: paren balance do arquivo, nenhuma colisão com footprints
+  vizinhos (nenhum outro componente a menos de 20mm de qualquer canto), e
+  `kicad-cli pcb export gerbers` limpo.
 
 ### 3.3.4 Conferir se o contorno fechou corretamente
 
