@@ -41,18 +41,26 @@ Responda antes de tocar em qualquer footprint:
 ## 3.1 Quais componentes precisam tocar o painel do gabinete
 
 Baseado no esquemático, estes **11 componentes têm função de painel** (o
-usuário precisa alcançá-los de fora):
+usuário precisa alcançá-los de fora). A decisão final sobre **qual face**
+de cada um segue a lógica de uso (o que o operador toca com mais
+frequência fica na frente; conexões permanentes/raras ficam atrás):
 
-| Componente | Função | Onde no painel |
+| Componente | Função | Face do gabinete |
 |---|---|---|
-| J1 (USB-C) | entrada de alimentação | traseira/lateral |
-| J2-J5 (TRRS) | 4 notebooks | frente |
-| J6 (TRRS) | headset do operador | frente |
-| RV1-RV5 (potenciômetro duplo) | volume individual + master | frente |
-| SW1-SW5 (via JST-XH + fio) | mute + seleção de notebook | frente (chave física fora da placa, ligada por fio ao conector JST) |
+| J6 (TRRS) | headset do operador | **frente** |
+| SW1-SW5 (via JST-XH + fio) | mute + seleção de notebook | **frente** (chave física fora da placa, ligada por fio ao conector JST; ficam perto do J6, é o que o operador mais mexe) |
+| RV1-RV5 (potenciômetro duplo) | volume individual + master | **em cima** (eixo do RK097 aponta pra cima, acessível pelo painel superior) |
+| J2-J5 (TRRS) | 4 notebooks (P2) | **atrás** (cabo fica ligado o tempo todo, não precisa ser acessível durante o uso) |
+| J1 (USB-C) | entrada de alimentação | **atrás**, junto dos P2 |
 
 Todo o resto (U1, U2, K1-K4, R1-R20, C1-C21, F1, D1-D5, TP1) fica **interno**,
 sem restrição de painel.
+
+**Por que essa divisão:** o operador interage com o headset e os seletores
+de microfone o tempo todo (frente) e ajusta o volume ocasionalmente (em
+cima) - essas ficam nas faces de fácil acesso. Os cabos dos notebooks e a
+alimentação são plugados uma vez e raramente mexidos de novo - vão para
+trás, fora do caminho.
 
 ## 3.2 Dimensão da placa
 
@@ -148,60 +156,79 @@ aparece na hora de gerar Gerbers/fabricar se você não checar antes:
 
 # Fase 4 - Posicionamento
 
-Siga a ordem que você já propôs - ela está certa porque prioriza quem tem
-restrição mecânica (painel) antes de quem só tem restrição elétrica:
+A ordem abaixo prioriza quem tem restrição mecânica (painel) antes de quem
+só tem restrição elétrica - e já foi **aplicada diretamente no
+`.kicad_pcb`** (posições exatas por referência, validadas por script:
+sem par de componentes com âncoras a menos de 6mm, contorno fechado,
+`kicad-cli pcb export gerbers` limpo). Ainda falta a conferência visual
+na tela e a Fase 9 (mockup 1:1) antes de considerar definitivo.
 
-1. **J1 (USB-C)** - fixe primeiro no canto/borda onde vai encostar no
-   painel traseiro.
-2. **J2-J6 (TRRS)** - alinhe em linha reta na borda frontal, respeitando o
-   espaçamento decidido na Fase 3.
-3. **RV1-RV5 (potenciômetros)** - alinhe acima ou ao lado dos jacks,
-   também na borda frontal.
-4. **K1-K4 (relés G5V-1)** - posicione **longe** dos jacks/potes de áudio e,
-   se possível, próximos ao SW2-SW5/JST correspondente (K1 perto de SW2,
-   K2 perto de SW3, etc. - facilita rastrear o roteamento depois).
-5. **SW1-SW5 (conectores JST)** - perto da borda onde os fios vão sair
-   para as chaves de painel reais.
-6. **U1, U2 (op-amps DIP-8)** - U1 perto do grupo RV1-RV5 (ele é quem
-   recebe os sinais delas), U2 perto de J6 (ele é quem alimenta o jack do
-   headset). Deixe espaço ao redor de cada um para os resistores/capacitores
-   da própria malha de realimentação.
-7. **Capacitores** - os de desacoplamento (C4, C14, C21 - 100nF) devem
-   ficar a poucos milímetros dos pinos de alimentação de U1/U2, sem exceção.
-   Os demais (acoplamento, bias) ficam próximos ao op-amp/potenciômetro a
-   que pertencem.
-8. **Resistores** - por último, preenchendo o espaço entre os componentes
-   que eles conectam.
+1. **J2-J5 (P2) + J1 (USB-C)** - fileira traseira (y=100mm), pitch de
+   40mm entre os 4 jacks de notebook; J1 isolado ao lado (x=290mm),
+   cluster de POWER (F1, D1, C1, C2, TP1) colado nele.
+2. **RV1-RV5 (potenciômetros)** - fileira "em cima" (y=170mm), cada um
+   alinhado na mesma coluna X do jack de notebook correspondente
+   (RV1 sobre J2, RV2 sobre J3, etc.); RV5 (master) na quinta coluna.
+3. **J6 (headset) + SW1-SW5** - fileira frontal: J6 na borda (y=230mm),
+   SW1-SW5 logo atrás dele (y=218mm, pitch 15mm) - ficam perto de quem
+   eles servem.
+4. **K1-K4 + D2-D5 (mic switching)** - perto do grupo SW, mas numa faixa
+   própria (y=190/203mm) pra não colidir com eles; K1 alinhado com SW2,
+   K2 com SW3, etc.
+5. **U1 (mixer) + R1-R12 + C3-C14** - grade 5x5 entre a fileira de trás e
+   a fileira de cima (x=75mm, y=118mm em diante, pitch 13x11mm) - é
+   literalmente o meio do caminho do sinal (P2 → volume → mixer).
+6. **U2 (headphone amp) + R13-R20 + C15-C21** - grade 4x4 perto do J6
+   (x=215mm, y=182mm em diante, pitch 12x11mm).
 
-**Ainda não pense em trilhas nesta fase** - só posição e rotação dos
-footprints.
+**Coordenadas exatas por referência** estão no `.kicad_pcb` - não há uma
+cópia separada aqui porque ela ficaria desatualizada a cada ajuste fino
+que você fizer na tela. Se precisar conferir um valor específico, abra o
+KiCad e selecione o componente (painel de propriedades mostra X/Y).
+
+**Pendente**: os 6mm de folga usados na validação são só entre âncoras
+(centro do footprint), não entre corpos reais - potenciômetro RK097,
+relé G5V-1 e jack PJ320D têm corpo maior que isso. Confirme visualmente
+antes de rotear.
 
 
 # Fase 5 - Planejamento do layout (regiões)
 
-Zoneamento sugerido, seguindo a própria separação das folhas do
-esquemático (isso não é coincidência - a hierarquia já foi pensada com
-isolamento de ruído em mente, ver SCH-008):
+Zoneamento **efetivamente aplicado** (Fase 4), organizado por face do
+gabinete em vez de por folha do esquemático - mas o princípio de
+isolamento de ruído do SCH-008 continua valendo, só que expresso em
+frente/trás em vez de lado a lado:
 
 ```text
-┌─────────────────────────────────────────┐
-│  POWER (J1, F1, D1, C1, C2, TP1)         │  <- canto/borda de entrada
-│                                           │
-│  MIC_SWITCHING (K1-K4, D2-D5, SW1-SW5)   │  <- afastado de TRRS_INPUTS/MIXER
-│                                           │
-│  TRRS_INPUTS (J2-J5)   AUDIO_MIXER       │  <- lado a lado, sinal flui
-│                          (RV1-RV4, U1)   │     de um pro outro
-│                              │            │
-│                        HEADPHONE_AMP     │
-│                        (U2, J6)          │
-└─────────────────────────────────────────┘
+                    ATRÁS (y=100-135)
+┌───────────────────────────────────────────────────┐
+│  J2 J3 J4 J5        J1          F1 D1 C1 C2 TP1     │  <- P2 + USB-C + POWER
+│                                                     │
+│  ┌──────────────┐              ┌─────────────┐     │
+│  │ AUDIO_MIXER  │              │             │     │
+│  │ U1,R1-12,     │              │             │     │
+│  │ C3-14         │              │             │     │
+│  └──────────────┘              │             │     │
+│                                                     │
+│  RV1 RV2 RV3 RV4 RV5                                │  <- EM CIMA (y=170)
+│                                                     │
+│  ┌──────┐                      ┌──────────────┐    │
+│  │MIC_SW│                      │ HEADPHONE_AMP│    │
+│  │K1-4  │                      │ U2,R13-20,   │    │
+│  │D2-5  │                      │ C15-21       │    │
+│  └──────┘                      └──────────────┘    │
+│  SW1 SW2 SW3 SW4 SW5              J6                │  <- FRENTE (y=218-230)
+└───────────────────────────────────────────────────┘
+                    FRENTE (usuário)
 ```
 
-Ideia central: **potência (POWER) e sinal fraco de microfone
-(MIC_SWITCHING) ficam nas pontas opostas**, com o caminho de áudio
-(TRRS → MIXER → HPAMP) atravessando o meio em linha reta, sem cruzar de
-volta. Isso evita que uma trilha de áudio tenha que passar perto de um
-relé ou da entrada de alimentação.
+Ideia central, adaptada: **alimentação (POWER) e P2 ficam atrás, longe do
+operador; a linha de microfone (MIC_SWITCHING) fica na frente**, perto de
+onde ela termina (SW1-SW5) e longe de onde a alimentação entra (atrás).
+O caminho de áudio (P2 → volume → mixer → headphone amp → J6) atravessa a
+placa de trás pra frente em linha reta, sem cruzar de volta - mesma lógica
+de antes (SCH-008), só que a "frente" do gabinete faz o papel de ponta
+oposta à alimentação, em vez de uma folha de esquemático específica.
 
 
 # Fase 6 - Plano de terra
@@ -219,8 +246,9 @@ relé ou da entrada de alimentação.
 - Cuidado especial com **K1-K4**: a corrente de acionamento da bobina do
   relé (vindo de +5V_AUDIO, passando por SW2-SW5) não deve compartilhar o
   mesmo trecho de plano de GND que a linha de retorno de MIC/áudio -
-  prefira que a corrente da bobina "entre e saia" pela região de POWER,
-  não atravessando por baixo de TRRS_INPUTS/MIXER.
+  prefira que a corrente da bobina "entre e saia" pela região de POWER
+  (atrás), não atravessando por baixo da fileira de P2/pots/mixer no meio
+  da placa.
 
 
 # Fase 7 - Roteamento

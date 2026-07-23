@@ -151,7 +151,7 @@
 
   (footprint "Connector_Audio:Jack_3.5mm_PJ320D_Horizontal" (layer "F.Cu")
     (tstamp 0ae2e9b2-7fd6-49f5-ac1c-1061ff73a44b)
-    (at -795.77 -114.88)
+    (at 150 100)
     (descr "Headphones with microphone connector, 3.5mm, 4 pins (http://www.qingpu-electronics.com/en/products/WQP-PJ320D-72.html)")
     (tags "3.5mm jack mic microphone phones headphones 4pins audio plug")
     (property "Sheetfile" "TRRS.kicad_sch")
@@ -243,7 +243,7 @@
 
   (footprint "Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal" (layer "F.Cu")
     (tstamp 0afbfa16-fe9a-4537-8f15-f6df36fff5b2)
-    (at -838.76 -93.705)
+    (at 230 170)
     (descr "1210, Dual Pot, Horizontal, Alps RK097 Dual,  https://tech.alpsalpine.com/prod/e/pdf/potentiometer/rotarypotentiometers/rk097/rk097.pdf")
     (tags "Potentiometer horizontal Alps RK097 Dual")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -333,7 +333,7 @@
 
   (footprint "Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal" (layer "F.Cu")
     (tstamp 0b7b7437-6de1-4f79-bfd1-98f44833eb0b)
-    (at -838.76 -82.205)
+    (at 270 170)
     (descr "1210, Dual Pot, Horizontal, Alps RK097 Dual,  https://tech.alpsalpine.com/prod/e/pdf/potentiometer/rotarypotentiometers/rk097/rk097.pdf")
     (tags "Potentiometer horizontal Alps RK097 Dual")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -423,7 +423,7 @@
 
   (footprint "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" (layer "F.Cu")
     (tstamp 0bdd0981-306d-488f-94ba-ce8048e16b5f)
-    (at -800.015302 -67.18)
+    (at 251 204)
     (descr "CP, Radial series, Radial, pin pitch=3.50mm, , diameter=8mm, Electrolytic Capacitor")
     (tags "CP Radial series Radial pin pitch 3.50mm  diameter 8mm Electrolytic Capacitor")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -781,7 +781,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp 0d849538-be03-471f-98b4-98c6bf69616a)
-    (at -818.1 -109.18)
+    (at 127 151)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -839,7 +839,7 @@
 
   (footprint "Connector_Audio:Jack_3.5mm_PJ320D_Horizontal" (layer "F.Cu")
     (tstamp 0f969050-5c8f-4773-a055-9e7874b4d38e)
-    (at -795.77 -103.83)
+    (at 190 100)
     (descr "Headphones with microphone connector, 3.5mm, 4 pins (http://www.qingpu-electronics.com/en/products/WQP-PJ320D-72.html)")
     (tags "3.5mm jack mic microphone phones headphones 4pins audio plug")
     (property "Sheetfile" "TRRS.kicad_sch")
@@ -931,7 +931,7 @@
 
   (footprint "Relay_THT:Relay_SPDT_Omron_G5V-1" (layer "F.Cu")
     (tstamp 10de099f-16df-4a13-89ce-54b3f41c0a1e)
-    (at -843.79 -69.895)
+    (at 100 190)
     (descr "Relay Omron G5V-1, see http://omronfs.omron.com/en_US/ecb/products/pdf/en-g5v_1.pdf")
     (tags "Relay Omron G5V-1")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -1021,7 +1021,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 1c2fe67e-7d5c-491b-8158-4109aa33287c)
-    (at -831.86 -92.98)
+    (at 75 140)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -1087,7 +1087,7 @@
 
   (footprint "Package_DIP:DIP-8_W7.62mm" (layer "F.Cu")
     (tstamp 1ea09d17-9ccb-4fcb-b41d-108a597dcfa0)
-    (at -788.43 -50.78)
+    (at 215 182)
     (descr "8-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils)")
     (tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -1163,7 +1163,7 @@
 
   (footprint "Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal" (layer "F.Cu")
     (tstamp 236addf0-4b87-45be-bf5b-3fcea621afb7)
-    (at -838.76 -116.705)
+    (at 150 170)
     (descr "1210, Dual Pot, Horizontal, Alps RK097 Dual,  https://tech.alpsalpine.com/prod/e/pdf/potentiometer/rotarypotentiometers/rk097/rk097.pdf")
     (tags "Potentiometer horizontal Alps RK097 Dual")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -1253,7 +1253,7 @@
 
   (footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" (layer "F.Cu")
     (tstamp 2536048b-e2c4-48a9-ba0e-7b7daed6ce4b)
-    (at -773.210225 -119.38)
+    (at 310 135)
     (descr "CP, Radial series, Radial, pin pitch=2.00mm, , diameter=5mm, Electrolytic Capacitor")
     (tags "CP Radial series Radial pin pitch 2.00mm  diameter 5mm Electrolytic Capacitor")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -1535,7 +1535,7 @@
 
   (footprint "Package_DIP:DIP-8_W7.62mm" (layer "F.Cu")
     (tstamp 2ec8a7ef-e265-42c9-974d-dd417d28add6)
-    (at -818.5 -105.08)
+    (at 75 118)
     (descr "8-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils)")
     (tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -1611,7 +1611,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 2eeaa64c-2699-430a-8fa1-e7672272f909)
-    (at -831.86 -97.03)
+    (at 127 129)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -1677,7 +1677,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp 3605b1a4-6d53-4614-8273-3561872b474c)
-    (at -811.55 -125.38)
+    (at 88 162)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -1735,7 +1735,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp 374ec953-9949-4ead-8e9f-1945073f587d)
-    (at -818.1 -113.23)
+    (at 114 151)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -1793,7 +1793,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 3d13283c-25b4-44b7-b59a-233aceb55fb9)
-    (at -831.86 -101.08)
+    (at 114 129)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -1859,7 +1859,7 @@
 
   (footprint "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" (layer "F.Cu")
     (tstamp 3ff5b709-f8ad-4069-9cd8-3af2554e5a01)
-    (at -800.015302 -57.63)
+    (at 239 215)
     (descr "CP, Radial series, Radial, pin pitch=3.50mm, , diameter=8mm, Electrolytic Capacitor")
     (tags "CP Radial series Radial pin pitch 3.50mm  diameter 8mm Electrolytic Capacitor")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -2217,7 +2217,7 @@
 
   (footprint "Connector_Audio:Jack_3.5mm_PJ320D_Horizontal" (layer "F.Cu")
     (tstamp 43112bd8-5f1f-4e42-b925-c380550dd5a4)
-    (at -795.77 -125.93)
+    (at 110 100)
     (descr "Headphones with microphone connector, 3.5mm, 4 pins (http://www.qingpu-electronics.com/en/products/WQP-PJ320D-72.html)")
     (tags "3.5mm jack mic microphone phones headphones 4pins audio plug")
     (property "Sheetfile" "TRRS.kicad_sch")
@@ -2309,7 +2309,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp 4751e556-20d7-49af-a5c1-966338c6a4cf)
-    (at -811.55 -121.33)
+    (at 101 162)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -2367,7 +2367,7 @@
 
   (footprint "Connector_USB:USB_C_Receptacle_GCT_USB4085" (layer "F.Cu")
     (tstamp 4dc54e1c-46b4-4e4e-b6c9-19557890f875)
-    (at -784.35 -121.07)
+    (at 290 100)
     (descr "USB 2.0 Type C Receptacle, https://gct.co/Files/Drawings/USB4085.pdf")
     (tags "USB Type-C Receptacle Through-hole Right angle")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -2471,7 +2471,7 @@
 
   (footprint "Relay_THT:Relay_SPDT_Omron_G5V-1" (layer "F.Cu")
     (tstamp 4ec9cff1-a602-44d8-b353-d8d5723ba090)
-    (at -834.655 -69.895)
+    (at 125 190)
     (descr "Relay Omron G5V-1, see http://omronfs.omron.com/en_US/ecb/products/pdf/en-g5v_1.pdf")
     (tags "Relay Omron G5V-1")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -2561,7 +2561,7 @@
 
   (footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" (layer "F.Cu")
     (tstamp 52f1d3ec-eeda-43a0-ba1a-99d0353fdf22)
-    (at -800.870225 -49.58)
+    (at 239 204)
     (descr "CP, Radial series, Radial, pin pitch=2.00mm, , diameter=5mm, Electrolytic Capacitor")
     (tags "CP Radial series Radial pin pitch 2.00mm  diameter 5mm Electrolytic Capacitor")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -2843,7 +2843,7 @@
 
   (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (layer "F.Cu")
     (tstamp 57142b7b-7d30-4d2c-a1be-a106099d56e8)
-    (at -861.06 -45.18)
+    (at 185 218)
     (descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
     (tags "connector JST XH vertical")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -2945,7 +2945,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 5b16951c-9143-40f6-a2cf-77d33e5417e1)
-    (at -814.97 -65.88)
+    (at 239 182)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -3011,7 +3011,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 5e97d741-5a76-454e-9e41-a766969473c3)
-    (at -831.86 -109.18)
+    (at 88 129)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -3077,7 +3077,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 66f5391e-eed3-4d64-88f6-e1ea6f7575ff)
-    (at -831.86 -84.88)
+    (at 101 140)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -3143,7 +3143,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 6e0b985e-d73a-4e75-adaa-a88872d9aacd)
-    (at -814.97 -69.93)
+    (at 227 182)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -3209,7 +3209,7 @@
 
   (footprint "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 71f02bff-5e92-4059-8d35-c2385f1aa369)
-    (at -785.3 -129.33)
+    (at 310 120)
     (descr "Diode, DO-41_SOD81 series, Axial, Horizontal, pin pitch=10.16mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/DO-41%20(Plastic).pdf")
     (tags "Diode DO-41_SOD81 series Axial Horizontal pin pitch 10.16mm  length 5.2mm diameter 2.7mm")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -3295,7 +3295,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 743f7588-3f1f-4fe7-bb4c-88d27c09d0a8)
-    (at -831.86 -88.93)
+    (at 88 140)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -3361,7 +3361,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 7a06d927-c848-4335-b99c-5cef90794016)
-    (at -814.97 -49.68)
+    (at 239 193)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -3427,7 +3427,7 @@
 
   (footprint "Connector_Audio:Jack_3.5mm_PJ320D_Horizontal" (layer "F.Cu")
     (tstamp 7ce1d50c-fac1-4e69-92ae-ef0d75b53a66)
-    (at -795.77 -92.78)
+    (at 230 100)
     (descr "Headphones with microphone connector, 3.5mm, 4 pins (http://www.qingpu-electronics.com/en/products/WQP-PJ320D-72.html)")
     (tags "3.5mm jack mic microphone phones headphones 4pins audio plug")
     (property "Sheetfile" "TRRS.kicad_sch")
@@ -3519,7 +3519,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp 7db89c87-4bdb-4bab-b251-b985ce45a095)
-    (at -773.55 -114.08)
+    (at 290 135)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -3577,7 +3577,7 @@
 
   (footprint "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm" (layer "F.Cu")
     (tstamp 7dbfdb44-7ed7-4bc3-848e-09ea63ff96f1)
-    (at -773.45 -125.43)
+    (at 270 120)
     (descr "THT pad as test Point, diameter 1.5mm, hole diameter 0.7mm")
     (tags "test point THT pad")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -3608,7 +3608,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 7e36e798-225b-4841-aa9b-d97d8220b890)
-    (at -831.86 -125.38)
+    (at 101 118)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -3674,7 +3674,7 @@
 
   (footprint "Fuse:Fuse_Bourns_MF-RG500" (layer "F.Cu")
     (tstamp 849b5135-7f63-49d1-913a-6350d7c20e0f)
-    (at -783.75 -125.53)
+    (at 290 120)
     (descr "PTC Resettable Fuse, Ihold = 5.0A, Itrip=8.5A, http://www.bourns.com/docs/Product-Datasheets/mfrg.pdf")
     (tags "ptc resettable fuse polyfuse THT")
     (property "Sheetfile" "POWER.kicad_sch")
@@ -3736,7 +3736,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp 85689add-2fd3-414e-a033-a10c2d77525e)
-    (at -818.1 -121.33)
+    (at 88 151)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -3794,7 +3794,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp 85a61143-e309-4406-95bf-743a2a604cf5)
-    (at -814.97 -45.63)
+    (at 251 193)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -3860,7 +3860,7 @@
 
   (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (layer "F.Cu")
     (tstamp 87290aa7-1eed-4255-95f2-6123b60d1b53)
-    (at -861.06 -68.58)
+    (at 140 218)
     (descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
     (tags "connector JST XH vertical")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -3962,7 +3962,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp 9001489a-6ca0-4f9f-bd29-a79e04112bc6)
-    (at -811.55 -113.23)
+    (at 127 162)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -4020,7 +4020,7 @@
 
   (footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" (layer "F.Cu")
     (tstamp 94c23a00-3689-48ce-a128-de3826494524)
-    (at -817.760225 -92.13)
+    (at 114 140)
     (descr "CP, Radial series, Radial, pin pitch=2.00mm, , diameter=5mm, Electrolytic Capacitor")
     (tags "CP Radial series Radial pin pitch 2.00mm  diameter 5mm Electrolytic Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -4302,7 +4302,7 @@
 
   (footprint "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" (layer "F.Cu")
     (tstamp 98c45cbb-7d1f-4a2f-930b-f2255eb43556)
-    (at -853.51 -56.15)
+    (at 75 203)
     (descr "Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf")
     (tags "Diode DO-35_SOD27 series Axial Horizontal pin pitch 7.62mm  length 4mm diameter 2mm")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -4388,7 +4388,7 @@
 
   (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (layer "F.Cu")
     (tstamp 9aebd40b-fa7c-4cd3-8380-ab46d10989c6)
-    (at -861.06 -52.98)
+    (at 170 218)
     (descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
     (tags "connector JST XH vertical")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -4490,7 +4490,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp 9b698f0e-debc-4a73-98e6-924316a52a6f)
-    (at -818.1 -129.43)
+    (at 127 140)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -4548,7 +4548,7 @@
 
   (footprint "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" (layer "F.Cu")
     (tstamp 9d4cc632-2f8b-4f9e-a8e2-31e492e1098c)
-    (at -853.51 -45.5)
+    (at 150 203)
     (descr "Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf")
     (tags "Diode DO-35_SOD27 series Axial Horizontal pin pitch 7.62mm  length 4mm diameter 2mm")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -4634,7 +4634,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp a27a847f-7c81-4d02-9de8-68d5557669d5)
-    (at -811.55 -129.43)
+    (at 75 162)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -4692,7 +4692,7 @@
 
   (footprint "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" (layer "F.Cu")
     (tstamp a2994c88-1ed7-4999-aad8-ec4913f63d74)
-    (at -800.870225 -43.03)
+    (at 227 215)
     (descr "CP, Radial series, Radial, pin pitch=2.00mm, , diameter=5mm, Electrolytic Capacitor")
     (tags "CP Radial series Radial pin pitch 2.00mm  diameter 5mm Electrolytic Capacitor")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -4974,7 +4974,7 @@
 
   (footprint "Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal" (layer "F.Cu")
     (tstamp a61f9cf9-cb09-457f-9f82-e7d1ab49f1da)
-    (at -838.76 -128.205)
+    (at 110 170)
     (descr "1210, Dual Pot, Horizontal, Alps RK097 Dual,  https://tech.alpsalpine.com/prod/e/pdf/potentiometer/rotarypotentiometers/rk097/rk097.pdf")
     (tags "Potentiometer horizontal Alps RK097 Dual")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -5064,7 +5064,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp a7a3070a-1621-409b-84ad-bdfbcc8c3022)
-    (at -831.86 -117.28)
+    (at 127 118)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -5130,7 +5130,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp ab2441f1-dc20-4698-b92d-737c743daa11)
-    (at -811.55 -117.28)
+    (at 114 162)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -5188,7 +5188,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp ac912652-a409-4683-b9a5-ec611cc03884)
-    (at -831.86 -113.23)
+    (at 75 129)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -5254,7 +5254,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp aece660a-2237-42b0-844b-bb5a1c6e0ecb)
-    (at -814.97 -61.83)
+    (at 251 182)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -5320,7 +5320,7 @@
 
   (footprint "Relay_THT:Relay_SPDT_Omron_G5V-1" (layer "F.Cu")
     (tstamp afa90821-38fc-4c99-80b3-b1a0aea19b2a)
-    (at -852.925 -69.895)
+    (at 75 190)
     (descr "Relay Omron G5V-1, see http://omronfs.omron.com/en_US/ecb/products/pdf/en-g5v_1.pdf")
     (tags "Relay Omron G5V-1")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -5410,7 +5410,7 @@
 
   (footprint "Connector_Audio:Jack_3.5mm_PJ320D_Horizontal" (layer "F.Cu")
     (tstamp b0cb94d2-04fd-481c-acc1-8f13003e1b89)
-    (at -784.24 -66.43)
+    (at 190 230)
     (descr "Headphones with microphone connector, 3.5mm, 4 pins (http://www.qingpu-electronics.com/en/products/WQP-PJ320D-72.html)")
     (tags "3.5mm jack mic microphone phones headphones 4pins audio plug")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -5502,7 +5502,7 @@
 
   (footprint "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" (layer "F.Cu")
     (tstamp b5ade356-a1ee-4b79-8833-c38b78040965)
-    (at -853.51 -49.05)
+    (at 125 203)
     (descr "Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf")
     (tags "Diode DO-35_SOD27 series Axial Horizontal pin pitch 7.62mm  length 4mm diameter 2mm")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -5588,7 +5588,7 @@
 
   (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (layer "F.Cu")
     (tstamp b690b345-4027-4a0f-a2e1-8a04bdba7906)
-    (at -861.06 -60.78)
+    (at 155 218)
     (descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
     (tags "connector JST XH vertical")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -5690,7 +5690,7 @@
 
   (footprint "Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal" (layer "F.Cu")
     (tstamp bcbca409-d90e-4b43-ae0a-7b03a834d9e5)
-    (at -838.76 -105.205)
+    (at 190 170)
     (descr "1210, Dual Pot, Horizontal, Alps RK097 Dual,  https://tech.alpsalpine.com/prod/e/pdf/potentiometer/rotarypotentiometers/rk097/rk097.pdf")
     (tags "Potentiometer horizontal Alps RK097 Dual")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -5780,7 +5780,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp bf7b3729-085a-45a0-9ae3-6d97cd3c5f60)
-    (at -814.97 -53.73)
+    (at 227 193)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -5846,7 +5846,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp c2909800-f198-48f6-af82-4a9b55e97bf2)
-    (at -831.86 -105.13)
+    (at 101 129)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -5912,7 +5912,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp c43113a9-e91b-45e5-826a-833ee1eb0f26)
-    (at -831.86 -121.33)
+    (at 114 118)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -5978,7 +5978,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp c488895e-56c8-4a31-a542-fc39663c6961)
-    (at -794.58 -46.78)
+    (at 215 215)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -6036,7 +6036,7 @@
 
   (footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (layer "F.Cu")
     (tstamp d0b27165-71e0-4234-b0c1-713144e777aa)
-    (at -861.06 -37.38)
+    (at 200 218)
     (descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
     (tags "connector JST XH vertical")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -6138,7 +6138,7 @@
 
   (footprint "Relay_THT:Relay_SPDT_Omron_G5V-1" (layer "F.Cu")
     (tstamp d48fef34-6276-41b8-90cd-fa5f0f430d52)
-    (at -825.52 -69.895)
+    (at 150 190)
     (descr "Relay Omron G5V-1, see http://omronfs.omron.com/en_US/ecb/products/pdf/en-g5v_1.pdf")
     (tags "Relay Omron G5V-1")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -6228,7 +6228,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp dce023d4-fd80-42a7-b47a-17e11bac0e0f)
-    (at -794.58 -50.83)
+    (at 227 204)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -6286,7 +6286,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp e165fd65-6df4-4e76-9a5e-e63c4876fd6f)
-    (at -814.97 -57.78)
+    (at 215 193)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -6352,7 +6352,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp e1ead077-0ef0-424f-9ca4-329571a5bebc)
-    (at -831.86 -129.43)
+    (at 88 118)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -6418,7 +6418,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp e492cb46-b3bb-468e-ae33-62c7bfe9b2ff)
-    (at -794.58 -42.73)
+    (at 251 215)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -6476,7 +6476,7 @@
 
   (footprint "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" (layer "F.Cu")
     (tstamp e73733fd-7df2-491b-96b6-441aeaf962e2)
-    (at -853.51 -52.6)
+    (at 100 203)
     (descr "Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf")
     (tags "Diode DO-35_SOD27 series Axial Horizontal pin pitch 7.62mm  length 4mm diameter 2mm")
     (property "Sheetfile" "MICSW.kicad_sch")
@@ -6562,7 +6562,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp ece7eb1d-02ee-4941-8c30-5170833d2996)
-    (at -818.1 -117.28)
+    (at 101 151)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -6620,7 +6620,7 @@
 
   (footprint "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm" (layer "F.Cu")
     (tstamp efcb0db2-85fc-40b2-a708-32f24f309e24)
-    (at -818.1 -125.38)
+    (at 75 151)
     (descr "C, Disc series, Radial, pin pitch=2.50mm, , diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
     (tags "C Disc series Radial pin pitch 2.50mm  diameter 5mm width 2.5mm Capacitor")
     (property "Sheetfile" "MIXER.kicad_sch")
@@ -6678,7 +6678,7 @@
 
   (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (layer "F.Cu")
     (tstamp faf55047-c7a5-42c6-9cc2-65ad8f5b9d16)
-    (at -814.97 -41.58)
+    (at 215 204)
     (descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
     (tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
     (property "Sheetfile" "HPAMP.kicad_sch")
@@ -6742,13 +6742,13 @@
     )
   )
 
-  (gr_line (start -876 -145) (end -758 -145)
+  (gr_line (start 60 85) (end 325 85)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp 3c3f9f49-e18b-44e5-9009-f7cd8f1a7acf))
-  (gr_line (start -758 -145) (end -758 -22)
+  (gr_line (start 325 85) (end 325 245)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp b9c2076a-061f-4ddc-acac-4e73e5fc3149))
-  (gr_line (start -758 -22) (end -876 -22)
+  (gr_line (start 325 245) (end 60 245)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp d73e86b4-8743-4127-9e2d-32f5b6e35bf2))
-  (gr_line (start -876 -22) (end -876 -145)
+  (gr_line (start 60 245) (end 60 85)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp dd35164a-427c-481c-803c-f76d5d412559))
 
 )
