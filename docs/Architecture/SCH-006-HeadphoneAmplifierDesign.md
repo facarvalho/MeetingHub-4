@@ -4,98 +4,98 @@ Version: 0.1
 Status: Draft
 
 
-# 1. Objetivo
+# 1. Objective
 
-Definir o estágio responsável por fornecer potência suficiente ao headset TRRS conectado ao equipamento.
+Define the stage responsible for providing sufficient power to the TRRS headset connected to the equipment.
 
-O amplificador deverá receber o sinal do mixer estéreo e fornecer saída adequada para fones de baixa e média impedância.
+The amplifier must receive the signal from the stereo mixer and provide adequate output for low- and medium-impedance headphones.
 
 
-# 2. Arquitetura
+# 2. Architecture
 
-Fluxo:
-
-```
-
-Mixer Estéreo
+Flow:
 
 ```
-  |
-  v
-```
 
-Volume Master
+Stereo Mixer
 
 ```
   |
   v
 ```
 
-Amplificador Headphone
+Master Volume
 
 ```
   |
   v
 ```
 
-Headset TRRS
+Headphone Amplifier
+
+```
+  |
+  v
+```
+
+TRRS Headset
 
 ```
 
 
-# 3. Requisitos
+# 3. Requirements
 
-O amplificador deverá:
+The amplifier must:
 
-- operar com alimentação de 5V;
-- possuir baixo ruído;
-- suportar headset de uso profissional;
-- evitar distorção em volume elevado;
-- possuir proteção contra curto na saída.
+- operate with a 5V power supply;
+- have low noise;
+- support professional-use headsets;
+- avoid distortion at high volume;
+- have short-circuit protection on the output.
 
 
-# 4. Compatibilidade
+# 4. Compatibility
 
-Faixa esperada:
+Expected range:
 
 - 16 ohms;
 - 32 ohms;
 - 64 ohms.
 
 
-# 5. Componentes candidatos
+# 5. Candidate Components
 
-Opções iniciais:
+Initial options:
 
 ## NJM4556A
 
-Características:
+Characteristics:
 
-- desenvolvido para amplificação de headphone;
-- alta capacidade de corrente;
-- simples;
-- confiável.
+- developed for headphone amplification;
+- high current capability;
+- simple;
+- reliable.
 
 
 ## TPA6132A2
 
-Características:
+Characteristics:
 
-- baixa tensão;
-- baixo consumo;
-- saída dedicada para fones.
-
-
-A seleção final será feita após análise de:
-
-- disponibilidade;
-- custo;
-- qualidade de áudio.
+- low voltage;
+- low power consumption;
+- dedicated headphone output.
 
 
-# 6. Saída
+The final selection will be made after analysis of:
 
-A saída deverá manter padrão:
+- availability;
+- cost;
+- audio quality.
+
+
+# 6. Output
+
+The output must maintain the standard:
 
 TRRS CTIA:
 
@@ -105,25 +105,25 @@ TRRS CTIA:
 - Microphone
 
 
-O amplificador será responsável apenas pelos canais:
+The amplifier will be responsible only for the channels:
 
 - Left
 - Right
 
 
-# 7. Proteções
+# 7. Protections
 
-Previstas:
+Planned:
 
-- resistor de saída;
-- desacoplamento;
-- proteção contra curto;
-- filtragem de alimentação.
+- output resistor;
+- decoupling;
+- short-circuit protection;
+- power supply filtering.
 
 
-# 8. Observações
+# 8. Notes
 
-A linha de microfone permanece independente.
+The microphone line remains independent.
 
-O amplificador de headphone não deverá interferir na detecção do headset pelos notebooks.
+The headphone amplifier must not interfere with headset detection by the laptops.
 ```

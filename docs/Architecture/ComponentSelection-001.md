@@ -1,20 +1,20 @@
-# Fase 3 — Seleção de componentes (BOM preliminar)
+# Phase 3 — Component Selection (Preliminary BOM)
 
-Antes de desenhar o esquemático, precisamos escolher componentes reais. A regra será:
+Before drawing the schematic, we need to choose real components. The rule will be:
 
-* componentes disponíveis no mercado;
-* boa durabilidade;
-* custo razoável;
-* fácil reposição;
-* montagem simples.
+* components available on the market;
+* good durability;
+* reasonable cost;
+* easy replacement;
+* simple assembly.
 
-Vamos criar:
+We will create:
 
 ```text
 hardware/BOM/BOM-001.xlsx
 ```
 
-e também um documento:
+and also a document:
 
 ```text
 docs/Architecture/ComponentSelection-001.md
@@ -22,181 +22,180 @@ docs/Architecture/ComponentSelection-001.md
 
 ---
 
-## Componentes principais — proposta inicial
+## Main Components — Initial Proposal
 
-### 1) Conectores TRRS de painel
+### 1) Panel-mount TRRS Connectors
 
-Requisito:
+Requirement:
 
-* P2 fêmea 3,5 mm
-* metálico
-* montagem em painel
-* padrão CTIA
+* 3.5 mm female P2
+* metallic
+* panel mounting
+* CTIA standard
 
-Quantidade:
+Quantity:
 
-* 5 unidades
+* 5 units
 
-  * 4 notebooks
+  * 4 laptops
   * 1 headset
 
-Critérios:
+Criteria:
 
-* contato banhado
-* fixação mecânica por porca
-* vida útil alta
-
----
-
-### 2) Potenciômetros de volume
-
-Quantidade:
-
-* 5 unidades
-
-Funções:
-
-* Volume Notebook 1
-* Volume Notebook 2
-* Volume Notebook 3
-* Volume Notebook 4
-* Volume Master
-
-Tipo:
-
-* estéreo
-* 10 kΩ logarítmico
-* eixo metálico
+* plated contact
+* mechanical fixation via nut
+* high service life
 
 ---
 
-### 3) Mixer ativo
+### 2) Volume Potentiometers
 
-Proposta inicial:
+Quantity:
+
+* 5 units
+
+Functions:
+
+* Laptop 1 Volume
+* Laptop 2 Volume
+* Laptop 3 Volume
+* Laptop 4 Volume
+* Master Volume
+
+Type:
+
+* stereo
+* 10 kΩ logarithmic
+* metal shaft
+
+---
+
+### 3) Active Mixer
+
+Initial proposal:
 
 **NE5532**
 
-Quantidade:
+Quantity:
 
-* 2 unidades
+* 2 units
 
-Uso:
+Use:
 
-* canal esquerdo
-* canal direito
+* left channel
+* right channel
 
-Motivos:
+Reasons:
 
-* excelente para áudio;
-* barato;
-* muito conhecido;
-* fácil de encontrar.
+* excellent for audio;
+* inexpensive;
+* well known;
+* easy to find.
 
 ---
 
-### 4) Amplificador de headphone
+### 4) Headphone Amplifier
 
-Opções em análise:
+Options under consideration:
 
 **NJM4556A**
 
-ou
+or
 
 **TPA6120A2**
 
-Critérios:
+Criteria:
 
-* baixa distorção;
-* capacidade para headset 16–64 Ω;
-* estabilidade.
+* low distortion;
+* capability for 16–64 Ω headsets;
+* stability.
 
-Para a V1 eu tenderia ao **NJM4556A**, por ser simples e robusto.
+For V1 I would lean toward the **NJM4556A**, for being simple and robust.
 
 ---
 
-### 5) Seleção do microfone
+### 5) Microphone Selection
 
-Requisito principal:
+Main requirement:
 
-O notebook deve continuar "vendo" um headset.
+The laptop must continue to "see" a headset.
 
-Proposta:
+Proposal:
 
-Relé de sinal.
+Signal relay.
 
-Modelo candidato:
+Candidate model:
 
 * Omron G6K
 * Panasonic TQ2
 
-Quantidade:
+Quantity:
 
-* 1 conjunto de seleção
+* 1 selection set
 
 ---
 
 ### 6) MUTE
 
-Botão:
+Button:
 
 * industrial;
-* normalmente fechado (NC).
+* normally closed (NC).
 
-Por quê?
+Why?
 
-Se o botão quebrar, o padrão seguro é continuar funcionando.
+If the button breaks, the safe default is to keep working.
 
 ---
 
-### 7) Alimentação
+### 7) Power Supply
 
-Entrada:
+Input:
 
 USB-C 5 V
 
-Blocos:
+Blocks:
 
 ```text
 USB-C
   |
-Proteção
+Protection
   |
-Filtro
+Filter
   |
-5V Analógico
+5V Analog
 ```
 
 ---
 
-# Próximo documento
+# Next Document
 
-Agora vamos criar:
+Now we will create:
 
 ```
 docs/Architecture/ComponentSelection-001.md
 ```
 
-Nele vamos registrar:
+In it we will record:
 
-* componente escolhido;
-* alternativas;
-* motivo da escolha;
+* chosen component;
+* alternatives;
+* reason for the choice;
 * datasheet;
-* fornecedor.
+* supplier.
 
 ---
 
-Depois disso vem a etapa mais importante:
+After that comes the most important step:
 
-## Esquemático elétrico Rev A
+## Electrical Schematic Rev A
 
-Vamos desenhar os blocos:
+We will draw the blocks:
 
-1. Entrada TRRS.
-2. Separação L/R/MIC.
-3. Controle de volume.
-4. Mixer estéreo.
-5. Amplificador de headphone.
-6. Circuito de microfone.
-7. Alimentação.
-
+1. TRRS Input.
+2. L/R/MIC Separation.
+3. Volume control.
+4. Stereo mixer.
+5. Headphone amplifier.
+6. Microphone circuit.
+7. Power supply.

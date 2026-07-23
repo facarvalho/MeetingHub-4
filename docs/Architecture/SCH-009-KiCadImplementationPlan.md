@@ -1,27 +1,27 @@
-# Próxima etapa: criar o projeto KiCad
+# Next Step: Create the KiCad Project
 
-Entre no diretório:
+Enter the directory:
 
 ```bash
 cd ~/MeetingHub-4/hardware/KiCad
 ```
 
-Crie a pasta:
+Create the folder:
 
 ```bash
 mkdir MeetingHub-4
 cd MeetingHub-4
 ```
 
-Abra o KiCad e crie o projeto:
+Open KiCad and create the project:
 
-Nome:
+Name:
 
 ```text
 MeetingHub-4
 ```
 
-Local:
+Location:
 
 ```text
 ~/MeetingHub-4/hardware/KiCad/MeetingHub-4/
@@ -29,7 +29,7 @@ Local:
 
 ---
 
-Depois de criado, sua árvore deverá ficar parecida com:
+After it's created, your tree should look similar to:
 
 ```text
 hardware
@@ -42,89 +42,89 @@ hardware
 
 ---
 
-# Primeira folha do esquemático
+# First Schematic Sheet
 
-Vamos começar pela alimentação.
+Let's start with the power supply.
 
-No KiCad vamos criar:
+In KiCad we will create:
 
 ```
 Sheet: Power Supply
 ```
 
-Componentes iniciais:
+Initial components:
 
-| Referência | Componente        | Função     |
-| ---------- | ----------------- | ---------- |
-| J1         | USB-C             | Entrada 5V |
-| F1         | Fusível resetável | Proteção   |
-| D1         | TVS/Proteção      | Surto      |
-| C1         | 100nF             | Filtro     |
-| C2         | 10uF              | Reserva    |
-| J2         | Test Point        | Medição    |
+| Reference | Component         | Function    |
+| --------- | ------------------ | ----------- |
+| J1        | USB-C               | 5V input    |
+| F1        | Resettable fuse     | Protection  |
+| D1        | TVS/Protection       | Surge       |
+| C1        | 100nF               | Filter      |
+| C2        | 10uF                 | Reserve     |
+| J2        | Test Point           | Measurement |
 
-Barramentos:
+Buses:
 
 ```
 +5V_USB
     |
     |
-Proteção
+Protection
     |
     |
 +5V_AUDIO
     |
     |
-Circuitos
+Circuits
 ```
 
 ---
 
-# Antes de colocar componentes
+# Before Placing Components
 
-Uma decisão importante:
+An important decision:
 
-No seu caso, eu **não usaria USB-C com negociação PD**.
+In your case, I **would not use USB-C with PD negotiation**.
 
-Usaremos USB-C apenas como entrada de energia:
+We will use USB-C only as a power input:
 
 * VBUS = 5V
-* GND = retorno
+* GND = return
 
-Motivo:
+Reason:
 
-* mais simples;
-* mais barato;
-* menos pontos de falha.
+* simpler;
+* cheaper;
+* fewer points of failure.
 
 ---
 
-# Próximo passo no KiCad
+# Next Step in KiCad
 
-Quando abrir o esquemático:
+When you open the schematic:
 
-1. Crie uma folha hierárquica chamada:
+1. Create a hierarchical sheet called:
 
 ```
 POWER
 ```
 
-2. Coloque o primeiro símbolo:
+2. Place the first symbol:
 
 ```
 USB_C_Receptacle_USB2.0_16P
 ```
 
-3. Depois faremos a proteção.
+3. Then we will do the protection.
 
 ---
 
-Quando você criar o projeto KiCad, me envie apenas o resultado do:
+When you create the KiCad project, just send me the result of:
 
 ```bash
 tree hardware/KiCad
 ```
 
-ou uma captura da tela do KiCad.
+or a screenshot of KiCad.
 
-Aí seguimos componente por componente. Agora começamos a construção real do MeetingHub-4. 🔧
+Then we'll proceed component by component. Now we begin the real construction of the MeetingHub-4. 🔧

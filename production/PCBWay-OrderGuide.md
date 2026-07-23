@@ -1,188 +1,192 @@
-# Guia PCBWay - Como pedir a fabricação da placa (para iniciante)
+# PCBWay Guide - How to Order Board Manufacturing (for beginners)
 
 Version: 1.0
 Status: Final
 
-Guia passo a passo para pedir a fabricação da PCB do MeetingHub-4 no
-PCBWay (pcbway.com), escrito para quem nunca fez isso antes. Os valores
-técnicos abaixo (tamanho, camadas, espessura) são os valores **reais**
-extraídos do projeto final - use-os para conferir se o site detectou
-tudo certo, não precisa saber o que significam para seguir o guia.
+Step-by-step guide for ordering PCB manufacturing for the MeetingHub-4 at
+PCBWay (pcbway.com), written for someone who has never done this before. The
+technical values below (size, layers, thickness) are the **real** values
+extracted from the final project - use them to check whether the site
+detected everything correctly, no need to know what they mean to follow
+the guide.
 
-**Arquivo a enviar**: [`hardware/Gerbers/MeetingHub-4-Gerbers-v1.0.zip`](../hardware/Gerbers/MeetingHub-4-Gerbers-v1.0.zip)
-(já contém gerbers de todas as camadas + furação, pronto para upload).
+**File to upload**: [`hardware/Gerbers/MeetingHub-4-Gerbers-v1.0.zip`](../hardware/Gerbers/MeetingHub-4-Gerbers-v1.0.zip)
+(already contains gerbers for all layers + drilling, ready for upload).
 
 
-# Ficha técnica da placa (para conferir contra o que o site detectar)
+# Board technical specifications (to check against what the site detects)
 
-| Item | Valor |
+| Item | Value |
 |---|---|
-| Dimensões | 265.1 x 160.1 mm |
-| Camadas | **4** |
-| Espessura final | 1.6 mm |
-| Material | FR-4 (padrão) |
-| Furo mínimo | 0.6 mm (dentro do padrão, não precisa de opção especial) |
-| Cor da máscara de solda | à sua escolha (verde é o padrão mais barato/rápido) |
-| Cor da serigrafia | branco (padrão) |
-| Acabamento de superfície | HASL (com chumbo) recomendado - mais barato, e a placa é 100% THT (solda manual), não precisa de ENIG |
-| Peso do cobre | 1oz (padrão) |
-| Quantidade sugerida | 5 unidades (mínimo comum do PCBWay para protótipo; sobra placa para erro de montagem) |
+| Dimensions | 265.1 x 160.1 mm |
+| Layers | **4** |
+| Final thickness | 1.6 mm |
+| Material | FR-4 (standard) |
+| Minimum hole | 0.6 mm (within standard, no special option needed) |
+| Solder mask color | your choice (green is the cheapest/fastest standard) |
+| Silkscreen color | white (standard) |
+| Surface finish | HASL (with lead) recommended - cheaper, and the board is 100% THT (manual soldering), no need for ENIG |
+| Copper weight | 1oz (standard) |
+| Suggested quantity | 5 units (PCBWay's common minimum for a prototype; leaves spare boards in case of an assembly error) |
 
 
-# Passo a passo
+# Step by step
 
-## 1. Criar conta
+## 1. Create an account
 
-Acesse [pcbway.com](https://www.pcbway.com) e crie uma conta (e-mail +
-senha, ou login via Google). Não precisa de CNPJ nem nada de empresa -
-conta pessoal serve.
+Go to [pcbway.com](https://www.pcbway.com) and create an account (email +
+password, or login via Google). No company registration (CNPJ) or business
+info needed - a personal account works.
 
-## 2. Abrir o orçamento instantâneo de PCB
+## 2. Open the PCB instant quote
 
-No menu superior, procure **"PCB Instant Quote"** (ou "Quote Now" na
-página inicial, seção PCB). Isso abre o formulário de configuração da
-placa.
+In the top menu, look for **"PCB Instant Quote"** (or "Quote Now" on the
+home page, PCB section). This opens the board configuration form.
 
-## 3. Enviar o arquivo de gerbers
+## 3. Upload the gerber file
 
-No formulário, tem um botão **"Add Gerber File"** (ou "Upload
-Gerber"). Envie o arquivo `MeetingHub-4-Gerbers-v1.0.zip` (não precisa
-descompactar, o site aceita o zip direto).
+In the form, there's a button labeled **"Add Gerber File"** (or "Upload
+Gerber"). Upload the file `MeetingHub-4-Gerbers-v1.0.zip` (no need to
+unzip it, the site accepts the zip directly).
 
-O PCBWay tenta detectar automaticamente tamanho e número de camadas a
-partir do arquivo. **Confira**:
-- **Dimension**: deve aparecer algo próximo de `265.1 x 160.1 mm`. Se
-  aparecer um valor bem diferente, o upload provavelmente falhou -
-  tente reenviar antes de continuar.
-- **Layer**: deve estar em **4**. Se aparecer 2, o site não leu as
-  camadas internas direito - não prossiga, me avise.
+PCBWay tries to automatically detect the size and number of layers from
+the file. **Check**:
+- **Dimension**: should show something close to `265.1 x 160.1 mm`. If
+  it shows a very different value, the upload probably failed -
+  try re-uploading before continuing.
+- **Layer**: should be set to **4**. If it shows 2, the site didn't read
+  the inner layers correctly - do not proceed, let me know.
 
-Se por algum motivo o site não detectar automaticamente, preencha
-manualmente com os valores da tabela acima.
+If for some reason the site doesn't detect it automatically, fill it in
+manually using the values from the table above.
 
-## 4. Conferir/ajustar as opções de fabricação
+## 4. Review/adjust the manufacturing options
 
-Na mesma tela (ou na aba "Specification"), confira cada campo contra a
-tabela técnica acima. Os campos mais importantes:
+On the same screen (or in the "Specification" tab), check each field
+against the technical table above. The most important fields:
 
 - **Layers**: 4
 - **Material**: FR-4
 - **Thickness**: 1.6mm
-- **Min Track/Spacing**: pode deixar no padrão do site (6/6mil) - o
-  projeto não usa nada mais fino que isso.
-- **Min Hole Size**: pode deixar no padrão (0.3mm) - o menor furo do
-  projeto é 0.6mm, folgado.
-- **Solder Mask**: escolha a cor que preferir (verde é o padrão, mais
-  barato e rápido; outras cores podem custar um pouco mais/demorar
-  mais).
-- **Silkscreen**: branco (padrão).
-- **Surface Finish**: **HASL(with lead)** - mais barato, funciona bem
-  para solda manual (que é como este protótipo foi projetado para ser
-  montado, com soquete nos CIs U1/U2).
-- **Via Process**: **Tenting vias** (padrão, mais barato).
-- **Board Outline Tolerance**: pode deixar padrão.
-- Todo o resto (Panelization, Castellated Holes, Edge Plating,
-  etc.): **não marque nenhuma opção extra** - este projeto não precisa
-  de nenhuma delas.
+- **Min Track/Spacing**: you can leave the site's default (6/6mil) - the
+  project doesn't use anything finer than that.
+- **Min Hole Size**: you can leave the default (0.3mm) - the smallest
+  hole in the project is 0.6mm, well within range.
+- **Solder Mask**: choose whichever color you prefer (green is the
+  standard, cheapest and fastest; other colors may cost a bit more/take
+  a bit longer).
+- **Silkscreen**: white (standard).
+- **Surface Finish**: **HASL(with lead)** - cheaper, works well
+  for manual soldering (which is how this prototype was designed to be
+  assembled, with sockets for ICs U1/U2).
+- **Via Process**: **Tenting vias** (default, cheaper).
+- **Board Outline Tolerance**: you can leave it at default.
+- Everything else (Panelization, Castellated Holes, Edge Plating,
+  etc.): **don't check any extra option** - this project doesn't need
+  any of them.
 
-## 5. Quantidade
+## 5. Quantity
 
-Escolha a quantidade (sugestão: **5 unidades** - é o mínimo comum do
-PCBWay para essa faixa de tamanho, e é bom ter placas sobrando caso
-algo dê errado na primeira montagem/solda).
+Choose the quantity (suggestion: **5 units** - it's PCBWay's common
+minimum for this size range, and it's good to have spare boards in case
+something goes wrong during the first assembly/soldering).
 
-## 6. Montagem (PCBA) - se você quer a placa pronta, já montada
+## 6. Assembly (PCBA) - if you want the board pre-assembled
 
-Se você não quer soldar os 75 componentes à mão, dá para o próprio
-PCBWay montar a placa pra você (serviço **PCBA - "Assembly"**, pago à
-parte, além da fabricação da placa nua).
+If you don't want to hand-solder the 75 components, PCBWay can
+assemble the board for you (the **PCBA - "Assembly"** service, paid
+separately, in addition to bare board manufacturing).
 
-**Atenção, ponto importante**: este projeto é **100% THT** (nenhum
-componente SMD) - o fluxo de orçamento automático do site do PCBWay é
-pensado principalmente para montagem SMD (reflow). Montagem THT
-(solda de onda/manual) costuma **não** ter orçamento instantâneo -
-normalmente é preciso abrir um pedido de cotação manual ou falar com o
-suporte/vendas do PCBWay depois de enviar os arquivos, em vez de só
-clicar "Add to Cart". Prazo e custo tendem a ser maiores que uma
-montagem SMD equivalente. Confirme isso direto com o PCBWay antes de
-assumir que vai ser tão automático quanto pedir a placa nua.
+**Important note**: this project is **100% THT** (no SMD
+components) - PCBWay's automatic quoting flow is designed primarily
+for SMD assembly (reflow). THT assembly (wave/manual soldering) usually
+does **not** get an instant quote - it typically requires opening a
+manual quote request or contacting PCBWay support/sales after
+uploading the files, instead of simply clicking "Add to Cart". Lead
+time and cost tend to be higher than an equivalent SMD assembly. Confirm
+this directly with PCBWay before assuming it will be as automatic as
+ordering the bare board.
 
-Arquivos que você vai precisar enviar para a cotação de montagem
-(além do zip de gerbers do passo 3):
+Files you'll need to upload for the assembly quote (in addition to the
+gerber zip from step 3):
 
 - **[`hardware/BOM/BOM-PCBA-MeetingHub-4.csv`](../hardware/BOM/BOM-PCBA-MeetingHub-4.csv)**
-  - lista de materiais com fabricante/número de peça, no formato que
-    serviços de montagem normalmente pedem.
+  - bill of materials with manufacturer/part number, in the format
+    assembly services usually request.
 - **[`hardware/Gerbers/MeetingHub-4-Placement.csv`](../hardware/Gerbers/MeetingHub-4-Placement.csv)**
-  - posição X/Y/rotação de cada componente na placa (arquivo de
-    "Component Placement" / "Pick and Place", exigido mesmo sendo THT).
+  - X/Y/rotation position of each component on the board (the
+    "Component Placement" / "Pick and Place" file, required even for
+    THT).
 
-**Antes de enviar, leia a coluna "Confidence" do BOM-PCBA**: a maioria
-dos componentes tem número de peça real e confirmado, mas **3 itens
-precisam da sua confirmação antes de comprar em quantidade**:
-- **J1** (USB-C): o footprint foi modelado na família GCT USB4085, mas
-  o sufixo exato do part number não está confirmado no projeto.
-- **RV1-RV5** (potenciômetros): família Alps RK097 confirmada, mas o
-  sufixo exato (comprimento do eixo, tipo de eixo, curva de
-  resposta) não está - isso também afeta se o eixo alcança o furo do
-  gabinete (ver [mechanical/README.md](../mechanical/README.md)).
-- **K1-K4** (relés): a tensão de bobina 5VDC foi **deduzida** (a placa
-  só tem uma alimentação, +5V_AUDIO), não é uma especificação
-  explícita de nenhum documento do projeto - confirme antes de
-  comprar em quantidade.
+**Before uploading, read the "Confidence" column of the BOM-PCBA**: most
+components have a real, confirmed part number, but **3 items need your
+confirmation before buying in quantity**:
+- **J1** (USB-C): the footprint was modeled on the GCT USB4085 family,
+  but the exact part number suffix isn't confirmed in the project.
+- **RV1-RV5** (potentiometers): the Alps RK097 family is confirmed, but
+  the exact suffix (shaft length, shaft type, response taper) is
+  not - this also affects whether the shaft reaches the enclosure hole
+  (see [mechanical/README.md](../mechanical/README.md)).
+- **K1-K4** (relays): the 5VDC coil voltage was **inferred** (the board
+  only has one supply rail, +5V_AUDIO), it is not an explicit
+  specification from any project document - confirm before buying
+  in quantity.
 
-Se ficar em dúvida em qualquer um desses 3, é mais seguro comprar uma
-unidade de cada primeiro e confirmar fisicamente contra o footprint da
-placa antes de fechar um pedido de montagem com dezenas de unidades.
+If you're unsure about any of these 3, it's safer to buy one unit of
+each first and physically confirm against the board footprint before
+placing an assembly order for dozens of units.
 
-Se preferir montar você mesmo em vez de pagar pela montagem: a placa
-nua sozinha (sem esse serviço) já é suficiente, e o BOM original em
-[BOM-002-AsBuilt](../hardware/BOM/BOM-002-AsBuilt.md) recomenda usar
-soquete nos CIs U1/U2 para facilitar.
+If you'd rather assemble it yourself instead of paying for the assembly
+service: the bare board alone (without this service) is sufficient, and
+the original BOM in
+[BOM-002-AsBuilt](../hardware/BOM/BOM-002-AsBuilt.md) recommends using
+sockets for ICs U1/U2 to make it easier.
 
-## 7. Adicionar ao carrinho e revisar o preço
+## 7. Add to cart and review the price
 
-Depois de confirmar as opções, clique em **"Add to Cart"** (ou
-similar) e revise o preço final antes de continuar - ele muda conforme
-cor da máscara, acabamento e quantidade escolhidos.
+After confirming the options, click **"Add to Cart"** (or
+similar) and review the final price before continuing - it changes
+depending on the mask color, finish, and quantity chosen.
 
-## 8. Pagamento e frete
+## 8. Payment and shipping
 
-Escolha a forma de envio (o PCBWay geralmente oferece algumas opções
-de transportadora com preço/prazo diferentes - a mais barata costuma
-levar bem mais tempo para chegar ao Brasil). Finalize o pagamento
-(cartão de crédito internacional costuma ser aceito diretamente).
+Choose the shipping method (PCBWay generally offers a few carrier
+options with different price/lead times - the cheapest one usually
+takes much longer to arrive in Brazil). Complete the payment
+(international credit cards are usually accepted directly).
 
-**Atenção a impostos de importação**: por vir de fora do Brasil, pode
-haver retenção na alfândega e cobrança de imposto (ICMS + taxas) na
-entrega, dependendo do valor declarado e da transportadora escolhida -
-isso é uma questão de importação, não do PCBWay em si; se nunca
-importou nada, vale pesquisar como funciona antes de finalizar (ex.:
-o programa Remessa Conforme, se a loja estiver cadastrada).
+**Watch out for import taxes**: since it ships from outside Brazil, it
+may be held at customs and charged import tax (ICMS + fees) on
+delivery, depending on the declared value and the chosen carrier - this
+is an import matter, not something related to PCBWay itself; if you've
+never imported anything before, it's worth researching how it works
+before finalizing the order (e.g., the Remessa Conforme program, if
+the store is registered).
 
-## 9. Acompanhar o pedido
+## 9. Tracking the order
 
-O PCBWay envia atualizações por e-mail em cada etapa (produção,
-inspeção, envio, código de rastreio). O prazo de fabricação padrão
-costuma ser alguns dias úteis (varia com a fila de produção); frete
-internacional costuma ser o item mais demorado do processo todo.
-
-
-# Quando a placa chegar
-
-1. Confira visualmente contra a Fase 1 do [TEST-001](../docs/Architecture/TEST-001-BringUpGuide.md)
-   antes de montar qualquer componente (checando também se a
-   serigrafia/furos batem com o esperado).
-2. Siga o [TEST-001](../docs/Architecture/TEST-001-BringUpGuide.md) na
-   ordem (inspeção visual → continuidade → primeira energização →
-   teste funcional) para montar e validar a placa com segurança.
+PCBWay sends email updates at each stage (production, inspection,
+shipping, tracking code). The standard manufacturing lead time is
+usually a few business days (varies with the production queue);
+international shipping tends to be the slowest part of the whole
+process.
 
 
-# Nota sobre este guia
+# When the board arrives
 
-A interface do site do PCBWay muda de tempos em tempos (nomes de botão,
-posição de campo). Se algum passo não bater exatamente com o que você
-vê na tela, **confira sempre contra a ficha técnica no topo deste
-documento** (esses valores são os reais, extraídos do arquivo final do
-projeto) em vez do texto do passo a passo, e me avise se algo parecer
-estranho antes de finalizar o pedido.
+1. Visually check it against Phase 1 of [TEST-001](../docs/Architecture/TEST-001-BringUpGuide.md)
+   before mounting any component (also checking whether the
+   silkscreen/holes match what's expected).
+2. Follow [TEST-001](../docs/Architecture/TEST-001-BringUpGuide.md) in
+   order (visual inspection → continuity → first power-up → functional
+   test) to assemble and validate the board safely.
+
+
+# Note about this guide
+
+The PCBWay website's interface changes from time to time (button names,
+field positions). If any step doesn't exactly match what you see on
+screen, **always check against the technical specifications at the top of
+this document** (those values are the real ones, extracted from the
+final project file) rather than the step-by-step text, and let me know
+if anything looks off before finalizing the order.

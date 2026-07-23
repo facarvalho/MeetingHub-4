@@ -1,128 +1,128 @@
-# Licença Comercial de Uso — MeetingHub-4
+# Commercial Usage License — MeetingHub-4
 
-**Versão do modelo: 0.1 — Rascunho para revisão jurídica**
+**Template version: 0.1 — Draft for legal review**
 
-> ⚠️ **Aviso importante, leia antes de usar este documento**
+> ⚠️ **Important notice, read before using this document**
 >
-> Este é um **modelo de contrato**, redigido para servir de ponto de partida. **Não é aconselhamento jurídico e não deve ser usado como está** em uma transação comercial real. Antes de oferecer, assinar ou fazer valer esta licença:
+> This is a **contract template**, drafted to serve as a starting point. **It is not legal advice and must not be used as-is** in a real commercial transaction. Before offering, signing, or enforcing this license:
 >
-> - contrate um **advogado habilitado** (idealmente com experiência em licenciamento de propriedade industrial/hardware) para revisar, ajustar à sua jurisdição e adequar aos termos comerciais reais que você pretende praticar;
-> - se pretende licenciar em mais de um país, **cada jurisdição pode exigir adaptações** (proteção ao consumidor, responsabilidade por produto, tributação de royalties, etc.) — um advogado local em cada mercado-alvo é recomendado;
-> - produtos elétricos alimentados por USB/rede têm **exigências de segurança e certificação** (ex.: CE, FCC, INMETRO, UL, conforme o mercado) que não são cobertas por esta licença e precisam ser tratadas separadamente antes da comercialização.
+> - retain a **qualified attorney** (ideally with experience in industrial property/hardware licensing) to review it, adapt it to your jurisdiction, and align it with the actual commercial terms you intend to practice;
+> - if you intend to license in more than one country, **each jurisdiction may require adaptations** (consumer protection, product liability, royalty taxation, etc.) — a local attorney in each target market is recommended;
+> - electrical products powered via USB/mains have **safety and certification requirements** (e.g., CE, FCC, INMETRO, UL, depending on the market) that are not covered by this license and must be addressed separately before commercialization.
 >
-> Todos os campos entre colchetes `[ ]` são placeholders que precisam ser preenchidos ou removidos antes de qualquer uso real.
+> All fields in brackets `[ ]` are placeholders that must be filled in or removed before any real use.
 
 ---
 
-## Preâmbulo
+## Preamble
 
-Este Contrato de Licença Comercial ("**Contrato**") é celebrado entre:
+This Commercial License Agreement ("**Agreement**") is entered into between:
 
-**Licenciante**: `[Nome/Razão Social do titular dos direitos sobre o projeto MeetingHub-4]`, doravante "**Licenciante**";
+**Licensor**: `[Name/Legal Entity of the rights holder for the MeetingHub-4 project]`, hereinafter "**Licensor**";
 
-e
+and
 
-**Licenciado**: `[Nome/Razão Social da parte que deseja fabricar, usar ou comercializar produtos baseados neste projeto]`, doravante "**Licenciado**".
+**Licensee**: `[Name/Legal Entity of the party wishing to manufacture, use, or commercialize products based on this project]`, hereinafter "**Licensee**".
 
-O Licenciante é o titular dos direitos de propriedade intelectual sobre o projeto de hardware denominado **MeetingHub-4**, incluindo esquemáticos elétricos, leiaute de PCB (placa de circuito impresso), lista de materiais (BOM), documentação técnica associada e quaisquer arquivos de fabricação derivados (gerbers, arquivos de furação, etc.), doravante coletivamente "**o Projeto**".
-
----
-
-## 1. Objeto
-
-1.1. O Licenciante concede ao Licenciado uma licença `[exclusiva / não-exclusiva]`, `[com/sem]` direito de sublicenciamento, para usar o Projeto com a finalidade de:
-
-- (a) fabricar unidades físicas do produto baseado no Projeto ("**Produto Licenciado**");
-- (b) comercializar, distribuir e vender o Produto Licenciado no território definido na Cláusula 3;
-- (c) `[usar internamente sem revenda / integrar a outro produto — ajustar conforme o modelo de negócio real]`.
-
-1.2. Esta licença **não transfere a propriedade** do Projeto. O Licenciante permanece titular de todos os direitos autorais, segredos de negócio e demais direitos de propriedade intelectual associados ao Projeto, ressalvados os direitos expressamente concedidos neste Contrato.
-
-1.3. Esta licença **não inclui** direito de modificar, redistribuir os arquivos-fonte de projeto (esquemático/PCB) a terceiros, ou sublicenciar o Projeto a terceiros, exceto conforme expressamente autorizado por escrito pelo Licenciante.
+The Licensor is the holder of the intellectual property rights over the hardware project named **MeetingHub-4**, including electrical schematics, PCB (printed circuit board) layout, bill of materials (BOM), associated technical documentation, and any derived manufacturing files (gerbers, drill files, etc.), hereinafter collectively "**the Project**".
 
 ---
 
-## 2. Royalty (contraprestação financeira)
+## 1. Subject matter
 
-2.1. Em contraprestação pela licença concedida, o Licenciado pagará ao Licenciante:
+1.1. The Licensor grants the Licensee a `[exclusive / non-exclusive]` license, `[with/without]` sublicensing rights, to use the Project for the purpose of:
 
-- `[ ]` **Royalty por unidade**: `[valor fixo, ex.: US$ X.XX]` por unidade do Produto Licenciado fabricada e/ou vendida; **ou**
-- `[ ]` **Royalty percentual**: `[X]`% sobre o preço líquido de venda de cada unidade do Produto Licenciado; **ou**
-- `[ ]` **Taxa de licença fixa (lump sum)**: `[valor]`, pago em `[parcela única / parcelas conforme cronograma no Anexo A]`; **ou**
-- `[ ]` **Modelo híbrido**: taxa inicial de `[valor]` + royalty de `[X]`% sobre vendas.
+- (a) manufacturing physical units of the product based on the Project ("**Licensed Product**");
+- (b) commercializing, distributing, and selling the Licensed Product within the territory defined in Clause 3;
+- (c) `[using internally without resale / integrating into another product — adjust according to the actual business model]`.
 
-2.2. **Royalty mínimo garantido**: `[se aplicável, valor mínimo anual independente de volume vendido]`.
+1.2. This license **does not transfer ownership** of the Project. The Licensor remains the holder of all copyrights, trade secrets, and other intellectual property rights associated with the Project, except for the rights expressly granted in this Agreement.
 
-2.3. **Periodicidade e relatórios**: o Licenciado reportará ao Licenciante, a cada `[mês/trimestre]`, o volume de unidades fabricadas e vendidas, com pagamento do royalty devido em até `[N]` dias após o fechamento do período.
-
-2.4. **Auditoria**: o Licenciante (ou auditor independente por ele indicado) poderá auditar os registros do Licenciado relacionados à produção e venda do Produto Licenciado, mediante aviso prévio de `[N]` dias, limitado a `[N]` vezes por ano.
-
-2.5. Todos os valores são líquidos de impostos aplicáveis, cuja responsabilidade de retenção/recolhimento segue a legislação tributária aplicável em cada jurisdição.
+1.3. This license **does not include** the right to modify, redistribute the source project files (schematic/PCB) to third parties, or sublicense the Project to third parties, except as expressly authorized in writing by the Licensor.
 
 ---
 
-## 3. Território e exclusividade
+## 2. Royalty (financial consideration)
 
-3.1. Território licenciado: `[definir países/regiões, ou "mundial"]`.
+2.1. In consideration for the license granted, the Licensee shall pay the Licensor:
 
-3.2. Fora do território definido, o Licenciado não está autorizado a comercializar o Produto Licenciado, salvo aditivo específico.
+- `[ ]` **Per-unit royalty**: `[fixed amount, e.g., US$ X.XX]` per unit of the Licensed Product manufactured and/or sold; **or**
+- `[ ]` **Percentage royalty**: `[X]`% of the net sale price of each unit of the Licensed Product; **or**
+- `[ ]` **Fixed license fee (lump sum)**: `[amount]`, paid in `[a single installment / installments per the schedule in Exhibit A]`; **or**
+- `[ ]` **Hybrid model**: an upfront fee of `[amount]` + a royalty of `[X]`% on sales.
 
----
+2.2. **Guaranteed minimum royalty**: `[if applicable, minimum annual amount regardless of volume sold]`.
 
-## 4. Prazo e renovação
+2.3. **Frequency and reporting**: the Licensee shall report to the Licensor, every `[month/quarter]`, the volume of units manufactured and sold, with payment of the royalty due within `[N]` days after the close of the period.
 
-4.1. Este Contrato vigora por `[N anos]` a partir da data de assinatura, renovável automaticamente por períodos iguais salvo notificação de não-renovação com `[N]` dias de antecedência.
+2.4. **Audit**: the Licensor (or an independent auditor appointed by it) may audit the Licensee's records related to production and sale of the Licensed Product, upon `[N]` days' prior notice, limited to `[N]` times per year.
 
-4.2. **Rescisão por descumprimento**: qualquer parte pode rescindir mediante notificação por escrito, caso a outra parte descumpra obrigação material e não a sane em até `[N]` dias após notificação.
-
-4.3. **Efeitos da rescisão**: cessada a licença, o Licenciado deve interromper a fabricação de novas unidades; unidades já fabricadas antes da rescisão podem ser vendidas em prazo de liquidação de `[N]` dias, com royalty devido normalmente.
-
----
-
-## 5. Marca e identificação do produto
-
-5.1. `[Definir se o Licenciado pode usar o nome "MeetingHub-4" e/ou marca associada, ou se deve comercializar sob nome próprio informando "compatível com" ou "baseado em licença de"]`.
+2.5. All amounts are net of applicable taxes, the responsibility for withholding/remittance of which follows the tax legislation applicable in each jurisdiction.
 
 ---
 
-## 6. Garantias, isenção de responsabilidade e conformidade regulatória
+## 3. Territory and exclusivity
 
-6.1. O Projeto é licenciado **"no estado em que se encontra" ("as is")**, sem garantia de adequação a qualquer finalidade específica, ausência de defeitos, ou conformidade automática com normas regulatórias de qualquer mercado.
+3.1. Licensed territory: `[define countries/regions, or "worldwide"]`.
 
-6.2. **É de responsabilidade exclusiva do Licenciado** obter, antes da comercialização, todas as certificações regulatórias aplicáveis ao Produto Licenciado no(s) mercado(s) de destino (segurança elétrica, compatibilidade eletromagnética, substâncias restritas, etc. — ex.: CE/UKCA na União Europeia/Reino Unido, FCC nos EUA, INMETRO no Brasil, ou equivalentes).
-
-6.3. O Licenciante não se responsabiliza por defeitos de fabricação introduzidos pelo Licenciado, por componentes substituídos em relação à lista de materiais original, nem por danos decorrentes do uso do Produto Licenciado por terceiros.
-
-6.4. **Limitação de responsabilidade**: em nenhuma hipótese a responsabilidade do Licenciante perante o Licenciado, decorrente deste Contrato, excederá o total de royalties efetivamente recebidos nos `[12]` meses anteriores ao evento gerador.
+3.2. Outside the defined territory, the Licensee is not authorized to commercialize the Licensed Product, except by specific amendment.
 
 ---
 
-## 7. Confidencialidade
+## 4. Term and renewal
 
-7.1. Os arquivos-fonte do Projeto (esquemático, PCB, documentação técnica interna) são considerados informação confidencial do Licenciante. O Licenciado compromete-se a não divulgá-los a terceiros, exceto fabricantes/montadoras estritamente necessários à produção, sob obrigação de confidencialidade equivalente.
+4.1. This Agreement shall be in force for `[N years]` from the signature date, automatically renewable for equal periods unless notice of non-renewal is given `[N]` days in advance.
 
----
+4.2. **Termination for breach**: either party may terminate upon written notice, if the other party breaches a material obligation and fails to cure it within `[N]` days after notice.
 
-## 8. Disposições gerais
-
-8.1. **Lei aplicável e foro**: `[definir jurisdição, ex.: "leis da República Federativa do Brasil, foro da comarca de..."]`. Para licenciamento internacional, considere cláusula de arbitragem (ex.: ICC, CCI) em vez de foro judicial de uma única parte.
-
-8.2. Este Contrato constitui o entendimento integral entre as partes sobre o objeto aqui tratado, substituindo entendimentos anteriores.
-
-8.3. Alterações a este Contrato somente são válidas por aditivo escrito assinado por ambas as partes.
+4.3. **Effects of termination**: once the license ends, the Licensee must cease manufacturing new units; units already manufactured prior to termination may be sold during a `[N]`-day sell-off period, with royalty due as normal.
 
 ---
 
-## Anexo A — Cronograma de pagamento
-`[preencher se aplicável]`
+## 5. Brand and product identification
 
-## Anexo B — Especificação técnica do Produto Licenciado
-`[referenciar a versão exata do Projeto licenciada, ex.: "MeetingHub-4 v1.0, conforme hardware/KiCad/MeetingHub-4/ no commit [hash]"]`
+5.1. `[Define whether the Licensee may use the name "MeetingHub-4" and/or associated trademark, or whether it must commercialize under its own name stating "compatible with" or "based on a license of"]`.
 
 ---
 
-*Assinaturas*
+## 6. Warranties, disclaimer of liability, and regulatory compliance
 
-Licenciante: ________________________ Data: ______
+6.1. The Project is licensed **"as is"**, with no warranty of fitness for any particular purpose, absence of defects, or automatic compliance with regulatory standards of any market.
 
-Licenciado: ________________________ Data: ______
+6.2. **It is the Licensee's exclusive responsibility** to obtain, prior to commercialization, all regulatory certifications applicable to the Licensed Product in the target market(s) (electrical safety, electromagnetic compatibility, restricted substances, etc. — e.g., CE/UKCA in the European Union/United Kingdom, FCC in the USA, INMETRO in Brazil, or equivalents).
+
+6.3. The Licensor shall not be liable for manufacturing defects introduced by the Licensee, for components substituted relative to the original bill of materials, nor for damages arising from use of the Licensed Product by third parties.
+
+6.4. **Limitation of liability**: under no circumstances shall the Licensor's liability to the Licensee, arising from this Agreement, exceed the total royalties actually received in the `[12]` months preceding the triggering event.
+
+---
+
+## 7. Confidentiality
+
+7.1. The Project's source files (schematic, PCB, internal technical documentation) are considered confidential information of the Licensor. The Licensee agrees not to disclose them to third parties, except manufacturers/assemblers strictly necessary for production, under an equivalent confidentiality obligation.
+
+---
+
+## 8. General provisions
+
+8.1. **Governing law and venue**: `[define jurisdiction, e.g., "laws of the Federative Republic of Brazil, venue of the district of..."]`. For international licensing, consider an arbitration clause (e.g., ICC) instead of a single party's judicial venue.
+
+8.2. This Agreement constitutes the entire understanding between the parties regarding its subject matter, superseding prior understandings.
+
+8.3. Amendments to this Agreement are valid only by written amendment signed by both parties.
+
+---
+
+## Exhibit A — Payment schedule
+`[fill in if applicable]`
+
+## Exhibit B — Technical specification of the Licensed Product
+`[reference the exact version of the Project licensed, e.g., "MeetingHub-4 v1.0, as per hardware/KiCad/MeetingHub-4/ at commit [hash]"]`
+
+---
+
+*Signatures*
+
+Licensor: ________________________ Date: ______
+
+Licensee: ________________________ Date: ______

@@ -4,22 +4,22 @@ Version: 0.1
 Status: Draft
 
 
-# 1. Objetivo
+# 1. Objective
 
-Definir a interface elétrica entre os notebooks e o MeetingHub-4 utilizando conectores TRRS padrão CTIA.
+Define the electrical interface between the laptops and the MeetingHub-4 using standard CTIA TRRS connectors.
 
 
-# 2. Padrão Utilizado
+# 2. Standard Used
 
 Interface:
 
-- TRRS 3,5 mm
+- TRRS 3.5 mm
 - CTIA / AHJ
 
 
-Pinagem:
+Pinout:
 
-| Contato | Função |
+| Contact | Function |
 |---|---|
 | Tip | Audio Left |
 | Ring 1 | Audio Right |
@@ -27,49 +27,49 @@ Pinagem:
 | Sleeve | Microphone |
 
 
-# 3. Entradas
+# 3. Inputs
 
-Quantidade:
+Quantity:
 
-4 entradas independentes.
+4 independent inputs.
 
-Identificação:
+Identification:
 
-- J1 - Notebook 1
-- J2 - Notebook 2
-- J3 - Notebook 3
-- J4 - Notebook 4
-
-
-# 4. Requisito de Transparência
-
-O notebook deverá interpretar a conexão como um headset TRRS conectado diretamente.
-
-A linha de microfone deverá:
-
-- manter a polarização fornecida pelo notebook;
-- não possuir amplificação;
-- não possuir conversão;
-- não alterar a impedância percebida.
+- J1 - Laptop 1
+- J2 - Laptop 2
+- J3 - Laptop 3
+- J4 - Laptop 4
 
 
-# 5. Caminho do Áudio
+# 4. Transparency Requirement
 
-Cada entrada será dividida:
+The laptop shall interpret the connection as a TRRS headset connected directly.
+
+The microphone line shall:
+
+- maintain the polarization supplied by the laptop;
+- have no amplification;
+- have no conversion;
+- not alter the perceived impedance.
+
+
+# 5. Audio Path
+
+Each input will be split:
 
 ```
 
 TRRS
 
-L  ---------> Controle Volume L
-R  ---------> Controle Volume R
-GND --------> Referência comum
-MIC --------> Seletor de microfone
+L  ---------> Volume Control L
+R  ---------> Volume Control R
+GND --------> Common reference
+MIC --------> Microphone selector
 
 ```
 
 
-# 6. Caminho do Microfone
+# 6. Microphone Path
 
 ```
 
@@ -79,28 +79,27 @@ Headset MIC
   |
 ```
 
-Circuito MUTE
+MUTE Circuit
 
 ```
   |
 ```
 
-Seleção Notebook
+Laptop Selection
 
 ```
   |
 ```
 
-MIC Notebook selecionado
+MIC of selected laptop
 
 ```
 
 
-# 7. Proteção
+# 7. Protection
 
-Serão avaliadas:
+The following will be evaluated:
 
-- proteção ESD;
-- filtragem EMI;
-- proteção contra descargas nos conectores.
-
+- ESD protection;
+- EMI filtering;
+- discharge protection on the connectors.

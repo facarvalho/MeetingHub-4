@@ -1,25 +1,25 @@
 # Design Review 001
 
-## Projeto
+## Project
 
 MeetingHub-4
 
-## Revisão
+## Review
 
-Arquitetura inicial
+Initial architecture
 
 ## Status
 
 Approved with modifications
 
-## Decisões
+## Decisions
 
-- Interface TRRS CTIA mantida.
-- Microfone será chaveado sem eletrônica ativa.
-- Áudio utilizará mixer ativo.
-- Alimentação USB-C 5V.
-- Projeto totalmente analógico.
+- TRRS CTIA interface retained.
+- Microphone will be switched without active electronics.
+- Audio will use an active mixer.
+- USB-C 5V power supply.
+- Fully analog design.
 
-## Próxima fase
+## Next phase
 
-Desenvolvimento do esquemático elétrico.
+Development of the electrical schematic.

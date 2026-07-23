@@ -4,33 +4,33 @@ Version: 0.1
 Status: Draft
 
 
-# 1. Objetivo
+# 1. Objective
 
-Definir a arquitetura da alimentação elétrica do MeetingHub-4.
+Define the architecture of the MeetingHub-4 power supply.
 
 
-# 2. Entrada
+# 2. Input
 
-Fonte:
+Source:
 
 USB-C
 
-Tensão:
+Voltage:
 
 5V DC
 
 
-# 3. Requisitos
+# 3. Requirements
 
-A alimentação deverá:
+The power supply shall:
 
-- possuir proteção contra sobrecorrente;
-- possuir filtragem contra ruído;
-- separar alimentação digital e analógica;
-- minimizar interferência no áudio.
+- have overcurrent protection;
+- have noise filtering;
+- separate digital and analog power supply;
+- minimize audio interference.
 
 
-# 4. Arquitetura
+# 4. Architecture
 
 ```
 
@@ -41,21 +41,21 @@ USB-C 5V
 v
 ```
 
-Proteção entrada
+Input protection
 
 ```
 |
 v
 ```
 
-Filtro EMI
+EMI Filter
 
 ```
 |
 v
 ```
 
-Barramento +5V_AUDIO
++5V_AUDIO Bus
 
 ```
 |
@@ -64,25 +64,24 @@ Barramento +5V_AUDIO
 v                v
 ```
 
-Mixer            Amplificador
-de áudio         Headphone
+Audio             Headphone
+Mixer             Amplifier
 
 ```
 
 
-# 5. Proteções
+# 5. Protections
 
-Previstas:
+Planned:
 
-- fusível resetável;
-- proteção contra surtos;
-- capacitores de desacoplamento.
+- resettable fuse;
+- surge protection;
+- decoupling capacitors.
 
 
-# 6. Observações
+# 6. Notes
 
-O circuito deverá priorizar baixo ruído.
+The circuit shall prioritize low noise.
 
-A alimentação não deverá interferir na linha de microfone ou nas entradas TRRS.
+The power supply shall not interfere with the microphone line or the TRRS inputs.
 ```
-

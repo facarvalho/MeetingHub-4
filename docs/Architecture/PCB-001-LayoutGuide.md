@@ -1,281 +1,282 @@
-# PCB-001 - Guia de Layout (Fases 2-10)
+# PCB-001 - Layout Guide (Phases 2-10)
 
 Version: 1.0
-Status: Final — layout completo, roteado e validado (0 não conectados, 0 erros de DRC)
+Status: Final — layout complete, routed and validated (0 unconnected, 0 DRC errors)
 
-Guia prático para as fases que dependem da interface gráfica do KiCad e de
-componentes físicos - trabalho que só você pode executar. Este documento
-existe para você seguir passo a passo enquanto monta a PCB.
-
-
-# Fase 2 - Criar a PCB
-
-1. Abra o projeto `MeetingHub-4.kicad_pro` no KiCad.
-2. Abra o **PCB Editor** (ícone da placa, ou duplo clique em
-   `MeetingHub-4.kicad_pcb` na árvore do projeto).
-3. Menu **Tools → Update PCB from Schematic** (atalho não muda entre
-   versões recentes; se não achar no menu Tools, procure no ícone da barra
-   de ferramentas com um raio ⚡ sobre uma placa).
-4. Vai abrir um diálogo listando as mudanças. Você deve ver **66 footprints
-   novos** (todos os componentes das 5 folhas, exceto os GND). Confira que
-   não aparece nenhum "Footprint not found" - se aparecer, é sinal de que
-   algum footprint que atribuí não existe na sua instalação do KiCad
-   (verifique se as bibliotecas padrão estão instaladas).
-5. Clique em **Update PCB**. Os 66 footprints vão aparecer empilhados perto
-   da origem, uns em cima dos outros - isso é normal, ninguém posiciona
-   nada ainda.
-6. Salve o `.kicad_pcb` imediatamente (Ctrl+S) para garantir que a
-   associação schematic↔PCB ficou gravada.
-
-**Não roteie nada nesta fase.** O objetivo é só ter os 66 footprints
-carregados na placa.
+Practical guide for the phases that depend on the KiCad graphical interface and
+on physical components - work that only you can perform. This document
+exists for you to follow step by step while you assemble the PCB.
 
 
-# Fase 3 - Definir a mecânica
+# Phase 2 - Create the PCB
 
-Esta é a fase mais importante segundo sua própria avaliação, e eu concordo:
-decisão errada aqui obriga a refazer o posicionamento inteiro depois.
+1. Open the `MeetingHub-4.kicad_pro` project in KiCad.
+2. Open the **PCB Editor** (board icon, or double-click
+   `MeetingHub-4.kicad_pcb` in the project tree).
+3. Menu **Tools → Update PCB from Schematic** (the shortcut hasn't changed
+   across recent versions; if you can't find it in the Tools menu, look for
+   the toolbar icon with a lightning bolt ⚡ over a board).
+4. A dialog will open listing the changes. You should see **66 new
+   footprints** (all the components from the 5 sheets, except the GND ones).
+   Check that no "Footprint not found" appears - if it does, it's a sign that
+   some footprint I assigned doesn't exist in your KiCad installation
+   (check that the standard libraries are installed).
+5. Click **Update PCB**. The 66 footprints will appear stacked near the
+   origin, on top of each other - this is normal, nothing has been
+   positioned yet.
+6. Save the `.kicad_pcb` immediately (Ctrl+S) to make sure the
+   schematic↔PCB association was recorded.
 
-Responda antes de tocar em qualquer footprint:
+**Do not route anything in this phase.** The goal is just to have the 66
+footprints loaded onto the board.
 
-## 3.1 Quais componentes precisam tocar o painel do gabinete
 
-Baseado no esquemático, estes **11 componentes têm função de painel** (o
-usuário precisa alcançá-los de fora). A decisão final sobre **qual face**
-de cada um segue a lógica de uso (o que o operador toca com mais
-frequência fica na frente; conexões permanentes/raras ficam atrás):
+# Phase 3 - Define the mechanics
 
-| Componente | Função | Face do gabinete |
+This is the most important phase according to your own assessment, and I
+agree: a wrong decision here forces you to redo the entire placement later.
+
+Answer before touching any footprint:
+
+## 3.1 Which components need to touch the enclosure panel
+
+Based on the schematic, these **11 components have a panel function** (the
+user needs to reach them from outside). The final decision about **which
+face/side** for each one follows the logic of use (what the operator touches
+most often goes on the front; permanent/rare connections go on the back):
+
+| Component | Function | Enclosure face/side |
 |---|---|---|
-| J6 (TRRS) | headset do operador | **frente** |
-| SW1-SW5 (via JST-XH + fio) | mute + seleção de notebook | **frente** (chave física fora da placa, ligada por fio ao conector JST; ficam perto do J6, é o que o operador mais mexe) |
-| RV1-RV5 (potenciômetro duplo) | volume individual + master | **em cima** (eixo do RK097 aponta pra cima, acessível pelo painel superior) |
-| J2-J5 (TRRS) | 4 notebooks (P2) | **atrás** (cabo fica ligado o tempo todo, não precisa ser acessível durante o uso) |
-| J1 (USB-C) | entrada de alimentação | **atrás**, junto dos P2 |
+| J6 (TRRS) | operator's headset | **front** |
+| SW1-SW5 (via JST-XH + wire) | mute + laptop selection | **front** (physical switch off-board, connected by wire to the JST connector; they sit near J6, since it's what the operator handles most) |
+| RV1-RV5 (dual potentiometer) | individual volume + master | **top** (the RK097 shaft points upward, accessible from the top panel) |
+| J2-J5 (TRRS) | 4 laptops (3.5mm jack) | **back** (the cable stays connected all the time, doesn't need to be accessible during use) |
+| J1 (USB-C) | power supply input | **back**, next to the 3.5mm jacks |
 
-Todo o resto (U1, U2, K1-K4, R1-R20, C1-C21, F1, D1-D5, TP1) fica **interno**,
-sem restrição de painel.
+Everything else (U1, U2, K1-K4, R1-R20, C1-C21, F1, D1-D5, TP1) is
+**internal**, with no panel restriction.
 
-**Por que essa divisão:** o operador interage com o headset e os seletores
-de microfone o tempo todo (frente) e ajusta o volume ocasionalmente (em
-cima) - essas ficam nas faces de fácil acesso. Os cabos dos notebooks e a
-alimentação são plugados uma vez e raramente mexidos de novo - vão para
-trás, fora do caminho.
+**Why this split:** the operator interacts with the headset and the
+microphone selectors all the time (front) and adjusts the volume
+occasionally (top) - these go on the easy-access faces. The laptop cables
+and the power supply are plugged in once and rarely touched again - they go
+to the back, out of the way.
 
-## 3.2 Dimensão da placa
+## 3.2 Board dimensions
 
-- Meça o espaço interno do gabinete (ou defina o gabinete primeiro, se
-  ainda não escolheu um).
-- Regra prática: a placa deve ter **pelo menos a largura necessária para
-  alinhar 5 jacks TRRS (J2-J6) + espaço de aperto de porca de painel**.
-  Jack de painel 3.5mm (tipo PJ320D) normalmente precisa de ~12-15mm de
-  centro a centro para a porca não esbarrar na vizinha - para 5 jacks em
-  linha isso já são ~60-75mm só de frente de jacks.
-- Se os 5 potenciômetros (RV1-RV5) também forem ficar na mesma face frontal,
-  são mais 5 furos de eixo, cada um precisando de ~20-25mm de centro a
-  centro (RK097 tem corpo maior que o jack). Se não couber tudo numa linha
-  só, planeje duas fileiras (jacks embaixo, potes em cima, por exemplo).
-- Desenhe esse arranjo no papel ou num editor vetorial **antes** de definir
-  o contorno da placa no KiCad - o contorno da placa (`Edge.Cuts`) deve
-  nascer do desenho do painel, não o contrário.
+- Measure the internal space of the enclosure (or define the enclosure
+  first, if you haven't chosen one yet).
+- Rule of thumb: the board must be **at least wide enough to line up 5 TRRS
+  jacks (J2-J6) + clearance for tightening the panel nut**. A 3.5mm panel
+  jack (PJ320D type) typically needs ~12-15mm center-to-center so the nut
+  doesn't bump into its neighbor - for 5 jacks in a row that's already
+  ~60-75mm just for the jack front.
+- If the 5 potentiometers (RV1-RV5) are also going on the same front face,
+  that's 5 more shaft holes, each needing ~20-25mm center-to-center (the
+  RK097 has a larger body than the jack). If it doesn't all fit in a single
+  row, plan for two rows (jacks on the bottom, pots on top, for example).
+- Sketch this arrangement on paper or in a vector editor **before**
+  defining the board outline in KiCad - the board outline (`Edge.Cuts`)
+  should come from the panel drawing, not the other way around.
 
-## 3.3 Desenhar o contorno da placa
+## 3.3 Draw the board outline
 
-### 3.3.1 Antes de desenhar
+### 3.3.1 Before drawing
 
-- Decida qual caminho de gabinete você vai seguir (ver discussão anterior:
-  pronto de catálogo vs. sob medida via PCBWay/JLC3D/JLCMC/sanduíche de
-  acrílico). Isso muda o que "certo" significa aqui:
-  - **Gabinete pronto**: o contorno precisa bater **exatamente** com as
-    dimensões internas do datasheet do gabinete escolhido, incluindo folga
-    para nervuras/trilhos internos (ribs) que muitos cases plásticos têm
-    perto das bordas - meça ou confira o desenho técnico do fabricante do
-    case, não confie só na medida externa.
-  - **Gabinete sob medida (depois)**: o contorno pode ser um retângulo
-    simples, do tamanho que sobrar depois de posicionar os componentes de
-    painel (Fase 3.2) mais uma margem de ~3-5mm em cada lado. O case vai
-    ser cortado/impresso sob medida em cima do STEP/Gerber que você
-    exportar depois - não precisa acertar de primeira.
-- Ajuste o **grid** antes de desenhar: `Ver → Grid Properties` (ou ícone de
-  grade na barra lateral), defina 1mm (ou 0.5mm se quiser mais precisão nos
-  cantos). Desenhar "a olho" sem grid é a causa mais comum de contorno
-  com gaps.
+- Decide which enclosure path you're going to follow (see the earlier
+  discussion: off-the-shelf catalog vs. custom-made via
+  PCBWay/JLC3D/JLCMC/acrylic sandwich). This changes what "correct" means
+  here:
+  - **Off-the-shelf enclosure**: the outline needs to match **exactly** the
+    internal dimensions from the datasheet of the chosen enclosure,
+    including clearance for internal ribs/rails that many plastic cases
+    have near the edges - measure or check the case manufacturer's
+    technical drawing, don't rely only on the external measurement.
+  - **Custom-made enclosure (later)**: the outline can be a simple
+    rectangle, sized to whatever remains after positioning the panel
+    components (Phase 3.2) plus a margin of ~3-5mm on each side. The case
+    will be cut/printed to order based on the STEP/Gerber file you export
+    later - it doesn't need to be exact on the first try.
+- Adjust the **grid** before drawing: `View → Grid Properties` (or the grid
+  icon in the side toolbar), set it to 1mm (or 0.5mm if you want more
+  precision at the corners). Drawing "by eye" without a grid is the most
+  common cause of outlines with gaps.
 
-### 3.3.2 Passo a passo no KiCad
+### 3.3.2 Step by step in KiCad
 
-1. Na lista de camadas (lado direito, por padrão), clique em **Edge.Cuts**
-   para selecioná-la como camada ativa - ela costuma aparecer em amarelo.
-2. Use a ferramenta **Add Rectangle** (ícone de retângulo na barra de
-   ferramentas da direita, ou tecla de atalho `R`) se o contorno for um
-   retângulo simples. Clique num canto, arraste até o canto oposto, clique
-   de novo para fechar.
-3. Se o contorno **não** for um retângulo simples (ex.: um recorte para os
-   jacks ficarem mais pra fora, ou canto chanfrado), use **Add Line**
-   (atalho `Alt+L` ou ícone de linha) segmento por segmento, sempre
-   fechando no ponto onde começou.
-4. **Não confie no clique do mouse para a medida exata.** Depois de
-   desenhar aproximadamente, clique com o botão direito em cada segmento
-   → **Properties** (ou tecla `E`) e digite os valores exatos de
-   **Start X/Y** e **End X/Y** manualmente. É assim que se garante que o
-   contorno tem, por exemplo, exatamente 90mm x 60mm, e não "89.7mm porque
-   a mão tremeu".
-5. Para cantos arredondados (comum em gabinetes sob medida, fica mais
-   fácil de imprimir/cortar): no KiCad 7, selecione os dois segmentos que
-   formam o canto e use **Edit → Fillet Lines** - digite o raio desejado
-   (ex.: 3mm) e ele substitui o canto vivo por um arco automaticamente, já
-   com a geometria fechada corretamente.
+1. In the layers list (right side, by default), click **Edge.Cuts** to
+   select it as the active layer - it usually appears in yellow.
+2. Use the **Add Rectangle** tool (rectangle icon in the right-side
+   toolbar, or shortcut key `R`) if the outline is a simple rectangle.
+   Click a corner, drag to the opposite corner, click again to close it.
+3. If the outline is **not** a simple rectangle (e.g., a cutout so the
+   jacks stick out further, or a chamfered corner), use **Add Line**
+   (shortcut `Alt+L` or the line icon) segment by segment, always closing
+   at the point where you started.
+4. **Don't rely on the mouse click for exact measurements.** After drawing
+   it approximately, right-click each segment → **Properties** (or key
+   `E`) and type the exact **Start X/Y** and **End X/Y** values manually.
+   That's how you make sure the outline is, for example, exactly
+   90mm x 60mm, and not "89.7mm because your hand shook".
+5. For rounded corners (common in custom enclosures, easier to
+   print/cut): in KiCad 7, select the two segments that form the corner
+   and use **Edit → Fillet Lines** - enter the desired radius (e.g., 3mm)
+   and it automatically replaces the sharp corner with an arc, with the
+   geometry properly closed.
 
-### 3.3.3 Furos de fixação (mounting holes)
+### 3.3.3 Mounting holes
 
-**Aplicado diretamente no `.kicad_pcb`**: 4 footprints `MountingHole_3.2mm_M3`
-(furo não-plaqueado 3.2mm, sem net, próprio para parafuso M3), um em cada
-canto, com 6mm de margem da borda (dentro da faixa 5-6mm recomendada, sem
-colidir com nenhum componente - os 4 cantos estavam livres):
+**Applied directly in the `.kicad_pcb`**: 4 `MountingHole_3.2mm_M3`
+footprints (3.2mm non-plated hole, no net, suitable for an M3 screw), one
+in each corner, with a 6mm margin from the edge (within the recommended
+5-6mm range, without colliding with any component - all 4 corners were
+free):
 
-| Referência | Posição (X, Y) | Canto |
+| Reference | Position (X, Y) | Corner |
 |---|---|---|
-| MH1 | 66.0mm, 91.0mm | superior esquerdo |
-| MH2 | 319.0mm, 91.0mm | superior direito |
-| MH3 | 66.0mm, 239.0mm | inferior esquerdo |
-| MH4 | 319.0mm, 239.0mm | inferior direito |
+| MH1 | 66.0mm, 91.0mm | top-left |
+| MH2 | 319.0mm, 91.0mm | top-right |
+| MH3 | 66.0mm, 239.0mm | bottom-left |
+| MH4 | 319.0mm, 239.0mm | bottom-right |
 
-(Placa vai de x=60-325mm, y=85-245mm; margem de 6mm em cada eixo a partir
-da borda.)
+(The board spans x=60-325mm, y=85-245mm; 6mm margin on each axis from the
+edge.)
 
-- Se o gabinete já está escolhido, confira se essa posição bate com os
-  furos/trilhos de fixação do case antes de fabricar - se não bater, é só
-  mover os 4 footprints no KiCad (Properties → X/Y) para a posição certa,
-  a geometria do furo em si não muda.
-- Se o gabinete é sob medida (depois), essas posições viram a referência
-  para o fabricante do case alinhar os furos dele.
-- Validado: paren balance do arquivo, nenhuma colisão com footprints
-  vizinhos (nenhum outro componente a menos de 20mm de qualquer canto), e
-  `kicad-cli pcb export gerbers` limpo.
+- If the enclosure has already been chosen, check whether this position
+  matches the case's mounting holes/rails before manufacturing - if it
+  doesn't match, just move the 4 footprints in KiCad (Properties → X/Y) to
+  the correct position, the hole geometry itself doesn't change.
+- If the enclosure is custom-made (later), these positions become the
+  reference for the case manufacturer to align their holes.
+- Validated: file paren balance, no collision with neighboring footprints
+  (no other component within 20mm of any corner), and a clean
+  `kicad-cli pcb export gerbers`.
 
-### 3.3.4 Conferir se o contorno fechou corretamente
+### 3.3.4 Check that the outline closed correctly
 
-Um contorno com gap (não fechado) é o erro mais comum nesta fase, e só
-aparece na hora de gerar Gerbers/fabricar se você não checar antes:
+An outline with a gap (not closed) is the most common error in this phase,
+and it only shows up when generating Gerbers/manufacturing if you don't
+check beforehand:
 
-1. Rode o DRC (adiantando um pouco a Fase 8, só para o contorno): **Inspect
-   → Design Rules Checker → Run DRC**. Um contorno aberto aparece como
-   erro do tipo *"board outline"* ou *"Unclosed board outline"*.
-2. Alternativa visual: abra a **visualização 3D** (`View → 3D Viewer`, ou
-   `Alt+3`) - se o contorno não fechou, a placa aparece "furada" ou com
-   formato estranho em vez de uma peça sólida.
-3. Só depois de confirmar o contorno fechado e sem erros é que vale a pena
-   seguir para a Fase 4 (posicionamento definitivo) com confiança de que a
-   geometria da placa está correta.
-
-
-# Fase 4 - Posicionamento
-
-A ordem abaixo prioriza quem tem restrição mecânica (painel) antes de quem
-só tem restrição elétrica - e já foi **aplicada diretamente no
-`.kicad_pcb`** (posições exatas por referência, validadas por script:
-sem par de componentes com âncoras a menos de 6mm, contorno fechado,
-`kicad-cli pcb export gerbers` limpo). Ainda falta a conferência visual
-na tela e a Fase 9 (mockup 1:1) antes de considerar definitivo.
-
-1. **J2-J5 (P2) + J1 (USB-C)** - fileira traseira (y=100mm), pitch de
-   40mm entre os 4 jacks de notebook; J1 isolado ao lado (x=290mm),
-   cluster de POWER (F1, D1, C1, C2, TP1) colado nele.
-2. **RV1-RV5 (potenciômetros)** - fileira "em cima" (y=170mm), cada um
-   alinhado na mesma coluna X do jack de notebook correspondente
-   (RV1 sobre J2, RV2 sobre J3, etc.); RV5 (master) na quinta coluna.
-3. **J6 (headset) + SW1-SW5** - fileira frontal: J6 na borda (y=230mm),
-   SW1-SW5 logo atrás dele (y=218mm, pitch 15mm) - ficam perto de quem
-   eles servem.
-4. **K1-K4 + D2-D5 (mic switching)** - perto do grupo SW, mas numa faixa
-   própria (y=190/203mm) pra não colidir com eles; K1 alinhado com SW2,
-   K2 com SW3, etc.
-5. **U1 (mixer) + R1-R12 + C3-C14** - grade 5x5 entre a fileira de trás e
-   a fileira de cima (x=75mm, y=118mm em diante, **pitch 15x11mm** - o
-   pitch X foi alargado de 13 para 15mm numa segunda rodada, pelo mesmo
-   motivo do HPAMP: dava congestionamento demais pro plano de GND
-   conectar 2 pads específicos sem violar clearance - ver nota no fim
-   desta fase) - é literalmente o meio do caminho do sinal (P2 → volume
-   → mixer).
-6. **U2 (headphone amp) + R13-R20 + C15-C21** - grade 4x4 perto do J6
-   (x=215mm, y=182mm em diante, pitch 12x11mm).
-
-**Coordenadas exatas por referência** estão no `.kicad_pcb` - não há uma
-cópia separada aqui porque ela ficaria desatualizada a cada ajuste fino
-que você fizer na tela. Se precisar conferir um valor específico, abra o
-KiCad e selecione o componente (painel de propriedades mostra X/Y).
-
-**Nota sobre o re-layout do grid do mixer (pitch 13→15mm)**: depois do
-primeiro roteamento (Fase 7), o plano de GND ficava com pads presos em
-bolsões de cobre isolados do plano principal - a causa era falta de
-espaço para o preenchedor de zona (zone filler) colocar um "spoke" legal
-até esses pads sem violar clearance com trilhas de sinal vizinhas.
-Alargar o pitch X do grid, reposicionar os 25 componentes, e rodar o
-Freerouting do zero resolveu C4, R2, C1 e C3 (via stitch manual de GND
-+ pequenos desvios em trilhas de sinal vizinhas - NB2_L/NB3_L/NB2_R -
-para abrir espaço de verdade, e conexão sólida em vez de solda térmica
-para C1/C3). Validado por script (paren balance, contagem de itens não
-conectados via `pcbnew`, clearance pad-a-pad e trilha-a-pad por camada,
-`kicad-cli pcb export gerbers` limpo) e confirmado por DRC real na tela
-a cada rodada.
-
-**Resolvido: pino 4 do U1 (GND), via migração para 4 camadas.** Esse
-pino especificamente não tinha caminho de cobre disponível para o plano
-de GND na placa de 2 camadas, dentro da folga mínima de fabricação
-(0.15mm). Causa raiz: num encapsulamento DIP-8, o pino 4 fica
-fisicamente entre o pino 3 e o pino 5 (é assim que a numeração do
-encapsulamento dá a volta), então esse aperto local é inerente à
-pinagem do chip, não ao layout ao redor - confirmado tentando: (a)
-alargar o pitch X e depois também o Y do grid do mixer (2 rodadas
-completas de re-layout + reroteamento), (b) girar o U1 90° (mesma
-pinagem, mesmo aperto, só muda a direção), (c) busca exaustiva por
-script (A*, bulge de trilha vizinha) não encontrando nenhum caminho com
-folga confiável, e (d) tentativa manual na tela pelo usuário, mesma
-conclusão.
-
-Dado que nenhum ajuste de posicionamento ataca a causa real (a pinagem
-do próprio chip), a solução foi migrar a placa pra **4 camadas** com um
-plano de GND dedicado (ver Fase 6) - isso elimina o problema
-estruturalmente, já que o pino 4 passa a tocar o plano diretamente pelo
-próprio furo passante, sem competir por espaço com nenhuma trilha de
-sinal. Confirmado por DRC real headless (`pcbnew.WriteDRCReport`, ver
-nota abaixo): **0 pads não conectados, 0 erros reais**.
-
-**TP2** (mesmo footprint do TP1, `TestPoint_THTPad_D1.5mm_Drill0.7mm`),
-conectado ao net GND, posição (67.0mm, 125.62mm), foi mantido como
-ponto de teste genérico de GND (útil pra encostar multímetro/osciloscópio)
-- a instrução de jumper manual que estava na serigrafia foi removida,
-já que não é mais necessária.
-
-**Nota sobre validação nesta fase**: descobri que `pcbnew.WriteDRCReport()`
-gera um relatório de DRC real e completo mesmo sem GUI (diferente do que
-foi assumido no início do projeto, de que esta versão do KiCad não tinha
-DRC via linha de comando/script) - as checagens aproximadas por
-script usadas em fases anteriores da sessão foram substituídas por essa
-função sempre que possível daqui pra frente. Um efeito colateral notado:
-rodar essa função fora do ambiente do KiCad completo (sem a tabela de
-bibliotecas de footprint configurada) gera avisos falsos de
-`lib_footprint_issues` ("footprint not found in library") para
-praticamente todo componente - isso é uma limitação do ambiente headless
-usado para gerar o relatório, não um problema real da placa; não
-acontece rodando DRC pela GUI do KiCad.
-
-**Pendente**: os 6mm de folga usados na validação são só entre âncoras
-(centro do footprint), não entre corpos reais - potenciômetro RK097,
-relé G5V-1 e jack PJ320D têm corpo maior que isso. Confirme visualmente
-antes de rotear.
+1. Run the DRC (getting a bit ahead of Phase 8, just for the outline):
+   **Inspect → Design Rules Checker → Run DRC**. An open outline shows up
+   as an error of type *"board outline"* or *"Unclosed board outline"*.
+2. Visual alternative: open the **3D viewer** (`View → 3D Viewer`, or
+   `Alt+3`) - if the outline didn't close, the board appears "punctured"
+   or oddly shaped instead of as a solid piece.
+3. Only after confirming the outline is closed and error-free is it worth
+   moving on to Phase 4 (final placement) with confidence that the board
+   geometry is correct.
 
 
-# Fase 5 - Planejamento do layout (regiões)
+# Phase 4 - Placement
 
-Zoneamento **efetivamente aplicado** (Fase 4), organizado por face do
-gabinete em vez de por folha do esquemático - mas o princípio de
-isolamento de ruído do SCH-008 continua valendo, só que expresso em
-frente/trás em vez de lado a lado:
+The order below prioritizes components with mechanical constraints (panel)
+over those with only electrical constraints - and it has already been
+**applied directly in the `.kicad_pcb`** (exact positions per reference,
+validated by script: no pair of components with anchors closer than 6mm,
+closed outline, clean `kicad-cli pcb export gerbers`). The on-screen visual
+check and Phase 9 (1:1 mockup) are still needed before considering it
+final.
+
+1. **J2-J5 (3.5mm jacks) + J1 (USB-C)** - back row (y=100mm), 40mm pitch
+   between the 4 laptop jacks; J1 set apart to the side (x=290mm), with the
+   POWER cluster (F1, D1, C1, C2, TP1) right next to it.
+2. **RV1-RV5 (potentiometers)** - "top" row (y=170mm), each aligned on the
+   same X column as the corresponding laptop jack (RV1 above J2, RV2 above
+   J3, etc.); RV5 (master) in the fifth column.
+3. **J6 (headset) + SW1-SW5** - front row: J6 at the edge (y=230mm),
+   SW1-SW5 right behind it (y=218mm, 15mm pitch) - they sit close to what
+   they serve.
+4. **K1-K4 + D2-D5 (mic switching)** - near the SW group, but in its own
+   band (y=190/203mm) so as not to collide with them; K1 aligned with SW2,
+   K2 with SW3, etc.
+5. **U1 (mixer) + R1-R12 + C3-C14** - 5x5 grid between the back row and the
+   top row (x=75mm, y=118mm onward, **15x11mm pitch** - the X pitch was
+   widened from 13 to 15mm in a second round, for the same reason as the
+   HPAMP: it caused too much congestion for the GND plane to connect 2
+   specific pads without violating clearance - see the note at the end of
+   this phase) - it's literally the midpoint of the signal path (3.5mm jack
+   → volume → mixer).
+6. **U2 (headphone amp) + R13-R20 + C15-C21** - 4x4 grid near J6 (x=215mm,
+   y=182mm onward, 12x11mm pitch).
+
+**Exact coordinates per reference** are in the `.kicad_pcb` - there's no
+separate copy here because it would go out of date with every fine
+adjustment you make on screen. If you need to check a specific value, open
+KiCad and select the component (the properties panel shows X/Y).
+
+**Note on the mixer grid re-layout (pitch 13→15mm)**: after the first
+routing pass (Phase 7), the GND plane ended up with pads trapped in copper
+pockets isolated from the main plane - the cause was a lack of space for
+the zone filler to lay down a proper "spoke" to those pads without
+violating clearance with neighboring signal traces. Widening the grid's X
+pitch, repositioning the 25 components, and re-running Freerouting from
+scratch fixed C4, R2, C1 and C3 (via manual GND stitching + small detours
+in neighboring signal traces - NB2_L/NB3_L/NB2_R - to open up real space,
+and a solid connection instead of a thermal relief for C1/C3). Validated
+by script (paren balance, count of unconnected items via `pcbnew`,
+pad-to-pad and trace-to-pad clearance per layer, clean
+`kicad-cli pcb export gerbers`) and confirmed by an on-screen real DRC
+after each round.
+
+**Resolved: U1 pin 4 (GND), via migration to 4 layers.** This specific pin
+had no copper path available to the GND plane on the 2-layer board, within
+the minimum manufacturing clearance (0.15mm). Root cause: in a DIP-8
+package, pin 4 sits physically between pin 3 and pin 5 (that's how the
+package numbering wraps around), so this local tightness is inherent to
+the chip's pinout, not to the surrounding layout - confirmed by trying:
+(a) widening the mixer grid's X pitch and then also the Y pitch (2
+complete rounds of re-layout + rerouting), (b) rotating U1 by 90° (same
+pinout, same tightness, only the direction changes), (c) an exhaustive
+script-based search (A*, neighboring trace bulging) finding no path with
+reliable clearance, and (d) a manual on-screen attempt by the user, same
+conclusion.
+
+Since no placement adjustment addresses the real cause (the chip's own
+pinout), the solution was to migrate the board to **4 layers** with a
+dedicated GND plane (see Phase 6) - this eliminates the problem
+structurally, since pin 4 now touches the plane directly through its own
+through-hole, without competing for space with any signal trace. Confirmed
+by a real headless DRC (`pcbnew.WriteDRCReport`, see note below): **0
+unconnected pads, 0 real errors**.
+
+**TP2** (same footprint as TP1,
+`TestPoint_THTPad_D1.5mm_Drill0.7mm`), connected to the GND net, at
+position (67.0mm, 125.62mm), was kept as a generic GND test point (useful
+for touching a multimeter/oscilloscope probe to) - the manual jumper
+instruction that was on the silkscreen was removed, since it's no longer
+needed.
+
+**Note on validation in this phase**: I discovered that
+`pcbnew.WriteDRCReport()` generates a real, complete DRC report even
+without the GUI (unlike what was assumed at the start of the project, that
+this KiCad version had no DRC via command line/script) - the approximate
+script-based checks used in earlier phases of the session were replaced
+with this function wherever possible from here on. One side effect noted:
+running this function outside the full KiCad environment (without the
+footprint library table configured) generates false `lib_footprint_issues`
+warnings ("footprint not found in library") for practically every
+component - this is a limitation of the headless environment used to
+generate the report, not a real board problem; it doesn't happen when
+running DRC through the KiCad GUI.
+
+**Pending**: the 6mm clearance used in validation is only between anchors
+(footprint center), not between actual bodies - the RK097 potentiometer,
+G5V-1 relay and PJ320D jack have larger bodies than that. Confirm visually
+before routing.
+
+
+# Phase 5 - Layout planning (regions)
+
+Zoning **actually applied** (Phase 4), organized by enclosure face instead
+of by schematic sheet - but the noise-isolation principle from SCH-008
+still holds, just expressed as front/back instead of side by side:
 
 ```text
-                    ATRÁS (y=100-135)
+                    BACK (y=100-135)
 ┌───────────────────────────────────────────────────┐
-│  J2 J3 J4 J5        J1          F1 D1 C1 C2 TP1     │  <- P2 + USB-C + POWER
+│  J2 J3 J4 J5        J1          F1 D1 C1 C2 TP1     │  <- 3.5mm jacks + USB-C + POWER
 │                                                     │
 │  ┌──────────────┐              ┌─────────────┐     │
 │  │ AUDIO_MIXER  │              │             │     │
@@ -283,293 +284,295 @@ frente/trás em vez de lado a lado:
 │  │ C3-14         │              │             │     │
 │  └──────────────┘              │             │     │
 │                                                     │
-│  RV1 RV2 RV3 RV4 RV5                                │  <- EM CIMA (y=170)
+│  RV1 RV2 RV3 RV4 RV5                                │  <- TOP (y=170)
 │                                                     │
 │  ┌──────┐                      ┌──────────────┐    │
 │  │MIC_SW│                      │ HEADPHONE_AMP│    │
 │  │K1-4  │                      │ U2,R13-20,   │    │
 │  │D2-5  │                      │ C15-21       │    │
 │  └──────┘                      └──────────────┘    │
-│  SW1 SW2 SW3 SW4 SW5              J6                │  <- FRENTE (y=218-230)
+│  SW1 SW2 SW3 SW4 SW5              J6                │  <- FRONT (y=218-230)
 └───────────────────────────────────────────────────┘
-                    FRENTE (usuário)
+                    FRONT (user)
 ```
 
-Ideia central, adaptada: **alimentação (POWER) e P2 ficam atrás, longe do
-operador; a linha de microfone (MIC_SWITCHING) fica na frente**, perto de
-onde ela termina (SW1-SW5) e longe de onde a alimentação entra (atrás).
-O caminho de áudio (P2 → volume → mixer → headphone amp → J6) atravessa a
-placa de trás pra frente em linha reta, sem cruzar de volta - mesma lógica
-de antes (SCH-008), só que a "frente" do gabinete faz o papel de ponta
-oposta à alimentação, em vez de uma folha de esquemático específica.
+Central idea, adapted: **the power supply (POWER) and the 3.5mm jacks stay
+at the back, away from the operator; the microphone line (MIC_SWITCHING)
+stays at the front**, close to where it ends (SW1-SW5) and far from where
+the power supply comes in (back). The audio path (3.5mm jack → volume →
+mixer → headphone amp → J6) crosses the board from back to front in a
+straight line, without crossing back - same logic as before (SCH-008),
+except the "front" of the enclosure now plays the role of the opposite end
+from the power supply, instead of a specific schematic sheet.
 
 
-# Fase 6 - Plano de terra
+# Phase 6 - Ground plane
 
-**Atualizado: a placa foi migrada de 2 para 4 camadas de cobre**
-especificamente para resolver de forma definitiva o problema descrito na
-Fase 8 (pino 4 do U1 preso num bolsão de GND isolado, mesmo depois de
-duas rodadas de re-layout). Com 2 camadas, o plano de GND competia por
-espaço com trilha de sinal na mesma camada (B.Cu), e em alguns pontos do
-grid do mixer não sobrava espaço legal pro preenchedor de zona conectar
-certos pads sem violar clearance. A solução profissional padrão pra esse
-problema é dedicar camadas inteiras só a planos, sem nenhuma trilha de
-sinal competindo por espaço nelas - é o que foi aplicado:
+**Updated: the board was migrated from 2 to 4 copper layers**
+specifically to definitively resolve the problem described in Phase 8 (U1
+pin 4 trapped in an isolated GND pocket, even after two rounds of
+re-layout). With 2 layers, the GND plane competed for space with signal
+traces on the same layer (B.Cu), and at some points in the mixer grid
+there wasn't enough legal space for the zone filler to connect certain
+pads without violating clearance. The standard professional solution to
+this problem is to dedicate entire layers solely to planes, with no signal
+trace competing for space on them - this is what was applied:
 
-- **F.Cu** (topo) e **B.Cu** (fundo): só sinal - é onde o Freerouting
-  roteia as ~105 nets de sinal (áudio, mic, controle de relé).
-- **In1.Cu** (camada interna 1): plano de **GND** sólido, cobrindo a
-  placa inteira, sem nenhuma trilha de sinal.
-- **In2.Cu** (camada interna 2): plano de **+5V_AUDIO** sólido, mesma
-  cobertura.
-- Como todos os 66 componentes são passantes (THT), qualquer pino de GND
-  ou +5V_AUDIO já toca essas duas camadas internas diretamente pelo
-  próprio furo - não precisa de trilha nem via extra na maioria dos
-  casos. **Exceção**: os pinos "R2" (blindagem) dos conectores TRRS
-  (J2-J6), que são SMD só na camada F.Cu no footprint
-  `Jack_3.5mm_PJ320D_Horizontal` - esses 5 pontos precisaram de uma via
-  dedicada descendo até o plano de GND, já aplicada.
-- Para configurar isso no KiCad (se for reproduzir do zero): **File →
-  Board Setup → Physical Stackup**, mude "Copper Layers" pra 4, e marque
-  In1.Cu/In2.Cu como tipo **Power** (não Signal) em **Board Setup →
-  Layers** - isso é o que impede o autorroteador de jogar trilha de
-  sinal nessas camadas.
-- **Aterramento em estrela** (já decidido em SCH-008/DR-002): o retorno de
-  GND de POWER e o retorno de GND do bloco analógico (TRRS/MIXER/HPAMP)
-  devem se encontrar em um único ponto físico - com o plano interno
-  dedicado, isso já é naturalmente satisfeito (todo o plano é um nó só).
-- Cuidado que **deixou de ser necessário** com o plano dedicado: a
-  preocupação original sobre a corrente da bobina de K1-K4 compartilhar
-  trecho de plano com o retorno de MIC/áudio não se aplica mais do mesmo
-  jeito, já que o plano de GND agora não tem nenhuma trilha de sinal
-  competindo por caminho dentro dele - mas ainda vale posicionar K1-K4
-  perto da região de POWER por organização geral do layout.
+- **F.Cu** (top) and **B.Cu** (bottom): signal only - this is where
+  Freerouting routes the ~105 signal nets (audio, mic, relay control).
+- **In1.Cu** (internal layer 1): solid **GND** plane, covering the entire
+  board, with no signal traces.
+- **In2.Cu** (internal layer 2): solid **+5V_AUDIO** plane, same coverage.
+- Since all 66 components are through-hole (THT), any GND or +5V_AUDIO pin
+  already touches these two internal layers directly through its own hole
+  - no extra trace or via is needed in most cases. **Exception**: the "R2"
+  (shield) pins of the TRRS connectors (J2-J6), which are SMD only on the
+  F.Cu layer in the `Jack_3.5mm_PJ320D_Horizontal` footprint - these 5
+  points needed a dedicated via going down to the GND plane, already
+  applied.
+- To set this up in KiCad (if you're reproducing it from scratch):
+  **File → Board Setup → Physical Stackup**, change "Copper Layers" to 4,
+  and mark In1.Cu/In2.Cu as type **Power** (not Signal) in
+  **Board Setup → Layers** - this is what stops the autorouter from
+  dropping signal traces on these layers.
+- **Star grounding** (already decided in SCH-008/DR-002): the GND return
+  from POWER and the GND return from the analog block
+  (TRRS/MIXER/HPAMP) must meet at a single physical point - with the
+  dedicated internal plane, this is now naturally satisfied (the whole
+  plane is a single node).
+- A concern that **is no longer necessary** with the dedicated plane: the
+  original worry about the K1-K4 coil current sharing a plane segment with
+  the MIC/audio return no longer applies in the same way, since the GND
+  plane now has no signal trace competing for a path within it - but it's
+  still worth positioning K1-K4 near the POWER region for the general
+  organization of the layout.
 
 
-# Fase 7 - Roteamento
+# Phase 7 - Routing
 
-Siga a ordem que você propôs. Larguras de trilha sugeridas para esta
-placa (alimentação via USB, ~500mA no fusível):
+Follow the order you proposed. Suggested trace widths for this board
+(power supplied via USB, ~500mA at the fuse):
 
-| Tipo de sinal | Largura sugerida |
+| Signal type | Suggested width |
 |---|---|
-| +5V_AUDIO, GND (potência) | 0.6-0.8mm |
-| Sinal de áudio (NB*_L/R, MIX_L/R) | 0.25-0.3mm |
-| Linha de microfone (NB*_MIC, HEADSET_MIC) | 0.25-0.3mm, **evitar correr paralela e colada em trilha de +5V_AUDIO ou bobina de relé** - se cruzar, cruze perpendicular, nunca paralelo por mais que uns poucos mm |
-| Controle de relé (bobina, +5V_AUDIO→SWx→K) | 0.4-0.5mm |
+| +5V_AUDIO, GND (power) | 0.6-0.8mm |
+| Audio signal (NB*_L/R, MIX_L/R) | 0.25-0.3mm |
+| Microphone line (NB*_MIC, HEADSET_MIC) | 0.25-0.3mm, **avoid running parallel and close alongside a +5V_AUDIO trace or relay coil** - if crossing, cross perpendicularly, never parallel for more than a few mm |
+| Relay control (coil, +5V_AUDIO→SWx→K) | 0.4-0.5mm |
 
-Ordem de roteamento (a sua está correta):
+Routing order (yours is correct):
 
-1. Alimentação (+5V_AUDIO, do J1 até POWER, depois até MIXER/HPAMP/MICSW)
-2. GND (plano, mais os poucos casos que não dá pra resolver só com plano)
-3. Sinais dos op-amps (malha de realimentação de U1 e U2 - mantenha essas
-   trilhas curtas, são as mais sensíveis a captar ruído)
-4. Microfones (NB1-4_MIC, HEADSET_MIC - linha "transparente", sem
-   amplificação, então qualquer ruído captado aqui vai direto pro
-   notebook)
-5. Fones (MIX_L/R, saída de J6)
-6. Controle (bobinas dos relés, SW1-SW5)
-7. USB-C por último, como você sugeriu - os 4 pinos de dados (D+/D-/CC1/CC2)
-   estão **intencionalmente sem uso** neste projeto (só VBUS+GND importam),
-   então nem precisam de trilha nenhuma - ignore os "unconnected" que o
-   KiCad avisar para esses pinos.
-
-
-# Fase 8 - DRC
-
-1. No PCB Editor: **Inspect → Design Rules Checker** (ou o ícone de
-   "bug"/lupa na barra de ferramentas).
-2. Antes de rodar, confira **File → Board Setup → Design Rules →
-   Constraints** e ajuste **Minimum track width** e **Minimum clearance**
-   para um piso de segurança acima do mínimo de fábrica (JLCPCB padrão é
-   0.153mm de trilha e 0.127mm de espaçamento).
-   **Correção em relação à sugestão original deste guia**: com a placa já
-   roteada (Fase 7, via Freerouting), a maioria das trilhas de sinal usa
-   0.2mm e o clearance validado a sessão inteira é 0.15mm - usar 0.25mm/
-   0.2mm (a sugestão original, escrita antes do roteamento existir) criaria
-   ~400 falsos "erro de largura de trilha" em trilhas que já estão
-   corretas. Use **0.2mm de trilha mínima e 0.15mm de clearance mínimo**
-   em vez disso - ainda folgado acima do mínimo da JLCPCB, mas compatível
-   com o que já foi roteado.
-3. Clique em **Run DRC**. Corrija um erro de cada vez, rodando de novo
-   depois de cada correção - não tente corrigir tudo de uma vez e rodar
-   só no final.
-4. Erros mais prováveis nesta placa: clearance entre os pads grandes do
-   G5V-1/USB-C e trilhas vizinhas, e trilhas não roteadas (net não
-   conectada) se algum footprint ficar sem toda trilha ligada.
-5. Só considere a Fase 8 concluída com **zero erros e zero warnings não
-   justificados** (um warning de "trilha curta" ou similar pode ser
-   aceitável, mas documente por quê).
-
-**Warning aceito e documentado**: os 4 furos de fixação (MH1-MH4, Fase
-3.3.3) disparam `[extra_footprint]` (severidade warning) porque são
-footprints só-mecânicos, adicionados direto no `.kicad_pcb` e sem símbolo
-correspondente no esquemático - isso é esperado e seguro para
-`MountingHole`, que não tem função elétrica e por isso normalmente não
-entra no esquemático. Pode ignorar esse warning específico (@MH1, MH2,
-MH3, MH4) sem se preocupar.
+1. Power supply (+5V_AUDIO, from J1 to POWER, then to MIXER/HPAMP/MICSW)
+2. GND (plane, plus the few cases that can't be resolved with the plane
+   alone)
+3. Op-amp signals (U1 and U2 feedback loops - keep these traces short,
+   they're the most sensitive to picking up noise)
+4. Microphones (NB1-4_MIC, HEADSET_MIC - a "transparent" line, with no
+   amplification, so any noise picked up here goes straight to the laptop)
+5. Headphones (MIX_L/R, J6 output)
+6. Control (relay coils, SW1-SW5)
+7. USB-C last, as you suggested - the 4 data pins (D+/D-/CC1/CC2) are
+   **intentionally unused** in this project (only VBUS+GND matter), so
+   they don't even need any trace - ignore the "unconnected" warnings
+   KiCad reports for these pins.
 
 
-# Fase 9 - Revisão mecânica em escala 1:1
+# Phase 8 - DRC
 
-1. No PCB Editor: **File → Print**.
-2. Marque a opção de escala **1:1** (às vezes chamada "Scale 1" ou "No
-   scaling" dependendo da versão) - **nunca use "fit to page"**, isso
-   distorce a escala.
-3. Antes de confiar na impressão, meça com uma régua uma medida conhecida
-   no papel (ex.: a distância entre dois furos de montagem) para confirmar
-   que a impressora não escalou nada.
-4. Com a folha impressa, sobreponha fisicamente:
-   - um relé G5V-1 (ou o footprint desenhado dele) sobre os pads de K1-K4;
-   - um jack TRRS (o modelo real que você comprar) sobre J2-J6;
-   - um potenciômetro RK097 sobre RV1-RV5;
-   - o conector USB-C sobre J1.
-5. Confira se os furos de fixação do painel (se houver) coincidem com a
-   posição real dos componentes, e se não há dois componentes tentando
-   ocupar o mesmo espaço físico (ex.: corpo do potenciômetro encostando no
-   relé vizinho).
+1. In the PCB Editor: **Inspect → Design Rules Checker** (or the
+   "bug"/magnifying-glass icon in the toolbar).
+2. Before running it, check **File → Board Setup → Design Rules →
+   Constraints** and set **Minimum track width** and **Minimum clearance**
+   to a safety floor above the factory minimum (JLCPCB's default is
+   0.153mm trace and 0.127mm spacing).
+   **Correction to this guide's original suggestion**: with the board
+   already routed (Phase 7, via Freerouting), most signal traces use
+   0.2mm and the clearance validated throughout the whole session is
+   0.15mm - using 0.25mm/0.2mm (the original suggestion, written before
+   the routing existed) would create ~400 false "trace width error" flags
+   on traces that are already correct. Use **0.2mm minimum track width and
+   0.15mm minimum clearance** instead - still comfortably above the
+   JLCPCB minimum, but compatible with what has already been routed.
+3. Click **Run DRC**. Fix one error at a time, running it again after each
+   fix - don't try to fix everything at once and only run it at the end.
+4. Most likely errors on this board: clearance between the large
+   G5V-1/USB-C pads and neighboring traces, and unrouted traces
+   (unconnected net) if some footprint is left without every trace
+   connected.
+5. Only consider Phase 8 complete with **zero errors and zero unjustified
+   warnings** (a "short trace" warning or similar may be acceptable, but
+   document why).
 
-
-# Fase 10 - Fabricação
-
-**Placa de 4 camadas** (ver Fase 6) - ao pedir orçamento/fabricação no
-site do fabricante, selecione explicitamente **"4 layers"** (ou
-equivalente) nas opções do pedido, não o padrão de 2 camadas. Isso
-normalmente custa mais que 2 camadas (a maioria dos fabricantes cobra
-uns 30-70% a mais pra lotes pequenos), mas é obrigatório - os gerbers
-gerados já incluem as camadas internas (`In1_Cu`, `In2_Cu`), então o
-fabricante vai perceber que são 4 camadas pelos próprios arquivos, mas
-confirme a opção do pedido bate antes de finalizar a compra.
-
-Arquivos a gerar (via **File → Fabrication Outputs** no PCB Editor, ou
-`kicad-cli pcb export` linha de comando):
-
-- **Gerbers** (todas as 4 camadas de cobre + máscara + silk + Edge.Cuts)
-- **Excellon** (arquivo de furação)
-- **BOM final** - já temos uma gerada em `hardware/BOM/BOM-MeetingHub-4.csv`;
-  confirme que ela ainda bate com o `.kicad_pcb` final antes de enviar.
-- **PDF de montagem** (posição dos componentes, útil pra você mesmo na
-  hora de soldar)
-- **PDF do esquemático** - já temos em `hardware/Schematics/`
-
-**Observação sobre Pick & Place**: todos os 66 componentes deste projeto
-têm footprint **THT** (nenhum SMD). Isso significa que, a rigor, você **não
-precisa gerar arquivo de Pick & Place** para este lote, a menos que decida
-contratar montagem automática por onda/solda seletiva de alguma fabricante
-que peça esse arquivo mesmo para THT. Para montagem manual, Gerbers +
-Excellon + BOM + PDF de montagem já são suficientes.
-
-Depois de gerado tudo, me chame de volta e eu confiro:
-- se os arquivos abrem e são consistentes entre si (via `kicad-cli`);
-- se a BOM final bate com o `.kicad_pcb`;
-- se sobrou algum footprint sem valor/referência antes de fechar o pacote
-  de fabricação.
+**Accepted and documented warning**: the 4 mounting holes (MH1-MH4, Phase
+3.3.3) trigger `[extra_footprint]` (warning severity) because they are
+mechanical-only footprints, added directly in the `.kicad_pcb` with no
+corresponding symbol in the schematic - this is expected and safe for
+`MountingHole`, which has no electrical function and therefore normally
+doesn't go into the schematic. You can ignore this specific warning (@MH1,
+MH2, MH3, MH4) without worry.
 
 
-# Fase 11 - Correções pós-ERC (TP1/TP2 sem net na PCB)
+# Phase 9 - 1:1 scale mechanical review
 
-Rodando o ERC real do esquemático (via GUI, só possível nessa versão do
-KiCad pela interface - ver BOM-002-AsBuilt Seção 4), apareceu
-`pin_not_connected` no TP1. Investigando, o pino do TP1 ficava
-visualmente sobre um fio existente no esquemático (folha POWER) sem
-**junção** elétrica ali - um erro clássico do KiCad (sobreposição visual
-≠ conexão). Corrigido no esquemático com uma `junction` no ponto exato.
+1. In the PCB Editor: **File → Print**.
+2. Check the **1:1** scale option (sometimes called "Scale 1" or "No
+   scaling" depending on the version) - **never use "fit to page"**, it
+   distorts the scale.
+3. Before trusting the printout, measure a known dimension on the paper
+   with a ruler (e.g., the distance between two mounting holes) to confirm
+   the printer didn't scale anything.
+4. With the printed sheet, physically overlay:
+   - a G5V-1 relay (or its drawn footprint) over the K1-K4 pads;
+   - a TRRS jack (the actual model you'll buy) over J2-J6;
+   - an RK097 potentiometer over RV1-RV5;
+   - the USB-C connector over J1.
+5. Check whether the panel mounting holes (if any) line up with the actual
+   position of the components, and whether no two components are trying to
+   occupy the same physical space (e.g., the potentiometer body touching
+   the neighboring relay).
 
-Verificando a PCB depois disso, o problema era pior do que só o
-esquemático: **o pad do TP1 na placa também não tinha net nenhum**
-(`unconnected-(TP1-Pad1)`), e o **TP2 também não** (net vazio) - ambos os
-pontos de teste eram fisicamente flutuantes na placa final, apesar da
-documentação dizer que estavam em +5V_AUDIO/GND. Corrigido via script
-Python (`pcbnew`): atribuído o net `+5V_AUDIO` ao pad do TP1 e `GND` ao
-pad do TP2, seguido de recálculo dos planos (`ZONE_FILLER.Fill`) para que
-o anel de solda de cada pad realmente conecte ao plano interno
-correspondente. Confirmado depois via `board.GetConnectivity().GetUnconnectedCount(False)`
-= 0 e novo `WriteDRCReport` sem erros reais.
 
-Também corrigido, pelo mesmo ERC: o `power_pin_not_driven` no U1
-(pinos V+/V-) - adicionados dois símbolos `power:PWR_FLAG` em
-POWER.kicad_sch (idioma padrão do KiCad para quando a alimentação de um
-net vem de um pino de conector, aqui o VBUS do J1/USB-C, e não de um
-símbolo de alimentação dedicado); e o `lib_symbol_issues` em J2-J6 - o
-`lib_id` estava apontando para `Connector:AudioJack4`, biblioteca antiga
-que não existe mais nessa posição no KiCad instalado (o símbolo foi
-reorganizado para `Connector_Audio` em versões mais novas da biblioteca
-padrão). Corrigido o `lib_id` para `Connector_Audio:AudioJack4` -
-geometria e pinos conferidos byte a byte contra a biblioteca do sistema
-antes da troca, sem diferença.
+# Phase 10 - Manufacturing
 
-**Lição para o próximo projeto**: pontos de teste (TP) adicionados direto
-na PCB (sem símbolo no esquemático, como o TP2) precisam ter o net
-atribuído manualmente e conferido - eles não aparecem no ERC do
-esquemático (não existem lá) nem geram erro óbvio de DRC se ficarem sem
-net (não há pad vizinho pra reclamar de "não conectado" com um único
-pad isolado). A forma de pegar isso foi checando net-a-net via script,
-não só olhando o relatório de DRC.
+**4-layer board** (see Phase 6) - when requesting a quote/manufacturing on
+the manufacturer's website, explicitly select **"4 layers"** (or
+equivalent) in the order options, not the default 2-layer one. This
+usually costs more than 2 layers (most manufacturers charge about 30-70%
+more for small batches), but it's mandatory - the generated gerbers
+already include the internal layers (`In1_Cu`, `In2_Cu`), so the
+manufacturer will notice it's 4 layers from the files themselves, but
+confirm the order option matches before finalizing the purchase.
 
-Numa segunda rodada de ERC (depois de puxar as correções acima), o
-usuário reportou que o `power_pin_not_driven` do U1 **continuava** no
-pino V+ (pino 8), mesmo já com o `PWR_FLAG` adicionado. Investigando,
-o flag tinha sido ligado no fio errado: havia dois nós parecidos na
-folha POWER perto do fusível F1 - um **antes** do fusível (vindo do
-VBUS/proteção TVS) e outro **depois** (o net +5V_AUDIO de fato, o mesmo
-onde está o rótulo global `+5V_AUDIO` e o TP1). O flag caiu no nó de
-antes do fusível, que não tem o mesmo nome de net e por isso não conta
-pro ERC como fonte de +5V_AUDIO. Corrigido movendo o `PWR_FLAG` para o
-nó certo (o mesmo do TP1 e do rótulo global).
+Files to generate (via **File → Fabrication Outputs** in the PCB Editor,
+or the `kicad-cli pcb export` command line):
 
-Essa mesma rodada também confirmou 13 erros `pin_not_connected` que já
-existiam desde a primeira versão do esquemático, mas que eu tinha
-apenas documentado como "intencional" em vez de resolver de verdade: os
-9 pinos de dados/CC/SBU/shield do J1 (USB-C, não usados porque J1 é só
-alimentação) e o pino 10 dos 4 relés (pino duplicado, não usado na
-topologia SPDT). Corrigido adicionando **no connect** explícito
-(`no_connect`) em cada um desses 13 pinos - a forma correta e
-definitiva de zerar esse tipo de erro no ERC, em vez de deixá-lo como
-aviso pendente na documentação.
+- **Gerbers** (all 4 copper layers + mask + silk + Edge.Cuts)
+- **Excellon** (drill file)
+- **Final BOM** - we already have one generated at
+  `hardware/BOM/BOM-MeetingHub-4.csv`; confirm it still matches the final
+  `.kicad_pcb` before sending it.
+- **Assembly PDF** (component positions, useful for yourself when
+  soldering)
+- **Schematic PDF** - we already have one at `hardware/Schematics/`
 
-Depois de 0 erros confirmados, sobraram 232 avisos `endpoint_off_grid`
-- praticamente todo pino e fio das 5 folhas. Causa raiz: o esquemático
-inteiro foi desenhado usando posições redondas em milímetros (ex.:
-55.0, 85.0, 115.0mm), que **não são múltiplos da grade de 1.27mm
-(50 mil)** que o teste do ERC usa como referência - então quase todo
-símbolo cai "fora da grade" mesmo tendo sido posicionado de forma
-perfeitamente deliberada.
+**Note on Pick & Place**: all 66 components in this project have a **THT**
+footprint (no SMD). This means that, strictly speaking, you **don't need
+to generate a Pick & Place file** for this batch, unless you decide to
+hire automated wave/selective soldering assembly from some manufacturer
+that asks for this file even for THT. For manual assembly, Gerbers +
+Excellon + BOM + assembly PDF are already enough.
 
-Corrigir isso manualmente, símbolo por símbolo, seria arriscado demais
-nessa escala (~70 componentes, centenas de fios, 5 arquivos) - fácil
-desconectar algo sem perceber. Em vez disso, usei uma propriedade
-matemática: se eu aplicar a **mesma função de arredondamento** (`snap
-para o múltiplo de 1.27mm mais próximo`) em toda coordenada do arquivo
-(posição de símbolo, ponta de fio, junção), dois pontos que já eram
-**exatamente iguais** antes (a definição de "conectado" no formato do
-KiCad) continuam exatamente iguais depois - a função é determinística,
-então mesma entrada sempre dá a mesma saída. Isso permite realinhar o
-projeto inteiro para a grade sem, em princípio, alterar nenhuma conexão.
+Once everything is generated, call me back and I'll check:
+- whether the files open and are consistent with each other (via
+  `kicad-cli`);
+- whether the final BOM matches the `.kicad_pcb`;
+- whether any footprint was left without a value/reference before closing
+  out the manufacturing package.
 
-Escrevi um script (`snap_grid.py`) que faz exatamente isso: parseia
-cada folha em uma árvore (sem tocar no `lib_symbols`, que é só a
-biblioteca em cache, não a instância no papel), acha cada símbolo/fio/
-junção/rótulo global/no-connect no nível do esquemático, e arredonda
-suas coordenadas. Rodei nas 5 folhas (716 ajustes só na AUDIO_MIXER, a
-maior).
 
-**Validação**: `kicad-cli sch export netlist` tem um formato de saída
-(`kicadsexpr`) que lista cada rede e seus nós - rodei antes e depois do
-realinhamento e comparei rede a rede (por conjunto de nós, ignorando
-nome/código de rede, que mudam). Confirmou 1 problema real: o
-realinhamento aproximou o D1 (proteção TVS) do pino D+ do J1 (USB-C,
-sem uso) o suficiente para os dois caírem no mesmo ponto da grade,
-mesclando duas redes que deviam continuar separadas - um caso exatamente
-do tipo "dois pontos statisticamente próximos colapsam no mesmo
-quadrado de grade" que eu já esperava como risco teórico antes de
-começar. Corrigido afastando o D1 um passo de grade extra (e o fio que
-liga ao GND, que dependia da posição antiga do D1). Uma segunda rodada
-de `export netlist` confirmou as 72 redes do projeto batendo nó a nó,
-sem nenhuma diferença.
+# Phase 11 - Post-ERC fixes (TP1/TP2 with no net on the PCB)
 
-**Lição**: esse tipo de "snap em massa" é seguro em expectativa, mas
-não é risco zero - vale sempre validar com uma ferramenta de
-comparação de conectividade (netlist, não só contagem de erro/aviso)
-depois de qualquer transformação geométrica em lote, porque um DRC/ERC
-limpo não garante que a topologia não mudou, só que não violou as
-regras verificadas.
+Running the real schematic ERC (via GUI, only possible in this KiCad
+version through the interface - see BOM-002-AsBuilt Section 4), a
+`pin_not_connected` appeared on TP1. Investigating, the TP1 pin was
+visually sitting on top of an existing wire in the schematic (POWER sheet)
+without an electrical **junction** there - a classic KiCad mistake
+(visual overlap ≠ connection). Fixed in the schematic with a `junction` at
+the exact point.
+
+Checking the PCB afterward, the problem was worse than just the
+schematic: **the TP1 pad on the board also had no net at all**
+(`unconnected-(TP1-Pad1)`), and **neither did TP2** (empty net) - both
+test points were physically floating on the final board, despite the
+documentation saying they were on +5V_AUDIO/GND. Fixed via a Python script
+(`pcbnew`): assigned the `+5V_AUDIO` net to the TP1 pad and `GND` to the
+TP2 pad, followed by recalculating the planes (`ZONE_FILLER.Fill`) so that
+each pad's solder ring actually connects to the corresponding internal
+plane. Confirmed afterward via
+`board.GetConnectivity().GetUnconnectedCount(False)` = 0 and a new
+`WriteDRCReport` with no real errors.
+
+Also fixed, by the same ERC: the `power_pin_not_driven` on U1 (pins
+V+/V-) - added two `power:PWR_FLAG` symbols in POWER.kicad_sch (KiCad's
+standard idiom for when a net's power comes from a connector pin, here the
+VBUS of J1/USB-C, rather than from a dedicated power symbol); and the
+`lib_symbol_issues` on J2-J6 - the `lib_id` was pointing to
+`Connector:AudioJack4`, an old library that no longer exists at that
+location in the installed KiCad (the symbol was reorganized into
+`Connector_Audio` in newer versions of the standard library). Fixed the
+`lib_id` to `Connector_Audio:AudioJack4` - geometry and pins checked
+byte-for-byte against the system library before the change, with no
+difference.
+
+**Lesson for the next project**: test points (TP) added directly on the
+PCB (with no schematic symbol, like TP2) need to have their net assigned
+and checked manually - they don't show up in the schematic ERC (they
+don't exist there) and don't generate an obvious DRC error if left without
+a net (there's no neighboring pad to complain about being "unconnected"
+with a single isolated pad). The way this was caught was by checking
+net-by-net via script, not just by looking at the DRC report.
+
+In a second round of ERC (after pulling in the fixes above), the user
+reported that the `power_pin_not_driven` on U1 **persisted** on pin V+
+(pin 8), even with the `PWR_FLAG` already added. Investigating, the flag
+had been attached to the wrong wire: there were two similar-looking nodes
+in the POWER sheet near fuse F1 - one **before** the fuse (coming from
+VBUS/TVS protection) and another **after** it (the actual +5V_AUDIO net,
+the same one carrying the `+5V_AUDIO` global label and TP1). The flag had
+landed on the node before the fuse, which doesn't share the same net name
+and therefore doesn't count toward the ERC as a +5V_AUDIO source. Fixed by
+moving the `PWR_FLAG` to the correct node (the same one as TP1 and the
+global label).
+
+This same round also confirmed 13 `pin_not_connected` errors that had
+existed since the first version of the schematic, but which I had only
+documented as "intentional" instead of actually resolving: the 9
+data/CC/SBU/shield pins on J1 (USB-C, unused because J1 is power-only) and
+pin 10 on the 4 relays (a duplicated pin, unused in the SPDT topology).
+Fixed by adding an explicit **no connect** (`no_connect`) on each of these
+13 pins - the correct, definitive way to zero out this type of ERC error,
+instead of leaving it as a pending note in the documentation.
+
+After confirming 0 errors, 232 `endpoint_off_grid` warnings remained - on
+practically every pin and wire across the 5 sheets. Root cause: the entire
+schematic was drawn using round positions in millimeters (e.g., 55.0,
+85.0, 115.0mm), which **are not multiples of the 1.27mm grid (50 mil)**
+that the ERC check uses as its reference - so almost every symbol falls
+"off grid" even though it was positioned in a perfectly deliberate way.
+
+Fixing this manually, symbol by symbol, would be too risky at this scale
+(~70 components, hundreds of wires, 5 files) - it's easy to disconnect
+something without noticing. Instead, I used a mathematical property: if I
+apply the **same rounding function** (`snap to the nearest multiple of
+1.27mm`) to every coordinate in the file (symbol position, wire endpoint,
+junction), two points that were already **exactly equal** before (the
+definition of "connected" in the KiCad format) remain exactly equal
+afterward - the function is deterministic, so the same input always gives
+the same output. This makes it possible to realign the entire project to
+the grid without, in principle, changing any connection.
+
+I wrote a script (`snap_grid.py`) that does exactly this: it parses each
+sheet into a tree (without touching `lib_symbols`, which is just the
+cached library, not the on-page instance), finds every symbol/wire/
+junction/global label/no-connect at the schematic level, and rounds their
+coordinates. I ran it on all 5 sheets (716 adjustments on AUDIO_MIXER
+alone, the largest one).
+
+**Validation**: `kicad-cli sch export netlist` has an output format
+(`kicadsexpr`) that lists every net and its nodes - I ran it before and
+after the realignment and compared net by net (by node set, ignoring net
+name/code, which change). It confirmed 1 real problem: the realignment
+brought D1 (TVS protection) close enough to the D+ pin of J1 (USB-C,
+unused) that the two landed on the same grid point, merging two nets that
+should have stayed separate - exactly the kind of case "two statistically
+close points collapse onto the same grid square" that I had already
+anticipated as a theoretical risk before starting. Fixed by moving D1 one
+extra grid step away (and the wire connecting to GND, which depended on
+D1's old position). A second round of `export netlist` confirmed the
+project's 72 nets matching node-for-node, with no difference at all.
+
+**Lesson**: this kind of "bulk snap" is safe in expectation, but it's not
+zero risk - it's always worth validating with a connectivity comparison
+tool (netlist, not just an error/warning count) after any batch geometric
+transformation, because a clean DRC/ERC doesn't guarantee the topology
+didn't change, only that it didn't violate the rules being checked.

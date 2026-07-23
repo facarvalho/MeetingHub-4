@@ -1,151 +1,150 @@
-# TEST-001 - Guia de Teste e Bring-Up da Placa
+# TEST-001 - Board Test and Bring-Up Guide
 
 Version: 1.0
 Status: Final
 
-Guia prático para testar a placa montada, na ordem certa - dos testes mais
-seguros (sem energizar) até o funcionamento completo com os 4 notebooks.
-**Siga a ordem**: cada fase só deve começar depois que a anterior passar
-limpa - é assim que se evita queimar componente por um erro de montagem
-que passaria despercebido se você ligasse tudo de uma vez.
+Practical guide for testing the assembled board, in the correct order -
+from the safest tests (without power applied) up to full operation with
+the 4 laptops. **Follow the order**: each phase should only begin after
+the previous one passes cleanly - this is how you avoid burning a
+component due to an assembly error that would go unnoticed if you powered
+everything up at once.
 
 
-# Fase 1 - Inspeção visual (antes de qualquer energia)
+# Phase 1 - Visual inspection (before any power)
 
-Com a placa montada e **nada conectado na alimentação**, confira com uma
-lupa/boa luz:
+With the board assembled and **nothing connected to the power supply**,
+check with a magnifying glass/good light:
 
-1. **Solda**: sem pontos frios (aspecto fosco/rachado), sem bolhas de
-   estanho encostando em pad vizinho (curto), sem falta de solda em nenhum
-   pino.
-2. **Polaridade dos componentes polarizados** - o mais importante desta
-   fase, porque inverter qualquer um destes **queima o componente ou o
-   resto da placa** ao ligar:
-   - **C17, C20** (220µF, eletrolíticos): a faixa/traço no corpo do
-     capacitor marca o **negativo** - confira contra a serigrafia da
-     placa antes de energizar.
-   - **C2, C3, C16, C19** (10µF, eletrolíticos): mesma lógica.
-   - **D1** (TVS, proteção): tem polaridade - confira orientação da faixa
-     catodo contra a serigrafia.
-   - **D2-D5** (1N4148): a faixa no corpo marca o catodo - confira contra
-     a marcação "K" na serigrafia (ver PCB-001 Fase 8, essas marcações
-     foram reposicionadas para não ficarem cortadas).
-   - **U1, U2** (DIP-8): o entalhe/ponto no corpo do CI marca o pino 1 -
-     confira contra o desenho na serigrafia antes de encaixar no soquete
-     (se estiver usando soquete, como recomendado no BOM-002 para
-     protótipo).
-   - **J1** (USB-C): conector é mecanicamente "chaveado", só encaixa de um
-     jeito - mas confira que a solda dos terminais SMD/THT do conector
-     está firme, ele recebe estresse mecânico toda vez que um cabo é
-     plugado.
-3. **Sem curto visível** entre trilhas/pads adjacentes, principalmente na
-   área do U1 (grade densa do mixer) e do J1 (USB-C, pinos finos).
+1. **Solder**: no cold joints (dull/cracked appearance), no solder blobs
+   touching an adjacent pad (short), no missing solder on any pin.
+2. **Polarity of polarized components** - the most important item in this
+   phase, because reversing any of these **will burn the component or the
+   rest of the board** when powered on:
+   - **C17, C20** (220uF, electrolytic): the stripe/mark on the capacitor
+     body marks the **negative** terminal - check it against the board's
+     silkscreen before powering on.
+   - **C2, C3, C16, C19** (10uF, electrolytic): same logic.
+   - **D1** (TVS, protection): has polarity - check the cathode stripe
+     orientation against the silkscreen.
+   - **D2-D5** (1N4148): the stripe on the body marks the cathode - check
+     it against the "K" marking on the silkscreen (see PCB-001 Phase 8,
+     these markings were repositioned so they would not be cut off).
+   - **U1, U2** (DIP-8): the notch/dot on the IC body marks pin 1 - check
+     it against the silkscreen drawing before inserting into the socket
+     (if using a socket, as recommended in BOM-002 for the prototype).
+   - **J1** (USB-C): the connector is mechanically "keyed" and only fits
+     one way - but check that the solder on the connector's SMD/THT
+     terminals is solid, since it is mechanically stressed every time a
+     cable is plugged in.
+3. **No visible short** between adjacent traces/pads, especially in the
+   U1 area (dense mixer grid) and the J1 area (USB-C, fine pins).
 
 
-# Fase 2 - Teste de continuidade (multímetro, ainda sem energia)
+# Phase 2 - Continuity test (multimeter, still no power)
 
-Com o multímetro em modo **continuidade/resistência**, placa ainda **sem
-USB conectado**:
+With the multimeter in **continuity/resistance** mode, board still
+**without USB connected**:
 
-1. Meça entre **TP1** (+5V_AUDIO) e **TP2** (GND). Deve mostrar
-   **circuito aberto** (sem continuidade, resistência alta/infinita, não
-   um bipe de curto). Se der continuidade direta (0Ω ou bipe de curto),
-   **não conecte a alimentação** - há um curto entre alimentação e terra
-   que precisa ser encontrado e corrigido primeiro (revise solda perto de
-   J1, D1, F1, C1).
-2. Confira continuidade do fusível **F1** isoladamente (as duas pontas do
-   próprio fusível) - deve haver continuidade (fusível bom, ainda não
-   queimado).
+1. Measure between **TP1** (+5V_AUDIO) and **TP2** (GND). It should show
+   an **open circuit** (no continuity, high/infinite resistance, not a
+   short-circuit beep). If it shows direct continuity (0 ohm or a
+   short-circuit beep), **do not connect the power supply** - there is a
+   short between the power supply and ground that must be found and
+   corrected first (review the solder near J1, D1, F1, C1).
+2. Check the continuity of fuse **F1** in isolation (the fuse's own two
+   ends) - there should be continuity (fuse good, not yet blown).
 
-Só avance para a Fase 3 depois que os dois itens acima estiverem OK.
-
-
-# Fase 3 - Primeira energização
-
-1. Conecte um cabo USB-C **de dados/energia simples** (não um carregador
-   de notebook com Power Delivery em voltagem alta - o ideal é uma fonte
-   USB-A→C ou um carregador de celular simples, 5V) na entrada J1.
-   **Não conecte nenhum notebook ou headset ainda.**
-2. **Cheire e observe** nos primeiros segundos - se sentir cheiro de
-   queimado ou ver fumaça, **desconecte imediatamente** e revise a Fase 1
-   e 2 antes de tentar de novo.
-3. Com o multímetro em modo tensão DC, meça **TP1 em relação a TP2**:
-   deve ler próximo de **5V** (tipicamente 4.8-5.2V, já que não há
-   regulador nesta placa - a tensão de +5V_AUDIO é a própria tensão de
-   entrada do USB, só protegida por fusível e TVS, ver DR-003).
-4. Toque de leve no corpo do **U1** e **U2** (os dois CIs DIP-8) depois
-   de uns 30 segundos ligado - devem estar em temperatura ambiente/mornos
-   no máximo. Se algum estiver **quente a ponto de incomodar o dedo**,
-   desligue e revise a orientação do CI (pino 1) e a tensão de
-   alimentação dele.
-5. Meça a tensão de **VBIAS**: essa é a referência de meio-sinal do
-   mixer, gerada por um divisor resistivo R1/R2 (10k/10k) na folha
-   MIXER - meça no ponto de junção entre R1 e R2 (ou direto nos pinos 3/5
-   do U1, que recebem VBIAS). Deve ler aproximadamente **metade da
-   tensão de TP1** (≈2.5V se TP1 leu 5V). Se ler muito diferente disso
-   (perto de 0V ou perto de 5V), há um problema no divisor R1/R2 ou em
-   uma solda fria num deles.
-
-Se os 3 pontos de tensão (TP1 ≈5V, VBIAS ≈ metade de TP1, GND=0V de
-referência) baterem, a alimentação está saudável - prossiga.
+Only proceed to Phase 3 after both items above are OK.
 
 
-# Fase 4 - Teste funcional (com notebooks e headset)
+# Phase 3 - First power-up
 
-Agora sim, com a placa energizada e validada eletricamente:
+1. Connect a **simple data/power** USB-C cable (not a laptop charger
+   with high-voltage Power Delivery - ideally a USB-A to C power supply
+   or a simple phone charger, 5V) to input J1. **Do not connect any
+   laptop or headset yet.**
+2. **Smell and observe** during the first few seconds - if you smell
+   burning or see smoke, **disconnect immediately** and review Phase 1
+   and 2 before trying again.
+3. With the multimeter in DC voltage mode, measure **TP1 relative to
+   TP2**: it should read close to **5V** (typically 4.8-5.2V, since
+   there is no regulator on this board - the +5V_AUDIO voltage is the
+   USB input voltage itself, only protected by the fuse and TVS, see
+   DR-003).
+4. Lightly touch the body of **U1** and **U2** (the two DIP-8 ICs) after
+   about 30 seconds of operation - they should be at room temperature or
+   only slightly warm at most. If either is **hot enough to be
+   uncomfortable to the touch**, turn off power and review the IC
+   orientation (pin 1) and its supply voltage.
+5. Measure the **VBIAS** voltage: this is the mid-signal reference for
+   the mixer, generated by a resistive divider R1/R2 (10k/10k) on the
+   MIXER sheet - measure at the junction point between R1 and R2 (or
+   directly at pins 3/5 of U1, which receive VBIAS). It should read
+   approximately **half the TP1 voltage** (~2.5V if TP1 read 5V). If it
+   reads very different from that (close to 0V or close to 5V), there is
+   a problem in the R1/R2 divider or a cold solder joint on one of them.
 
-1. **Um notebook por vez primeiro** - conecte o cabo do notebook 1 em
-   **J2**, e o headset em **J6**. Toque um áudio de teste no notebook
-   (ex.: um vídeo qualquer) e confirme que ouve no headset.
-2. Repita isoladamente para **J3** (notebook 2), **J4** (notebook 3),
-   **J5** (notebook 4) - cada um sozinho primeiro, antes de testar todos
-   juntos.
-3. **Volume individual**: gire cada potenciômetro **RV1** (NB1), **RV2**
-   (NB2), **RV3** (NB3), **RV4** (NB4) e confirme que controla o volume
-   daquele notebook especificamente, sem afetar os outros.
-4. **Volume geral**: gire **RV5** (master) e confirme que afeta o volume
-   de todos simultaneamente.
-5. **Monitoramento simultâneo**: com os 4 notebooks tocando áudio ao
-   mesmo tempo, confirme que ouve a mistura dos 4 no headset (esse é o
-   critério de aprovação RF-003 do ERS-001).
-6. **Seleção de microfone**: acione as chaves **SW2** (seleciona NB1),
-   **SW3** (NB2), **SW4** (NB3), **SW5** (NB4) uma de cada vez - fale no
-   microfone do headset e confirme, no software de chamada/gravação de
-   cada notebook, que **apenas o notebook selecionado** recebe o áudio do
-   microfone. Você deve ouvir o relé correspondente (**K1-K4**) fazer um
-   pequeno "clique" mecânico ao trocar de seleção - isso é esperado e
-   normal.
-7. **MUTE**: acione **SW1** e confirme que o microfone é cortado
-   independente de qual notebook estava selecionado.
-8. **Reconhecimento sem driver**: em cada notebook, confirme que o
-   sistema operacional reconhece a conexão como um headset TRRS comum
-   (ícone de fone/microfone padrão), sem pedir instalação de driver nem
-   abrir nenhum aviso - este é o critério RF-008/Seção 3 do ERS-001.
+If the 3 voltage points (TP1 ~5V, VBIAS ~ half of TP1, GND=0V reference)
+check out, the power supply is healthy - proceed.
 
 
-# Fase 5 - Teste de durabilidade (opcional, mas recomendado antes de uso intenso)
+# Phase 4 - Functional test (with laptops and headset)
 
-O ERS-001 define meta de **>1 milhão de operações** do seletor de
-microfone. Não é viável testar isso manualmente antes do uso normal, mas
-vale, antes de considerar o protótipo aprovado para uso diário:
+Now, with the board powered on and electrically validated:
 
-- Acionar cada chave de seleção (SW2-SW5) umas 50-100 vezes seguidas,
-  confirmando que o relé correspondente continua comutando de forma
-  limpa (sem áudio "chiando" ou cortando de forma intermitente no
-  meio da troca).
-- Deixar a placa ligada por algumas horas contínuas, revisitando a Fase 3
-  passo 4 (temperatura de U1/U2) periodicamente.
+1. **One laptop at a time first** - connect laptop 1's cable to **J2**,
+   and the headset to **J6**. Play a test audio on the laptop (e.g., any
+   video) and confirm you hear it in the headset.
+2. Repeat individually for **J3** (laptop 2), **J4** (laptop 3), **J5**
+   (laptop 4) - each one alone first, before testing all together.
+3. **Individual volume**: turn each potentiometer **RV1** (NB1), **RV2**
+   (NB2), **RV3** (NB3), **RV4** (NB4) and confirm it controls the
+   volume of that specific laptop, without affecting the others.
+4. **Overall volume**: turn **RV5** (master) and confirm it affects the
+   volume of all of them simultaneously.
+5. **Simultaneous monitoring**: with all 4 laptops playing audio at the
+   same time, confirm you hear the mix of all 4 in the headset (this is
+   the RF-003 acceptance criterion of ERS-001).
+6. **Microphone selection**: activate switches **SW2** (selects NB1),
+   **SW3** (NB2), **SW4** (NB3), **SW5** (NB4) one at a time - speak
+   into the headset microphone and confirm, in the calling/recording
+   software of each laptop, that **only the selected laptop** receives
+   the microphone audio. You should hear the corresponding relay
+   (**K1-K4**) make a small mechanical "click" when switching selection
+   - this is expected and normal.
+7. **MUTE**: activate **SW1** and confirm that the microphone is cut off
+   regardless of which laptop was selected.
+8. **Driverless recognition**: on each laptop, confirm that the
+   operating system recognizes the connection as a standard TRRS headset
+   (default headphone/microphone icon), without requesting driver
+   installation or opening any warning - this is the RF-008/Section 3
+   criterion of ERS-001.
 
 
-# O que fazer se algo falhar
+# Phase 5 - Durability test (optional, but recommended before heavy use)
 
-| Sintoma | Onde olhar primeiro |
+ERS-001 defines a target of **>1 million operations** for the microphone
+selector. It is not feasible to test this manually before normal use, but
+it is worth doing, before considering the prototype approved for daily
+use:
+
+- Activate each selection switch (SW2-SW5) 50-100 times in a row,
+  confirming that the corresponding relay keeps switching cleanly
+  (no audio "crackling" or intermittent cutting during the switch).
+- Leave the board powered on for a few continuous hours, periodically
+  revisiting Phase 3 step 4 (U1/U2 temperature).
+
+
+# What to do if something fails
+
+| Symptom | Where to look first |
 |---|---|
-| TP1 não mostra ~5V | Fusível F1 (queimado?), solda do J1 (USB-C), curto detectado na Fase 2 |
-| VBIAS muito longe de TP1/2 | Solda fria em R1 ou R2 (folha MIXER) |
-| Um notebook específico não toca áudio | Solda do jack correspondente (J2-J5), continuidade do cabo TRRS usado |
-| Áudio de um notebook vaza pros outros / mixagem estranha | Revisar U1 (orientação, solda), esse é o CI que faz a soma dos 4 sinais |
-| Fone não toca nada | U2 (amplificador de headphone) - orientação, solda, ou VBIAS incorreto chegando nele |
-| Seleção de microfone não troca | Relé correspondente (K1-K4) - solda, ou chave física ligada no JST errado (confira SW2→K1, SW3→K2, SW4→K3, SW5→K4) |
-| MUTE não corta | SW1, revisar fiação até o JST |
-| Notebook pede driver / não reconhece como headset | Confira pinagem do plugue TRRS do headset real contra o padrão CTIA (ponta=L, anel1=R, anel2=MIC, base=GND) - um plugue fora do padrão CTIA (ex.: OMTP) engana o notebook |
+| TP1 does not show ~5V | Fuse F1 (blown?), J1 solder (USB-C), short detected in Phase 2 |
+| VBIAS far from TP1/2 | Cold solder joint on R1 or R2 (MIXER sheet) |
+| A specific laptop plays no audio | Solder on the corresponding jack (J2-J5), continuity of the TRRS cable used |
+| Audio from one laptop leaks into others / strange mixing | Review U1 (orientation, solder), this is the IC that sums the 4 signals |
+| Headset plays nothing | U2 (headphone amplifier) - orientation, solder, or incorrect VBIAS reaching it |
+| Microphone selection does not switch | Corresponding relay (K1-K4) - solder, or physical switch connected to the wrong JST (check SW2->K1, SW3->K2, SW4->K3, SW5->K4) |
+| MUTE does not cut audio | SW1, review wiring to the JST |
+| Laptop asks for a driver / does not recognize as a headset | Check the actual headset's TRRS plug pinout against the CTIA standard (tip=L, ring1=R, ring2=MIC, sleeve=GND) - a plug that does not follow the CTIA standard (e.g., OMTP) confuses the laptop |

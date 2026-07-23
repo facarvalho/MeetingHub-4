@@ -4,33 +4,33 @@ Version: 0.1
 Status: Draft
 
 
-# 1. Objetivo
+# 1. Objective
 
-Definir a estratégia de aterramento, alimentação e controle de ruído do MeetingHub-4.
+Define the grounding, power supply, and noise control strategy of the MeetingHub-4.
 
-O equipamento possui múltiplas fontes de áudio analógico conectadas simultaneamente, portanto o controle de interferência é requisito crítico.
-
-
-# 2. Fontes potenciais de ruído
-
-Possíveis fontes:
-
-- quatro notebooks conectados simultaneamente;
-- diferentes carregadores de fonte;
-- loops de terra;
-- alimentação USB;
-- interferência digital externa.
+The equipment has multiple analog audio sources connected simultaneously, so interference control is a critical requirement.
 
 
-# 3. Estratégia de aterramento
+# 2. Potential Noise Sources
 
-Será utilizado aterramento em estrela.
+Possible sources:
 
-Arquitetura:
+- four laptops connected simultaneously;
+- different power supply chargers;
+- ground loops;
+- USB power supply;
+- external digital interference.
+
+
+# 3. Grounding Strategy
+
+Star grounding will be used.
+
+Architecture:
 
 ```
 
-Entradas TRRS
+TRRS Inputs
 
 ```
   |
@@ -42,83 +42,83 @@ GND_AUDIO
   |
 ```
 
-Ponto estrela
+Star Point
 
 ```
   |
 ```
 
-Alimentação
+Power Supply
 
 ```
 
-Objetivos:
+Objectives:
 
-- evitar correntes circulando pelo terra de áudio;
-- reduzir ruído de fundo;
-- melhorar estabilidade.
+- avoid currents circulating through the audio ground;
+- reduce background noise;
+- improve stability.
 
 
-# 4. Separação dos domínios
+# 4. Domain Separation
 
-O projeto deverá separar:
+The design must separate:
 
-## Áudio analógico
+## Analog Audio
 
-- entradas TRRS;
+- TRRS inputs;
 - mixer;
-- amplificador headphone.
+- headphone amplifier.
 
 
-## Alimentação
+## Power Supply
 
 - USB-C;
-- filtros;
-- proteção.
+- filters;
+- protection.
 
 
-A união será feita em ponto controlado.
+The union will be made at a controlled point.
 
 
-# 5. Layout da PCB
+# 5. PCB Layout
 
-Requisitos:
+Requirements:
 
-- manter trilhas de áudio afastadas da alimentação;
-- evitar paralelismo entre sinais sensíveis e alimentação;
-- utilizar plano de terra quando aplicável;
-- posicionar conectores próximos às bordas da placa.
-
-
-# 6. Desacoplamento
-
-Cada circuito integrado deverá possuir:
-
-- capacitor cerâmico próximo aos pinos de alimentação;
-- capacitores de reserva na alimentação principal.
+- keep audio traces away from the power supply;
+- avoid parallel routing between sensitive signals and power supply traces;
+- use a ground plane where applicable;
+- position connectors near the board edges.
 
 
-# 7. Considerações sobre notebooks
+# 6. Decoupling
 
-O projeto deverá ser testado com:
+Each integrated circuit must have:
 
-- notebook ligado na bateria;
-- notebook conectado ao carregador;
-- diferentes marcas de computador.
-
-
-# 8. Testes
-
-Validar:
-
-- ruído sem sinal;
-- ruído com quatro notebooks conectados;
-- troca do microfone;
-- operação com carregadores diferentes.
+- a ceramic capacitor near the power supply pins;
+- reserve capacitors on the main power supply.
 
 
-# 9. Critério de aprovação
+# 7. Laptop Considerations
 
-O equipamento deverá operar sem ruído perceptível em uso normal.
+The design must be tested with:
+
+- laptop running on battery;
+- laptop connected to the charger;
+- different computer brands.
+
+
+# 8. Tests
+
+Validate:
+
+- noise with no signal;
+- noise with four laptops connected;
+- microphone switching;
+- operation with different chargers.
+
+
+# 9. Approval Criteria
+
+The equipment must operate with no perceptible noise under normal use.
 ```
 

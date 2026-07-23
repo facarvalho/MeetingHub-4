@@ -4,20 +4,20 @@ Version: 0.1
 Status: Draft
 
 
-# 1. Objetivo
+# 1. Objective
 
-Definir o circuito responsável por direcionar o microfone do headset para um dos quatro notebooks.
+Define the circuit responsible for routing the headset microphone to one of the four laptops.
 
 
-# 2. Requisito Principal
+# 2. Main Requirement
 
-A linha de microfone deverá permanecer eletricamente transparente.
+The microphone line must remain electrically transparent.
 
-O notebook deverá enxergar:
+The laptop must see:
 
 ```
 
-Notebook
+Laptop
 
 ```
 |
@@ -27,22 +27,22 @@ Headset MIC
 
 ```
 
-sem diferença significativa em relação a uma conexão direta.
+with no significant difference compared to a direct connection.
 
 
-# 3. Restrições
+# 3. Constraints
 
-Não utilizar:
+Do not use:
 
-- amplificador de microfone;
-- conversor digital;
-- processamento;
-- alteração da polarização do microfone.
+- microphone amplifier;
+- digital converter;
+- processing;
+- alteration of microphone bias/polarization.
 
 
-# 4. Arquitetura
+# 4. Architecture
 
-Fluxo:
+Flow:
 
 ```
 
@@ -56,7 +56,7 @@ Headset MIC
   |
 ```
 
-Seleção MIC
+MIC Selection
 
 ```
   |
@@ -71,65 +71,65 @@ NB1   NB2   NB3   NB4
 ```
 
 
-# 5. Método de Chaveamento
+# 5. Switching Method
 
-Método inicial:
+Initial method:
 
-Relés de sinal.
+Signal relays.
 
-Características desejadas:
+Desired characteristics:
 
-- baixa resistência de contato;
-- contato dourado;
-- baixa capacitância;
-- alta vida útil.
+- low contact resistance;
+- gold-plated contact;
+- low capacitance;
+- long service life.
 
 
-# 6. Operação
+# 6. Operation
 
-Somente um notebook deverá receber o microfone por vez.
+Only one laptop must receive the microphone at a time.
 
-Estados:
+States:
 
 ```
 
-Selecionado:
+Selected:
 NB1
 NB2
 NB3
 NB4
 
-ou
+or
 
-Nenhum (MUTE)
+None (MUTE)
 
 ```
 
 
 # 7. MUTE
 
-O mute deverá interromper a linha do microfone.
+Mute must interrupt the microphone line.
 
-Características:
+Characteristics:
 
-- ação física;
-- resposta imediata;
-- sem software.
-
-
-# 8. Considerações
-
-O circuito deverá ser validado com diferentes notebooks devido às variações de implementação de detecção de headset.
+- physical action;
+- immediate response;
+- no software.
 
 
-# 9. Testes Necessários
+# 8. Considerations
 
-Validar:
+The circuit must be validated with different laptops due to variations in headset detection implementation.
 
-- reconhecimento do headset;
-- funcionamento do microfone;
-- troca entre notebooks;
-- ausência de ruído;
-- ausência de interferência.
+
+# 9. Required Tests
+
+Validate:
+
+- headset recognition;
+- microphone operation;
+- switching between laptops;
+- absence of noise;
+- absence of interference.
 ```
 

@@ -1,84 +1,84 @@
-# Guia de Registro de Patente Internacional — MeetingHub-4
+# International Patent Registration Guide — MeetingHub-4
 
-**Versão: 0.1 — Documento educacional, não é aconselhamento jurídico**
-
----
-
-## Leia isto primeiro: avaliação honesta de patenteabilidade
-
-Antes de qualquer procedimento, é importante avaliar com realismo se este projeto tem chance real de receber uma patente. Baseado na documentação técnica deste repositório (ERS-001, HAD-001, SCH-001 a SCH-009, PCB-001):
-
-O MeetingHub-4 combina blocos de circuito **bem conhecidos e amplamente publicados** — um estágio somador com amplificador operacional para mixagem de áudio, relés para chaveamento de sinal de microfone, um amplificador de fone de ouvido, interfaces TRRS passivas, e alimentação via USB-C — montados de forma direta para atender a uma necessidade específica (gerenciar áudio de 4 notebooks com um headset).
-
-Para que uma **patente de invenção (utility patent)** seja concedida, a maioria dos sistemas de patente no mundo (incluindo o brasileiro, via INPI, e o sistema PCT) exige três critérios cumulativos:
-
-1. **Novidade** — a solução não pode já existir, publicada ou em uso, em nenhum lugar do mundo, antes da data de depósito.
-2. **Atividade inventiva / não-obviedade** — a solução não pode ser um passo óbvio para um técnico no assunto, a partir do que já é conhecido.
-3. **Aplicação industrial** — a solução precisa ser fabricável/utilizável industrialmente (este critério, isoladamente, o MeetingHub-4 atende sem problema).
-
-**O risco real aqui está nos critérios 1 e 2.** Circuitos somadores com op-amp, chaveamento por relé, e interfaces TRRS são técnicas de eletrônica analógica ensinadas em qualquer curso básico de eletrônica e usadas em produtos comerciais há décadas. Um exame de patente (ou uma busca de anterioridade feita antes do depósito) muito provavelmente encontraria "prior art" (técnica anterior) cobrindo os elementos individuais e, possivelmente, a própria combinação — mixers de áudio multi-fonte com seleção de microfone por relé não são um conceito novo no mercado de áudio profissional/broadcast.
-
-**Isso não significa que não há nada a proteger** — só significa que a proteção mais adequada provavelmente não é uma patente de invenção. Ver seção "Alternativas" abaixo antes de decidir gastar tempo e dinheiro com depósito internacional.
-
-**Recomendação concreta**: antes de gastar qualquer valor com depósito, contrate uma **busca de anterioridade profissional** (patent search) feita por um agente de propriedade industrial registrado. Custa uma fração do valor de um depósito internacional e responde a pergunta central com base em evidência real, não em suposição — inclusive a minha, escrita aqui sem acesso a bases de patentes.
+**Version: 0.1 — Educational document, not legal advice**
 
 ---
 
-## Alternativas de proteção mais adequadas a este tipo de projeto
+## Read this first: an honest patentability assessment
 
-| Proteção | O que cobre | Custo relativo | Já coberto neste projeto? |
+Before any procedure, it is important to realistically assess whether this project has a real chance of being granted a patent. Based on the technical documentation in this repository (ERS-001, HAD-001, SCH-001 to SCH-009, PCB-001):
+
+MeetingHub-4 combines circuit blocks that are **well known and widely published** — an op-amp summing stage for audio mixing, relays for microphone signal switching, a headphone amplifier, passive TRRS interfaces, and USB-C power supply — assembled in a straightforward way to meet a specific need (managing audio for 4 laptops with a single headset).
+
+For a **utility patent** to be granted, most patent systems worldwide (including the Brazilian system, via INPI, and the PCT system) require three cumulative criteria:
+
+1. **Novelty** — the solution must not already exist, published or in use, anywhere in the world, before the filing date.
+2. **Inventive step / non-obviousness** — the solution cannot be an obvious step for a person skilled in the art, starting from what is already known.
+3. **Industrial applicability** — the solution must be industrially manufacturable/usable (this criterion, on its own, MeetingHub-4 meets without issue).
+
+**The real risk here lies in criteria 1 and 2.** Op-amp summing circuits, relay switching, and TRRS interfaces are analog electronics techniques taught in any basic electronics course and used in commercial products for decades. A patent examination (or a prior-art search performed before filing) would very likely find prior art covering the individual elements and, possibly, the combination itself — multi-source audio mixers with relay-based microphone selection are not a novel concept in the professional/broadcast audio market.
+
+**This does not mean there is nothing to protect** — it just means the most appropriate protection is probably not a utility patent. See the "Alternatives" section below before deciding to spend time and money on an international filing.
+
+**Concrete recommendation**: before spending anything on filing, hire a **professional prior-art search** (patent search) performed by a registered industrial property agent. It costs a fraction of the price of an international filing and answers the central question based on real evidence, not on assumption — including my own, written here without access to patent databases.
+
+---
+
+## Protection alternatives better suited to this type of project
+
+| Protection | What it covers | Relative cost | Already covered in this project? |
 |---|---|---|---|
-| **Segredo de negócio (trade secret)** | O próprio arquivo de projeto (esquemático, PCB) mantido confidencial | Baixo (cláusula contratual) | Sim — cláusula 7 do [LICENSE.md](../../LICENSE.md) |
-| **Direito autoral (copyright)** | Os arquivos de esquemático/PCB como desenho técnico, e a documentação escrita | Baixo/nenhum (proteção automática na maioria dos países; registro formal reforça a prova de autoria) | Automático desde a criação; considerar registro formal se for comercializar internacionalmente |
-| **Marca (trademark)** | O nome comercial do produto ("MeetingHub-4" ou nome de marca real de venda) e/ou logotipo | Médio, por país/classe | Não feito - avaliar antes do lançamento comercial |
-| **Desenho industrial (design patent)** | A aparência visual do gabinete/painel, se tiver design próprio e distintivo | Médio | Não aplicável ainda - depende do design do gabinete, que não faz parte deste projeto de hardware eletrônico |
-| **Patente de invenção (utility patent)** | Uma solução técnica nova e não-óbvia | Alto (ver abaixo) | Avaliar via busca de anterioridade antes de decidir |
+| **Trade secret** | The project file itself (schematic, PCB) kept confidential | Low (contractual clause) | Yes — clause 7 of [LICENSE.md](../../LICENSE.md) |
+| **Copyright** | The schematic/PCB files as technical drawings, and the written documentation | Low/none (automatic protection in most countries; formal registration reinforces proof of authorship) | Automatic from creation; consider formal registration if commercializing internationally |
+| **Trademark** | The commercial name of the product ("MeetingHub-4" or the real sales brand name) and/or logo | Medium, per country/class | Not done - evaluate before commercial launch |
+| **Design patent** | The visual appearance of the enclosure/panel, if it has its own distinctive design | Medium | Not yet applicable - depends on the enclosure design, which is not part of this electronic hardware project |
+| **Utility patent** | A new and non-obvious technical solution | High (see below) | Evaluate via prior-art search before deciding |
 
-Para a maioria dos produtos de hardware de nicho como este, a combinação **segredo de negócio (proteger os arquivos de projeto) + marca (proteger o nome comercial) + contrato de licença bem redigido** oferece proteção prática mais rápida e barata do que perseguir uma patente com risco real de indeferimento.
+For most niche hardware products like this one, the combination of **trade secret (protecting the project files) + trademark (protecting the commercial name) + a well-drafted license agreement** offers faster and cheaper practical protection than pursuing a patent with a real risk of rejection.
 
 ---
 
-## Se, mesmo assim, decidir seguir com depósito de patente internacional
+## If you still decide to proceed with an international patent filing
 
-### Visão geral do sistema PCT (Patent Cooperation Treaty)
+### Overview of the PCT system (Patent Cooperation Treaty)
 
-O caminho padrão para buscar proteção em múltiplos países a partir de um único depósito inicial é o **Tratado de Cooperação em Matéria de Patentes (PCT)**, administrado pela OMPI/WIPO. Ele **não concede uma "patente internacional"** (isso não existe como conceito jurídico único) — ele permite reservar prioridade e adiar decisões país-a-país enquanto se avalia o mérito.
+The standard path to seeking protection in multiple countries from a single initial filing is the **Patent Cooperation Treaty (PCT)**, administered by WIPO. It **does not grant an "international patent"** (that does not exist as a single legal concept) — it allows reserving priority and deferring country-by-country decisions while the merits are evaluated.
 
-**Etapas típicas:**
+**Typical steps:**
 
-1. **Depósito prioritário nacional** (opcional, mas comum): depósito inicial no país de origem do requerente (ex.: INPI no Brasil) para estabelecer data de prioridade. A partir daqui, você tem **12 meses** para decidir entrar no PCT reivindicando essa prioridade.
-2. **Depósito internacional PCT**: um único pedido, num único idioma, depositado num escritório receptor (ex.: INPI, ou diretamente na OMPI), reivindicando a prioridade do depósito nacional (se houver).
-3. **Busca internacional (International Search Report)**: uma autoridade de busca (ex.: INPI, EPO, USPTO, dependendo de onde o pedido foi feito) emite um relatório indicando técnica anterior relevante encontrada — **é aqui que problemas de novidade/atividade inventiva tendem a aparecer publicamente pela primeira vez**.
-4. **Publicação internacional**: o pedido é publicado (tornado público) aos 18 meses contados da prioridade mais antiga.
-5. **Exame preliminar internacional** (opcional): uma opinião preliminar sobre patenteabilidade, útil para decidir se vale a pena prosseguir.
-6. **Entrada em fase nacional**: até **30-31 meses** contados da data de prioridade (o prazo varia por país), o requerente decide em **quais países específicos** quer efetivamente prosseguir com o exame e eventual concessão — cada país então examina e decide independentemente, segundo sua própria lei. **É nesta fase que a maior parte do custo real acontece** (tradução, agentes locais, taxas de exame país a país).
+1. **National priority filing** (optional, but common): initial filing in the applicant's home country (e.g., INPI in Brazil) to establish a priority date. From this point, you have **12 months** to decide whether to enter the PCT claiming that priority.
+2. **PCT international filing**: a single application, in a single language, filed at a receiving office (e.g., INPI, or directly at WIPO), claiming priority from the national filing (if any).
+3. **International search (International Search Report)**: a search authority (e.g., INPI, EPO, USPTO, depending on where the application was filed) issues a report indicating relevant prior art found — **this is where novelty/inventive-step problems tend to surface publicly for the first time**.
+4. **International publication**: the application is published (made public) 18 months from the earliest priority date.
+5. **International preliminary examination** (optional): a preliminary opinion on patentability, useful for deciding whether it is worth proceeding.
+6. **National phase entry**: within **30-31 months** from the priority date (the deadline varies by country), the applicant decides in **which specific countries** to actually proceed with examination and eventual grant — each country then examines and decides independently, according to its own law. **This is the phase where most of the real cost occurs** (translation, local agents, country-by-country examination fees).
 
-### Prazos-chave (resumo)
+### Key deadlines (summary)
 
-| Marco | Prazo a partir da prioridade |
+| Milestone | Deadline from priority date |
 |---|---|
-| Depósito PCT reivindicando prioridade nacional | até 12 meses |
-| Publicação internacional | 18 meses |
-| Entrada em fase nacional (varia por país, ex.: Europa ~31 meses, EUA ~30 meses) | 30-31 meses |
+| PCT filing claiming national priority | up to 12 months |
+| International publication | 18 months |
+| National phase entry (varies by country, e.g., Europe ~31 months, USA ~30 months) | 30-31 months |
 
-### Custos (ordem de grandeza, **não são valores fixos** — variam por escritório, número de países, e câmbio; consulte um agente para orçamento real)
+### Costs (order of magnitude, **not fixed figures** — they vary by office, number of countries, and exchange rate; consult an agent for a real quote)
 
-- Depósito nacional prioritário: baixo a moderado.
-- Depósito PCT + busca internacional: moderado (tipicamente alguns milhares de dólares/euros).
-- **Fase nacional em cada país** (tradução obrigatória + agente local + taxas): este é o item que mais pesa — cada país escolhido pode custar de forma independente, e escolher 5-10 países pode multiplicar o custo total várias vezes em relação ao depósito PCT inicial.
-- Manutenção (anuidades) em cada país concedido, por todo o prazo de vigência.
+- Priority national filing: low to moderate.
+- PCT filing + international search: moderate (typically a few thousand dollars/euros).
+- **National phase in each country** (mandatory translation + local agent + fees): this is the item that weighs the most — each chosen country can cost independently, and choosing 5-10 countries can multiply the total cost several times over relative to the initial PCT filing.
+- Maintenance (annuities) in each granted country, for the entire term of validity.
 
-### Quem procurar
+### Who to contact
 
-- **Agente de Propriedade Industrial registrado** (no Brasil, credenciado junto ao INPI) para o depósito nacional e orientação sobre PCT.
-- **Advogado de patentes (patent attorney)** com atuação internacional, ou uma firma com correspondentes em cada país-alvo, para a fase nacional.
-- A própria **OMPI/WIPO** disponibiliza material educacional gratuito sobre o sistema PCT (pesquise "WIPO PCT applicant's guide" diretamente no site oficial da OMPI).
+- A **registered Industrial Property Agent** (in Brazil, accredited with INPI) for the national filing and guidance on the PCT.
+- A **patent attorney** with international practice, or a firm with correspondents in each target country, for the national phase.
+- **WIPO** itself provides free educational material on the PCT system (search for "WIPO PCT applicant's guide" directly on the official WIPO website).
 
 ---
 
-## Resumo executivo
+## Executive summary
 
-1. **Não deposite nada antes de uma busca de anterioridade profissional.** O risco de indeferimento por falta de novidade/atividade inventiva é real e concreto para este tipo de projeto.
-2. **Considere se segredo de negócio + marca não resolve melhor e mais barato** o problema de negócio real (impedir cópia direta, proteger o nome comercial).
-3. **Se a busca indicar chance real**, o caminho é: depósito nacional prioritário → PCT → entrada em fase nacional nos países de interesse comercial real (não em todos os países do mundo — escolha por onde pretende vender).
-4. **Todo esse processo deve ser conduzido por um agente/advogado de patentes habilitado.** Este documento é só um mapa do território, não um substituto para orientação profissional.
+1. **Do not file anything before a professional prior-art search.** The risk of rejection for lack of novelty/inventive step is real and concrete for this type of project.
+2. **Consider whether trade secret + trademark solves the real business problem** (preventing direct copying, protecting the commercial name) better and more cheaply.
+3. **If the search indicates a real chance**, the path is: national priority filing → PCT → national phase entry in the countries of real commercial interest (not every country in the world — choose where you intend to sell).
+4. **This entire process must be conducted by a qualified patent agent/attorney.** This document is only a map of the territory, not a substitute for professional guidance.

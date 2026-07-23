@@ -4,76 +4,76 @@ Version: 1.0
 Status: Review
 
 
-# 1. Objetivo
+# 1. Objective
 
-Documentar o que foi de fato implementado e validado durante a construção do
-esquemático KiCad do MeetingHub-4 (SCH-001 a SCH-009), e deixar explícito o
-que essa validação cobre e o que **não** cobre, para orientar a revisão
-técnica completa antes da fabricação.
+Document what was actually implemented and validated during the construction
+of the MeetingHub-4 KiCad schematic (SCH-001 to SCH-009), and make explicit
+what this validation covers and what it does **not** cover, to guide the
+full technical review before manufacturing.
 
 
-# 2. O que foi construído
+# 2. What was built
 
-O projeto foi organizado em cinco folhas hierárquicas em
+The project was organized into five hierarchical sheets in
 `hardware/KiCad/MeetingHub-4/`:
 
 ## POWER (POWER.kicad_sch)
 
-- Conector USB-C de alimentação (J1)
-- Fusível de proteção (F1, 500mA)
-- Diodo TVS de proteção (D1)
-- Filtragem da alimentação +5V_AUDIO (C1/C2)
-- Ponto de teste (TP1)
+- Power supply USB-C connector (J1)
+- Protection fuse (F1, 500mA)
+- Protection TVS diode (D1)
+- +5V_AUDIO power supply filtering (C1/C2)
+- Test point (TP1)
 
-**Observação:** esta folha **não possui regulador de tensão**. A alimentação
-`+5V_AUDIO` corresponde ao VBUS do USB-C, protegido e filtrado, sem
-regulação ativa.
+**Note:** this sheet **does not have a voltage regulator**. The
+`+5V_AUDIO` power supply corresponds to the USB-C VBUS, protected and
+filtered, without active regulation.
 
 ## TRRS_INPUTS (TRRS.kicad_sch)
 
-- Quatro conectores TRRS para os notebooks (J2-J5)
-- Distribuição dos sinais de áudio provenientes dos notebooks
+- Four TRRS connectors for the laptops (J2-J5)
+- Distribution of the audio signals coming from the laptops
 
 ## AUDIO_MIXER (MIXER.kicad_sch)
 
-- Potenciômetros de ajuste individual dos canais (RV1-RV4) + master (RV5)
-- Mixer estéreo **ativo** baseado em amplificador operacional NE5532 (U1)
-- Rede de realimentação do somador
-- Geração da referência **VBIAS** por divisor resistivo (10 kΩ / 10 kΩ) com
-  capacitor de desacoplamento
+- Individual channel adjustment potentiometers (RV1-RV4) + master (RV5)
+- **Active** stereo mixer based on an NE5532 operational amplifier (U1)
+- Summing feedback network
+- Generation of the **VBIAS** reference by a resistive divider (10 kΩ / 10 kΩ)
+  with a decoupling capacitor
 
-**Observação:** o VBIAS é utilizado como referência de meia tensão para os
-amplificadores operacionais (U1 e U2). Ele **não** fornece polarização aos
-microfones, que permanecem utilizando a alimentação fornecida pelo notebook,
-conforme os requisitos de transparência do SCH-004/SCH-007.
+**Note:** VBIAS is used as the half-supply reference for the operational
+amplifiers (U1 and U2). It does **not** supply bias to the microphones,
+which continue to use the power supplied by the laptop, in accordance with
+the transparency requirements of SCH-004/SCH-007.
 
 ## HEADPHONE_AMP (HPAMP.kicad_sch)
 
-- Amplificador para fones de ouvido baseado em NJM4556A (U2)
-- Acoplamento de entrada/saída por capacitor
-- Desacoplamento da alimentação
-- Conector TRRS do headset do operador (J6)
+- Headphone amplifier based on the NJM4556A (U2)
+- Input/output coupling via capacitor
+- Power supply decoupling
+- Operator headset TRRS connector (J6)
 
 ## MIC_SWITCHING (MICSW.kicad_sch)
 
-- Chave de mute (SW1)
-- Quatro relés Omron G5V-1 (K1-K4)
-- Diodos flyback (D2-D5)
-- Seleção individual dos quatro microfones
-- Conectores JST-XH para botões externos (SW1-SW5)
+- Mute switch (SW1)
+- Four Omron G5V-1 relays (K1-K4)
+- Flyback diodes (D2-D5)
+- Individual selection of the four microphones
+- JST-XH connectors for external buttons (SW1-SW5)
 
-Ao final, o projeto contém **66 componentes**, todos com footprints
-atribuídos (exceto símbolos globais de alimentação). BOM gerada em
-`hardware/BOM/BOM-MeetingHub-4.csv` e PDF do esquemático em
+In the end, the project contains **66 components**, all with footprints
+assigned (except global power symbols). BOM generated at
+`hardware/BOM/BOM-MeetingHub-4.csv` and schematic PDF at
 `hardware/Schematics/MeetingHub-4-Schematic.pdf`.
 
 
-# 3. Diagramas de bloco
+# 3. Block diagrams
 
-Diagrama único de topologia mista tende a confundir alimentação com sinal.
-Por isso, três diagramas separados:
+A single mixed-topology diagram tends to confuse power supply with signal.
+For this reason, three separate diagrams are used:
 
-## 3.1 Distribuição de alimentação
+## 3.1 Power supply distribution
 
 ```text
 USB-C (J1)
@@ -82,117 +82,118 @@ USB-C (J1)
    │ +5V_AUDIO
    ├──► AUDIO_MIXER    (U1 NE5532)
    ├──► HEADPHONE_AMP  (U2 NJM4556A)
-   └──► MIC_SWITCHING  (bobinas dos relés K1-K4, via SW2-SW5)
+   └──► MIC_SWITCHING  (K1-K4 relay coils, via SW2-SW5)
 ```
 
-## 3.2 Caminho de áudio (Notebook -> Headset)
+## 3.2 Audio path (Laptop -> Headset)
 
 ```text
 TRRS_INPUTS                 AUDIO_MIXER                HEADPHONE_AMP
 J2 NB1_L/R ──┐
-J3 NB2_L/R ──┤   volume            soma            MIX_L/R    ganho     J6
-J4 NB3_L/R ──┼──► individual ──► ativa (U1) ───────────────► (U2) ──► Headset
+J3 NB2_L/R ──┤   individual        active sum      MIX_L/R    gain      J6
+J4 NB3_L/R ──┼──► volume ──────► (U1) ──────────────────────► (U2) ──► Headset
 J5 NB4_L/R ──┘   (RV1-RV4)                                             (L/R)
 ```
 
-## 3.3 Caminho do microfone (Headset -> Notebook selecionado)
+## 3.3 Microphone path (Headset -> Selected laptop)
 
 ```text
 Headset (J6, sleeve)
    │ HEADSET_MIC
- MIC_SWITCHING (SW1 mute + K1-K4 seleção)
+ MIC_SWITCHING (SW1 mute + K1-K4 selection)
    │
    ├──► NB1_MIC ──► J2 (TRRS_INPUTS)
    ├──► NB2_MIC ──► J3
    ├──► NB3_MIC ──► J4
-   └──► NB4_MIC ──► J5      (apenas um relé deve ficar energizado por vez)
+   └──► NB4_MIC ──► J5      (only one relay should be energized at a time)
 ```
 
 
-# 4. O que foi validado, e como
+# 4. What was validated, and how
 
-- **Conectividade estrutural**: `kicad-cli sch export netlist` rodado
-  repetidamente (múltiplas vezes, de forma determinística) sobre o projeto
-  completo, sem erro. As redes nomeadas (`+5V_AUDIO`, `VBIAS`, `NB1-4_L/R/MIC`,
-  `MIX_L/R`, `HEADSET_MIC`, `GND`) aparecem corretamente na netlist exportada,
-  ligando as 5 folhas entre si como esperado.
-- **Renderização visual**: `kicad-cli sch export pdf` gerado e inspecionado
-  página a página (todas as 6 páginas), confirmando que os componentes
-  aparecem nas folhas certas com os rótulos esperados.
-- **Footprints**: script de pós-processamento conferiu que 100% dos
-  componentes (exceto símbolos de GND, que não usam footprint) têm um
-  footprint não-vazio atribuído.
+- **Structural connectivity**: `kicad-cli sch export netlist` run
+  repeatedly (multiple times, deterministically) on the complete project,
+  with no error. The named nets (`+5V_AUDIO`, `VBIAS`, `NB1-4_L/R/MIC`,
+  `MIX_L/R`, `HEADSET_MIC`, `GND`) appear correctly in the exported
+  netlist, connecting the 5 sheets to each other as expected.
+- **Visual rendering**: `kicad-cli sch export pdf` generated and inspected
+  page by page (all 6 pages), confirming that the components appear on
+  the correct sheets with the expected labels.
+- **Footprints**: a post-processing script verified that 100% of the
+  components (except GND symbols, which do not use a footprint) have a
+  non-empty footprint assigned.
 
-**Isso equivale a uma checagem de integridade estrutural do arquivo, não a
-um ERC.** Nenhuma dessas verificações substitui o ERC completo do KiCad
-(conflito de tipo de pino, entrada flutuante, pino de alimentação sem
-fonte, etc.), que só roda pela interface gráfica nesta versão do
-`kicad-cli` (7.0.11 - os subcomandos `sch erc` e `pcb drc` só existem a
-partir do KiCad 8).
-
-
-# 5. Limitação importante da revisão
-
-A validação acima foi feita **sobre o projeto completo** (todas as 5 folhas
-+ raiz), não sobre fragmentos isolados. Ainda assim, a revisão foi
-predominantemente automatizada (parsing/exportação via `kicad-cli`) e
-visual (inspeção do PDF renderizado). Não substitui:
-
-- ERC completo na interface gráfica do KiCad;
-- conferência manual, folha por folha, de cada junção/rótulo contra a
-  intenção elétrica (especialmente linha de microfone e aterramento);
-- revisão de valores de ganho, impedância e ruído por alguém que possa
-  simular ou bancar o circuito fisicamente.
+**This is equivalent to a structural integrity check of the file, not an
+ERC.** None of these checks replace the full KiCad ERC (pin type
+conflicts, floating input, unpowered power pin, etc.), which only runs
+through the graphical interface in this version of `kicad-cli` (7.0.11 -
+the `sch erc` and `pcb drc` subcommands only exist starting from KiCad 8).
 
 
-# 6. Decisões técnicas tomadas durante a implementação
+# 5. Important limitation of the review
 
-Pontos que exigem confirmação humana antes de rotear a PCB:
+The validation above was performed **on the complete project** (all 5
+sheets + root), not on isolated fragments. Even so, the review was
+predominantly automated (parsing/export via `kicad-cli`) and visual
+(inspection of the rendered PDF). It does not replace:
 
-- **VBIAS**: gerado por divisor resistivo passivo (10k/10k + 10uF), sem
-  buffer ativo. Funciona porque a impedância de entrada dos op-amps é alta,
-  mas é a escolha mais simples possível - se houver ruído de fundo audível
-  no protótipo, esse é o primeiro ponto a revisar (trocar por um buffer
-  ativo dedicado).
-- **Ganhos**: mixer somador com ganho unitário por fonte (Rf = Rin = 10k);
-  estágio de headphone com ganho ~2x (Rf/Rg = 1k/1k). Não foram validados
-  contra nível de saída real de notebooks nem contra a sensibilidade de
-  fones de 16-64 ohms - valores de partida razoáveis, não calibrados.
-- **Seleção de microfone**: implementada com chaves SPST manuais (SW2-SW5)
-  alimentando cada bobina de relé independentemente. Não há intertravamento
-  elétrico - é responsabilidade do usuário final acionar apenas uma seleção
-  por vez, como já previsto em SCH-007.
-- **Contorno de bug do kicad-cli**: símbolos com `(extends "Base")` (ex.
-  NE5532/NJM4556A a partir de LM2904, TVS a partir de ZPYxx) e nomes de
-  símbolo em cache sem o prefixo da biblioteca causavam segfault
-  determinístico no `kicad-cli sch export netlist` (KiCad 7.0.11). Os
-  símbolos foram embutidos usando o símbolo-base diretamente com o campo
-  Value sobrescrito, e os nomes em cache foram prefixados
-  (`Device:R`, `Diode:ZPYxx`, etc.). Isso é apenas uma peculiaridade de
-  arquivo/ferramenta - não afeta a elétrica, mas fica registrado caso
-  outro símbolo com `extends` seja adicionado no futuro.
+- a full ERC in the KiCad graphical interface;
+- manual review, sheet by sheet, of each junction/label against the
+  electrical intent (especially the microphone line and grounding);
+- review of gain, impedance, and noise values by someone who can
+  simulate or physically bench-test the circuit.
 
 
-# 7. Pendências antes da fabricação
+# 6. Technical decisions made during implementation
 
-Confirmadas nesta revisão, ainda em aberto:
+Points that require human confirmation before routing the PCB:
 
-- ERC completo via KiCad (GUI).
-- Layout da PCB (posicionamento de jacks/potenciômetros/relés, separação
-  áudio x alimentação, plano de terra) e DRC da fabricante escolhida.
-- Conferência mecânica de pinout/footprint contra os datasheets das peças
-  efetivamente compradas: USB-C, jacks TRRS (PJ320D), G5V-1, potenciômetros
-  duplos (RK097).
-- Conferência dimensional contra o gabinete.
-- Geração de Gerbers, arquivos de furação (Excellon), BOM final e
-  Pick & Place (se houver montagem automática).
-- Revisão técnica manual completa (alimentação, aterramento analógico,
-  níveis/impedância de áudio, relés, USB-C, op-amps, mixer, seleção de
-  microfone, possíveis loops de terra) antes de gerar os arquivos de
-  fabricação.
+- **VBIAS**: generated by a passive resistive divider (10k/10k + 10uF),
+  without an active buffer. This works because the op-amp input
+  impedance is high, but it is the simplest possible choice - if
+  audible background noise is present in the prototype, this is the
+  first point to review (replace with a dedicated active buffer).
+- **Gains**: summing mixer with unity gain per source (Rf = Rin = 10k);
+  headphone stage with gain of ~2x (Rf/Rg = 1k/1k). These have not been
+  validated against actual laptop output levels or against the
+  sensitivity of 16-64 ohm headphones - reasonable starting values, not
+  calibrated.
+- **Microphone selection**: implemented with manual SPST switches
+  (SW2-SW5) feeding each relay coil independently. There is no
+  electrical interlock - it is the end user's responsibility to
+  activate only one selection at a time, as already specified in
+  SCH-007.
+- **kicad-cli bug workaround**: symbols with `(extends "Base")` (e.g.
+  NE5532/NJM4556A derived from LM2904, TVS derived from ZPYxx) and
+  cached symbol names without the library prefix caused a deterministic
+  segfault in `kicad-cli sch export netlist` (KiCad 7.0.11). The symbols
+  were embedded using the base symbol directly with the Value field
+  overridden, and the cached names were prefixed (`Device:R`,
+  `Diode:ZPYxx`, etc.). This is only a file/tool quirk - it does not
+  affect the electrical design, but it is recorded here in case another
+  symbol with `extends` is added in the future.
+
+
+# 7. Pending items before manufacturing
+
+Confirmed in this review, still open:
+
+- Full ERC via KiCad (GUI).
+- PCB layout (placement of jacks/potentiometers/relays, audio vs. power
+  supply separation, ground plane) and DRC from the chosen manufacturer.
+- Mechanical review of pinout/footprint against the datasheets of the
+  parts actually purchased: USB-C, TRRS jacks (PJ320D), G5V-1, dual
+  potentiometers (RK097).
+- Dimensional check against the enclosure.
+- Generation of Gerbers, drill files (Excellon), final BOM, and Pick &
+  Place (if automated assembly is used).
+- Full manual technical review (power supply, analog grounding,
+  audio levels/impedance, relays, USB-C, op-amps, mixer, microphone
+  selection, possible ground loops) before generating the manufacturing
+  files.
 
 
 # 8. Status
 
-Esquemático estruturalmente válido e pronto para a etapa de layout de PCB.
-Não aprovado para fabricação - depende das pendências da seção 7.
+Schematic structurally valid and ready for the PCB layout stage.
+Not approved for manufacturing - depends on the pending items in section 7.

@@ -5,58 +5,58 @@ Status: Draft
 
 ---
 
-# 1. Objetivo
+# 1. Objective
 
-Este documento descreve o diagrama funcional de blocos do hardware do MeetingHub-4.
+This document describes the functional block diagram of the MeetingHub-4 hardware.
 
-O objetivo é definir a arquitetura elétrica antes do desenvolvimento do esquemático detalhado.
-
----
-
-# 2. Visão Geral
-
-O MeetingHub-4 é um equipamento analógico que permite conectar quatro notebooks simultaneamente utilizando interfaces headset TRRS CTIA.
-
-Funções principais:
-
-- receber áudio de quatro notebooks;
-- misturar os sinais de áudio em estéreo;
-- disponibilizar monitoramento em um único headset;
-- selecionar qual notebook receberá o sinal do microfone;
-- manter compatibilidade nativa com a detecção de headset dos notebooks.
+The objective is to define the electrical architecture before developing the detailed schematic.
 
 ---
 
-# 3. Diagrama Geral
+# 2. Overview
+
+MeetingHub-4 is an analog device that allows connecting four laptops simultaneously using TRRS CTIA headset interfaces.
+
+Main functions:
+
+- receive audio from four laptops;
+- mix the audio signals in stereo;
+- provide monitoring on a single headset;
+- select which laptop will receive the microphone signal;
+- maintain native compatibility with the laptops' headset detection.
+
+---
+
+# 3. General Diagram
 
 ```text
-                 ÁUDIO
+                 AUDIO
 
 +------------+
-| Notebook 1 |
+| Laptop 1   |
 +------------+
       |
       |
 +------------+
-| Notebook 2 |
+| Laptop 2   |
 +------------+
       |
       |
 +------------+
-| Notebook 3 |
+| Laptop 3   |
 +------------+
       |
       |
 +------------+
-| Notebook 4 |
+| Laptop 4   |
 +------------+
       |
       |
       v
 
 +---------------------------+
-| Entradas TRRS CTIA        |
-| Separação L / R / MIC     |
+| TRRS CTIA Inputs          |
+| L / R / MIC Separation    |
 +---------------------------+
 
       |
@@ -64,7 +64,7 @@ Funções principais:
       v
 
 +---------------------------+
-| Controle Volume Individual|
+| Individual Volume Control |
 | VOL1 VOL2 VOL3 VOL4       |
 +---------------------------+
 
@@ -73,8 +73,8 @@ Funções principais:
       v
 
 +---------------------------+
-| Mixer Estéreo Ativo       |
-| Canal L + Canal R         |
+| Active Stereo Mixer       |
+| L Channel + R Channel     |
 +---------------------------+
 
       |
@@ -82,7 +82,7 @@ Funções principais:
       v
 
 +---------------------------+
-| Volume Master             |
+| Master Volume             |
 +---------------------------+
 
       |
@@ -90,7 +90,7 @@ Funções principais:
       v
 
 +---------------------------+
-| Amplificador Headphone    |
+| Headphone Amplifier       |
 +---------------------------+
 
       |
@@ -104,11 +104,11 @@ Funções principais:
 
 ---
 
-# 4. Caminho do Microfone
+# 4. Microphone Path
 
-O caminho do microfone deverá permanecer transparente para o notebook.
+The microphone path shall remain transparent to the laptop.
 
-Não será utilizado processamento ativo na linha do microfone.
+No active processing will be used on the microphone line.
 
 ```text
 +----------------+
@@ -126,41 +126,41 @@ Não será utilizado processamento ativo na linha do microfone.
         v
 
 +----------------+
-| Seleção MIC    |
-| Notebook 1-4   |
+| MIC Selection  |
+| Laptop 1-4     |
 +----------------+
         |
         |
         v
 
 +----------------+
-| Notebook       |
-| Selecionado    |
+| Selected       |
+| Laptop         |
 +----------------+
 ```
 
 ---
 
-# 5. Seleção do Microfone
+# 5. Microphone Selection
 
-A seleção do microfone será realizada através de chaveamento de sinal.
+Microphone selection will be performed via signal switching.
 
-Requisitos:
+Requirements:
 
-* baixa resistência de contato;
-* mínima interferência;
-* preservação da polarização do microfone;
-* operação confiável em uso intenso.
+* low contact resistance;
+* minimal interference;
+* preservation of the microphone bias voltage;
+* reliable operation under heavy use.
 
-Solução inicial:
+Initial solution:
 
-* relés de sinal de alta durabilidade.
+* high-durability signal relays.
 
 ---
 
-# 6. Alimentação
+# 6. Power Supply
 
-Fonte externa:
+External source:
 
 ```text
 USB-C 5V
@@ -169,41 +169,41 @@ USB-C 5V
      v
 
 +----------------+
-| Proteção       |
+| Protection     |
 +----------------+
 
      |
      v
 
 +----------------+
-| Filtragem      |
+| Filtering      |
 +----------------+
 
      |
      v
 
 +----------------+
-| Alimentação    |
-| Circuitos Áudio|
+| Audio Circuits |
+| Power Supply   |
 +----------------+
 ```
 
 ---
 
-# 7. Aterramento
+# 7. Grounding
 
-O projeto utilizará uma estratégia de aterramento em estrela.
+The design will use a star grounding strategy.
 
-Objetivos:
+Objectives:
 
-* minimizar ruído;
-* reduzir loops de terra;
-* melhorar imunidade a interferências.
+* minimize noise;
+* reduce ground loops;
+* improve interference immunity.
 
-Estrutura:
+Structure:
 
 ```text
-Entradas Áudio
+Audio Inputs
       |
       |
       v
@@ -211,59 +211,58 @@ GND_AUDIO
 
       |
       |
-Ponto estrela
+Star point
 
       |
       |
-Alimentação
+Power Supply
 ```
 
 ---
 
-# 8. Subsistemas
+# 8. Subsystems
 
-## 8.1 Entradas TRRS
+## 8.1 TRRS Inputs
 
-Quantidade:
+Quantity:
 
-* 4 entradas notebook;
-* 1 saída headset.
+* 4 laptop inputs;
+* 1 headset output.
 
-Padrão:
+Standard:
 
 * CTIA;
-* 3,5 mm;
+* 3.5 mm;
 * TRRS.
 
 ---
 
-## 8.2 Mixer de Áudio
+## 8.2 Audio Mixer
 
-Características:
+Characteristics:
 
-* estéreo;
-* ativo;
-* baixo ruído;
-* controle individual por entrada.
-
----
-
-## 8.3 Amplificador de Headphone
-
-Responsável por:
-
-* fornecer corrente adequada ao headset;
-* manter qualidade de áudio;
-* evitar sobrecarga das saídas dos notebooks.
+* stereo;
+* active;
+* low noise;
+* individual control per input.
 
 ---
 
-## 8.4 Microfone
+## 8.3 Headphone Amplifier
 
-Características:
+Responsible for:
 
-* conexão direta ao notebook selecionado;
-* sem conversão digital;
-* sem processamento;
-* compatibilidade com detecção nativa de headset.
+* supplying adequate current to the headset;
+* maintaining audio quality;
+* preventing overload of the laptops' outputs.
 
+---
+
+## 8.4 Microphone
+
+Characteristics:
+
+* direct connection to the selected laptop;
+* no digital conversion;
+* no processing;
+* compatibility with native headset detection.

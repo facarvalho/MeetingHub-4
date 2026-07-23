@@ -4,86 +4,85 @@ Version: 0.1
 Status: Review
 
 
-# 1. Objetivo
+# 1. Objective
 
-Revisar a arquitetura elétrica definida antes do início do desenvolvimento do esquemático no KiCad.
-
-
-# 2. Escopo Revisado
-
-Foram avaliados:
-
-- interface TRRS CTIA;
-- caminho de áudio;
-- mixer estéreo;
-- amplificador de headphone;
-- seleção de microfone;
-- alimentação;
-- controle de ruído.
+Review the electrical architecture defined before starting development of the schematic in KiCad.
 
 
-# 3. Decisões Aprovadas
+# 2. Scope Reviewed
+
+The following were evaluated:
+
+- TRRS CTIA interface;
+- audio path;
+- stereo mixer;
+- headphone amplifier;
+- microphone selection;
+- power supply;
+- noise control.
+
+
+# 3. Approved Decisions
 
 
 ## Interface
 
-Aprovado:
+Approved:
 
 - TRRS CTIA;
-- conectores metálicos de painel;
-- compatibilidade nativa com notebooks.
+- metal panel connectors;
+- native compatibility with laptops.
 
 
-## Áudio
+## Audio
 
-Aprovado:
+Approved:
 
-- quatro entradas independentes;
-- mixer estéreo ativo;
-- controle individual de volume;
-- volume master.
-
-
-## Microfone
-
-Aprovado:
-
-- chaveamento por relé;
-- ausência de eletrônica ativa na linha MIC;
-- seleção de um notebook por vez.
+- four independent inputs;
+- active stereo mixer;
+- individual volume control;
+- master volume.
 
 
-## Alimentação
+## Microphone
 
-Aprovado:
+Approved:
+
+- relay-based switching;
+- absence of active electronics on the MIC line;
+- selection of one laptop at a time.
+
+
+## Power supply
+
+Approved:
 
 - USB-C 5V;
-- filtragem;
-- proteção;
-- separação de áudio e alimentação.
+- filtering;
+- protection;
+- separation of audio and power supply.
 
 
-## Ruído
+## Noise
 
-Aprovado:
+Approved:
 
-- aterramento em estrela;
-- atenção ao layout da PCB;
-- testes com diferentes carregadores.
+- star grounding;
+- attention to PCB layout;
+- tests with different chargers.
 
 
-# 4. Pontos de Atenção
+# 4. Points of Attention
 
-Durante o desenvolvimento do protótipo deverão ser avaliados:
+During prototype development, the following must be evaluated:
 
-- ruído entre notebooks;
-- compatibilidade com diferentes codecs de áudio;
-- comportamento da detecção de headset;
-- qualidade do chaveamento do microfone.
+- noise between laptops;
+- compatibility with different audio codecs;
+- headset detection behavior;
+- quality of microphone switching.
 
 
 # 5. Status
 
-Arquitetura aprovada para desenvolvimento do esquemático.
-
+Architecture approved for schematic development.
 

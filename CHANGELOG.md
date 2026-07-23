@@ -1,29 +1,29 @@
 # Changelog
 
-Histórico de marcos do projeto MeetingHub-4, por fase. Para o histórico linha-a-linha, ver `git log`.
+Milestone history of the MeetingHub-4 project, by phase. For the line-by-line history, see `git log`.
 
-## v1.0 — Hardware completo (fabricação-pronto)
+## v1.0 — Hardware complete (manufacturing-ready)
 
-### Definição de requisitos e arquitetura
-- Especificação de requisitos (ERS-001) e documento de arquitetura de hardware (HAD-001).
-- Diagrama de blocos elétrico (SCH-001) e plano de projeto do esquemático (SCH-002).
-- Projeto elétrico detalhado por bloco: fonte (SCH-003), interface TRRS (SCH-004), mixer de áudio (SCH-005), amplificador de headphone (SCH-006), chaveamento de microfone (SCH-007), aterramento e controle de ruído (SCH-008), plano de implementação no KiCad (SCH-009).
-- Revisões de arquitetura (DR-001, DR-002) antes da implementação do esquemático.
+### Requirements and architecture definition
+- Requirements specification (ERS-001) and hardware architecture document (HAD-001).
+- Electrical block diagram (SCH-001) and schematic design plan (SCH-002).
+- Detailed electrical design by block: power supply (SCH-003), TRRS interface (SCH-004), audio mixer (SCH-005), headphone amplifier (SCH-006), microphone switching (SCH-007), grounding and noise control (SCH-008), KiCad implementation plan (SCH-009).
+- Architecture reviews (DR-001, DR-002) before schematic implementation.
 
-### Esquemático
-- Esquemático completo implementado em 5 folhas (POWER, TRRS_INPUTS, AUDIO_MIXER, HEADPHONE_AMP, MIC_SWITCHING) com footprints atribuídos.
-- Revisão de implementação (DR-003), com correções de fidelidade ao projeto elétrico original.
-- Esquemático congelado como v1.0 (netlist e PDF gerados).
+### Schematic
+- Complete schematic implemented across 5 sheets (POWER, TRRS_INPUTS, AUDIO_MIXER, HEADPHONE_AMP, MIC_SWITCHING) with footprints assigned.
+- Implementation review (DR-003), with fidelity corrections against the original electrical design.
+- Schematic frozen as v1.0 (netlist and PDF generated).
 
-### Layout de PCB
-- Guia de layout completo (PCB-001), cobrindo posicionamento mecânico, zoneamento, plano de terra, roteamento, DRC e preparação para fabricação.
-- Posicionamento dos 66 componentes com restrições físicas reais (painel frontal/traseiro/superior).
-- Roteamento completo via Freerouting (autorroteador), com ajustes manuais de largura de trilha para as redes de potência.
-- Furos de fixação para o gabinete.
-- Ground plane e, posteriormente, migração para **placa de 4 camadas** com planos internos dedicados de GND e +5V_AUDIO, eliminando um problema estrutural de conectividade de terra que sobrevivia a duas rodadas de re-layout em 2 camadas.
-- Validação final: 0 pads não conectados, 0 erros de DRC (confirmado via relatório de DRC real), silkscreen sem sobreposições, gerbers de 4 camadas exportados e validados.
+### PCB layout
+- Complete layout guide (PCB-001), covering mechanical placement, zoning, ground plane, routing, DRC, and manufacturing preparation.
+- Placement of all 66 components with real physical constraints (front/rear/top panels).
+- Complete routing via Freerouting (autorouter), with manual trace-width adjustments for the power nets.
+- Mounting holes for the enclosure.
+- Ground plane, and later migration to a **4-layer board** with dedicated internal GND and +5V_AUDIO planes, eliminating a structural grounding connectivity problem that persisted across two rounds of 2-layer re-layout.
+- Final validation: 0 unconnected pads, 0 DRC errors (confirmed via an actual DRC report), no silkscreen overlaps, 4-layer gerbers exported and validated.
 
-### Documentação e licenciamento
-- Reorganização profissional de toda a documentação do projeto.
-- Licença comercial de uso com royalty ([LICENSE.md](LICENSE.md)).
-- Guia de registro de patente internacional ([docs/Legal/PATENT-GUIDE.md](docs/Legal/PATENT-GUIDE.md)).
+### Documentation and licensing
+- Professional reorganization of all project documentation.
+- Commercial usage license with royalty ([LICENSE.md](LICENSE.md)).
+- International patent registration guide ([docs/Legal/PATENT-GUIDE.md](docs/Legal/PATENT-GUIDE.md)).

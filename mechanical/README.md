@@ -1,98 +1,99 @@
-# Gabinete do MeetingHub-4 - v0.1 (rascunho)
+# MeetingHub-4 Enclosure - v0.1 (draft)
 
-Status: **rascunho não verificado visualmente** - eu não tenho nenhuma
-ferramenta de CAD 3D disponível neste ambiente (sem OpenSCAD, FreeCAD, e
-sem acesso para instalar), então nunca vi este modelo renderizado. Você
-precisa abrir no OpenSCAD e conferir antes de mandar imprimir.
+Status: **draft, not visually verified** - I don't have any
+3D CAD tool available in this environment (no OpenSCAD, FreeCAD, and
+no access to install one), so I have never seen this model rendered. You
+need to open it in OpenSCAD and check it before sending it to print.
 
-Arquivo: [`MeetingHub-4-Case.scad`](MeetingHub-4-Case.scad)
-
-
-# O que é fato do projeto vs. o que é estimativa minha
-
-**Vem direto do `.kicad_pcb` real (confiável)**:
-- Dimensão da placa: 265.1 x 160.1mm
-- Posição dos 4 furos de fixação M3 (MH1-4)
-- Posição de J1 (USB-C), J2-J5 (TRRS notebooks), J6 (TRRS headset),
-  RV1-5 (potenciômetros), SW1-5 (âncoras JST)
-- Qual face de gabinete cada componente usa (atrás/frente/em cima) -
-  isso já estava decidido e documentado em
-  [PCB-001 Fase 3.1](../docs/Architecture/PCB-001-LayoutGuide.md)
-  desde o projeto do layout da placa, não é invenção nova.
-
-**São estimativas minhas, sem fonte no projeto (confira antes de
-imprimir)**:
-- **Altura dos componentes** (`component_clearance` no arquivo,
-  20mm): usei valores típicos de datasheet para relé G5V-1 (~15.7mm),
-  soquete DIP-8 (~10mm) e capacitor eletrolítico 220µF radial (~16mm) -
-  não tenho os datasheets reais abertos, então é uma estimativa de
-  "família de peça", não medida exata. Se algum componente for mais
-  alto que isso, a tampa não fecha.
-- **Tamanho dos recortes dos conectores** (`trrs_cut_*`, `usb_cut_*`):
-  fiz recortes **generosos** (tipo janela, não furo justo) porque o
-  quanto cada conector realmente projeta para fora da borda da placa
-  não está documentado em nenhum arquivo - não dá pra confiar em
-  medida de sub-milímetro aqui. Contra-parte: pode sobrar folga
-  visível ao redor do conector depois de montado.
-- **Diâmetro do furo do eixo do potenciômetro** (`pot_hole_d`, 7mm) e
-  **furo das chaves** (`sw_hole_d`, 7mm): valores típicos para
-  RK097 e uma mini chave alavanca/pushbutton comum - **as chaves
-  físicas (SW1-5) você ainda não escolheu** (elas são ligadas por fio
-  via JST, não têm posição fixa na placa), então esse furo é só um
-  placeholder até você decidir qual chave física vai usar e me passar
-  o diâmetro real do furo dela.
+File: [`MeetingHub-4-Case.scad`](MeetingHub-4-Case.scad)
 
 
-# Como conferir e gerar o arquivo para impressão
+# What is a project fact vs. what is my estimate
 
-1. Instale o [OpenSCAD](https://openscad.org/downloads.html) (gratuito,
+**Comes directly from the real `.kicad_pcb` (reliable)**:
+- Board dimensions: 265.1 x 160.1mm
+- Position of the 4 M3 mounting holes (MH1-4)
+- Position of J1 (USB-C), J2-J5 (laptop TRRS), J6 (headset TRRS),
+  RV1-5 (potentiometers), SW1-5 (JST anchors)
+- Which enclosure face each component uses (back/front/top) -
+  this was already decided and documented in
+  [PCB-001 Phase 3.1](../docs/Architecture/PCB-001-LayoutGuide.md)
+  since the board layout design, it is not a new invention.
+
+**These are my estimates, with no source in the project (check before
+printing)**:
+- **Component height** (`component_clearance` in the file,
+  20mm): I used typical datasheet values for the G5V-1 relay (~15.7mm),
+  DIP-8 socket (~10mm), and 220µF radial electrolytic capacitor (~16mm) -
+  I don't have the actual datasheets open, so this is a "part family"
+  estimate, not an exact measurement. If any component is taller
+  than this, the lid won't close.
+- **Connector cutout size** (`trrs_cut_*`, `usb_cut_*`):
+  I made **generous** cutouts (window-style, not a tight hole) because
+  how far each connector actually protrudes beyond the board edge
+  is not documented in any file - sub-millimeter precision cannot be
+  relied upon here. Trade-off: there may be visible slack
+  around the connector once assembled.
+- **Potentiometer shaft hole diameter** (`pot_hole_d`, 7mm) and
+  **switch hole** (`sw_hole_d`, 7mm): typical values for
+  the RK097 and a common mini toggle/pushbutton switch - **the
+  physical switches (SW1-5) haven't been chosen yet** (they are
+  wired via JST, with no fixed position on the board), so this hole
+  is just a placeholder until you decide which physical switch to
+  use and give me its actual hole diameter.
+
+
+# How to check and generate the file for printing
+
+1. Install [OpenSCAD](https://openscad.org/downloads.html) (free,
    Windows/Mac/Linux).
-2. Abra `MeetingHub-4-Case.scad`.
-3. Aperte **F5** (preview) para ver o modelo rapidamente, ou **F6**
-   (render completo, mais lento mas mais preciso) antes de exportar.
-4. O arquivo mostra a base do gabinete e a tampa lado a lado. Gire a
-   câmera e confira:
-   - Os 4 furos de fixação da placa (postes menores, mais internos)
-     batem com os cantos da sua placa real.
-   - Os recortes traseiros (J1 + J2-J5) e frontal (J6) parecem na
-     posição/tamanho certos.
-   - Os 5 furos da tampa (RV1-5) alinham com os potenciômetros.
-5. Depois de conferir - **e só depois** - exporte cada peça
-   separadamente como STL: no arquivo, comente a linha da peça que não
-   quer exportar (adicione `//` na frente) e use **File → Export →
-   Export as STL**. Exporte a base e a tampa como dois arquivos STL
-   separados (você vai precisar imprimir e enviar os dois).
+2. Open `MeetingHub-4-Case.scad`.
+3. Press **F5** (preview) for a quick look at the model, or **F6**
+   (full render, slower but more accurate) before exporting.
+4. The file shows the enclosure base and lid side by side. Rotate the
+   camera and check:
+   - The 4 board mounting holes (smaller, more internal posts)
+     match the corners of your actual board.
+   - The rear cutouts (J1 + J2-J5) and front cutout (J6) look right
+     in position/size.
+   - The 5 lid holes (RV1-5) align with the potentiometers.
+5. After checking - **and only then** - export each part
+   separately as STL: in the file, comment out the line for the part
+   you don't want to export (add `//` in front) and use **File → Export →
+   Export as STL**. Export the base and the lid as two separate
+   STL files (you'll need to print and send both).
 
 
-# Ajustando antes de imprimir
+# Adjusting before printing
 
-Os parâmetros mais importantes ficam no topo do arquivo, com
-comentário explicando cada um:
+The most important parameters are at the top of the file, with a
+comment explaining each one:
 
-- `component_clearance`: aumente se algum componente for mais alto que
-  o estimado (meça o componente real mais alto acima da placa, mão na
-  régua, e use esse valor + uns 2-3mm de folga).
-- `sw_hole_d`: troque pelo diâmetro real da chave física que você
-  comprar para SW1-5.
-- `trrs_cut_*` / `usb_cut_*`: se quiser um recorte mais justo (menos
-  folga visível), pode reduzir - mas eu recomendo testar primeiro com
-  a folga generosa do rascunho, é mais fácil garantir que encaixa.
+- `component_clearance`: increase if any component is taller than
+  the estimated value (measure the actual tallest component above the
+  board with a ruler, and use that value + about 2-3mm of clearance).
+- `sw_hole_d`: replace with the actual diameter of the physical switch
+  you buy for SW1-5.
+- `trrs_cut_*` / `usb_cut_*`: if you want a tighter cutout (less
+  visible slack), you can reduce these - but I recommend testing first
+  with the draft's generous clearance, it's easier to guarantee a fit.
 
-Depois de editar qualquer parâmetro, aperte F5/F6 de novo para ver o
-efeito antes de reexportar.
+After editing any parameter, press F5/F6 again to see the
+effect before re-exporting.
 
 
-# Antes de imprimir o lote inteiro
+# Before printing the full batch
 
-Como eu não consegui verificar isso visualmente, o mais seguro é:
+Since I wasn't able to verify this visually, the safest approach is:
 
-1. **Imprima só a tampa primeiro** (é a peça mais barata e rápida) e
-   confira se os 5 furos de potenciômetro alinham com a placa real
-   montada.
-2. Se bater, imprima a base e faça um encaixe seco (sem parafusar)
-   com a placa de verdade antes de finalizar/pintar/parafusar tudo.
-3. Só depois disso pedir a impressão em produção (via PCBWay ou outro
-   serviço de impressão 3D) - eles aceitam STL diretamente.
+1. **Print only the lid first** (it's the cheapest and fastest part) and
+   check whether the 5 potentiometer holes align with the actual
+   assembled board.
+2. If it fits, print the base and do a dry fit (without screwing it in)
+   with the real board before finalizing/painting/screwing everything
+   together.
+3. Only after that, order production printing (via PCBWay or another
+   3D printing service) - they accept STL files directly.
 
-Qualquer ajuste de medida, me avise a medida real que você tirou e eu
-atualizo o `.scad`.
+For any measurement adjustment, let me know the actual measurement you
+took and I'll update the `.scad`.

@@ -1,121 +1,123 @@
 # BOM-002 - As-Built Bill of Materials
 
 Version: 1.0
-Status: Final — confere com a PCB final de 4 camadas (layout completo e validado)
+Status: Final — matches the final 4-layer PCB (complete and validated layout)
 
-Supersede: BOM-001 (lista conceitual, anterior ao esquemático real)
-
-
-# 1. Objetivo
-
-Registrar a lista de materiais real, extraída diretamente do esquemático KiCad
-(5 folhas: POWER, TRRS_INPUTS, AUDIO_MIXER, HEADPHONE_AMP, MIC_SWITCHING),
-com referência, valor e footprint de cada componente, mais os itens
-adicionados diretamente na PCB durante o layout (furos de fixação e ponto de
-teste de GND).
-
-Arquivo bruto: [BOM-MeetingHub-4.csv](BOM-MeetingHub-4.csv)
+Supersedes: BOM-001 (conceptual list, prior to the real schematic)
 
 
-# 2. Resumo
+# 1. Purpose
 
-- 75 itens físicos distintos (36 linhas após agrupar por valor+footprint):
-  70 componentes do esquemático + TP2 (ponto de teste de GND) + MH1-4
-  (furos de fixação M3) - estes últimos 5 não têm símbolo no esquemático
-  por serem só-mecânicos, adicionados direto na PCB (ver PCB-001 Fases
-  3.3.3 e 8).
-- 100% dos componentes possuem footprint atribuído (exceto símbolos de GND)
-- Todos os componentes ativos e passivos em THT, favorecendo montagem manual
+Record the actual bill of materials, extracted directly from the KiCad
+schematic (5 sheets: POWER, TRRS_INPUTS, AUDIO_MIXER, HEADPHONE_AMP,
+MIC_SWITCHING), with reference, value, and footprint for each component,
+plus the items added directly on the PCB during layout (mounting holes
+and GND test point).
 
-
-# 3. Notas de escolha de footprint
-
-- **J1** (USB-C): `Connector_USB:USB_C_Receptacle_GCT_USB4085` - peça comum,
-  usada em diversos projetos open-hardware.
-- **J2-J6** (TRRS 3.5mm, 4 polos): `Connector_Audio:Jack_3.5mm_PJ320D_Horizontal`
-  - jack metálico de painel. Confirmar mecanicamente contra a peça real comprada
-  antes de rotear a PCB.
-- **K1-K4** (relé): `Relay_THT:Relay_SPDT_Omron_G5V-1` - footprint oficial do
-  G5V-1 real.
-- **RV1-RV5** (potenciômetro duplo): `Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal`
-  - conferir alinhamento com os furos do painel frontal.
-- **SW1-SW5** (MUTE + seleção de notebook): `Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical`
-  - chaves ficam no painel, ligadas por fio até a placa (não são botões de PCB).
-- **U1, U2** (NE5532 / NJM4556A): `Package_DIP:DIP-8_W7.62mm` - DIP-8 para
-  facilitar montagem manual do protótipo (usar soquete). Migrar para SOIC-8
-  em produção seriada, se necessário reduzir a área da placa.
-- **D1** (proteção TVS): footprint `Diode_THT:D_DO-41_SOD81`; valor real de
-  compra é PTVS5V0Z1USK (o símbolo usado na biblioteca é o genérico ZPYxx,
-  sem alterar pinagem/geometria).
-- **TP1, TP2** (pontos de teste): `TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm`
-  - TP1 no net +5V_AUDIO (folha POWER), TP2 no net GND, perto do U1. TP2 é
-    um footprint só-mecânico, adicionado direto na PCB (sem símbolo no
-    esquemático) - ver PCB-001 Fase 8 para o histórico de por que ele
-    existe (ponto de teste genérico de GND, útil para medição).
-- **MH1-MH4** (furos de fixação do gabinete): `MountingHole:MountingHole_3.2mm_M3`
-  - furo não-plaqueado 3.2mm para parafuso M3, um em cada canto da placa,
-    6mm de margem da borda. Só-mecânicos, sem símbolo no esquemático - ver
-    PCB-001 Fase 3.3.3 para as posições exatas.
+Raw file: [BOM-MeetingHub-4.csv](BOM-MeetingHub-4.csv)
 
 
-# 4. Status de fabricação
+# 2. Summary
 
-- ✅ Layout de PCB completo (posicionamento de jacks, potenciômetros,
-  relés; separação áudio/alimentação por face do gabinete - ver PCB-001
-  Fases 3-5).
-- ✅ DRC real (via KiCad, confirmado 23/07/2026): 0 pads não conectados,
-  0 erros. Únicos 5 avisos remanescentes são cosméticos e aceitos
-  (divergência de biblioteca dos potenciômetros RV1-RV5 - ver PCB-001
-  Fase 8).
-- ✅ Placa migrada para 4 camadas (planos dedicados de GND e +5V_AUDIO nas
-  camadas internas - ver PCB-001 Fase 6).
-- ✅ Gerbers, furação (Excellon) e posições de montagem exportados e
-  validados via `kicad-cli` (sem erro de exportação).
-- ✅ ERC rodado (via KiCad, pelo usuário), em duas rodadas, e todos os
-  erros reais foram corrigidos - ver PCB-001 Fase 11 para o detalhe de
-  cada um:
-  - **TP1 nunca esteve realmente ligado a +5V_AUDIO** (nem no esquemático,
-    nem na PCB) - o pino ficava visualmente sobre um fio existente sem
-    junção elétrica. Corrigido em ambos os arquivos.
-  - **TP2 também não estava ligado a GND na PCB** (footprint só-mecânico,
-    adicionado sem net). Corrigido - agora no net GND de fato.
-  - `power_pin_not_driven` no U1 (pinos V+/V-): corrigido com dois símbolos
-    `power:PWR_FLAG` em POWER.kicad_sch. Na primeira tentativa o flag de
-    +5V_AUDIO foi ligado no lado errado do fusível F1 (ainda resolveu o
-    lado GND, mas não o V+) - corrigido na segunda rodada, movendo o flag
-    para o mesmo nó que já alimenta o TP1 e o rótulo global +5V_AUDIO.
-  - `lib_symbol_issues` em J2-J6 (AudioJack4): o símbolo estava referenciado
-    como `Connector:AudioJack4`, biblioteca que não existe mais nessa
-    posição no KiCad atual (o símbolo foi movido para `Connector_Audio`).
-    Corrigido o `lib_id` para `Connector_Audio:AudioJack4` em TRRS.kicad_sch
-    (J2-J5) e HPAMP.kicad_sch (J6) - geometria e pinos conferidos byte a
-    byte contra a biblioteca do sistema antes da troca.
-  - `pin_not_connected` (erro, não aviso) nos 9 pinos de dados/CC/SBU/shield
-    do J1 (USB-C: D+, D-, CC1, CC2, SBU1, SBU2, SHIELD) e no pino 10 dos
-    relés K1-K4 (pino duplicado do contato reverso do G5V-1, não usado
-    nesta topologia SPDT): ambos os casos são intencionais (J1 só é usado
-    como entrada de alimentação - ver DR-002/DR-003), mas ficavam listados
-    como **erro** de qualquer forma. Corrigido adicionando marcadores
-    "no connect" explícitos em cada pino, a forma padrão do KiCad de dizer
-    "sei que este pino está solto de propósito".
-  - `endpoint_off_grid` (233 avisos, praticamente todo pino/fio do
-    esquemático): causa raiz identificada - o esquemático inteiro foi
-    desenhado em posições redondas em milímetros, que não são múltiplos
-    da grade de 1.27mm (50 mil) que o ERC usa para esse teste. Corrigido
-    via script que realinha cada símbolo, fio e junção das 5 folhas para
-    o múltiplo de 1.27mm mais próximo, preservando a topologia elétrica
-    (dois pontos que já coincidiam continuam coincidindo, porque usam a
-    mesma função determinística de arredondamento). **Validado com
-    `kicad-cli sch export netlist` antes/depois - as 72 redes do projeto
-    batem nó a nó, nenhuma mudou.** Um único caso precisou de ajuste
-    manual: o realinhamento aproximou demais o D1 do pino D+ do J1
-    (que fica ao lado, sem uso), quase encostando os dois - corrigido
-    afastando o D1 um passo de grade extra.
-  - **Confirmado pelo usuário via relatório real do KiCad (23/07/2026,
-    16:27): 0 erros, 0 avisos.** ERC 100% limpo.
+- 75 distinct physical items (36 rows after grouping by value+footprint):
+  70 schematic components + TP2 (GND test point) + MH1-4
+  (M3 mounting holes) - these last 5 have no schematic symbol
+  since they are mechanical-only, added directly on the PCB (see PCB-001
+  Phases 3.3.3 and 8).
+- 100% of components have an assigned footprint (except GND symbols)
+- All active and passive components are THT, favoring manual assembly
 
-**Pendente real, fora do escopo deste BOM**: conferência mecânica final
-dos footprints acima (J1-J6, K1-K4, RV1-RV5) contra os datasheets das
-peças efetivamente compradas, no momento da compra/recebimento -
-recomendado mesmo com o layout validado, já que pequenas variações entre
-fornecedores do mesmo componente podem existir.
+
+# 3. Footprint selection notes
+
+- **J1** (USB-C): `Connector_USB:USB_C_Receptacle_GCT_USB4085` - common
+  part, used in various open-hardware projects.
+- **J2-J6** (3.5mm TRRS, 4-pole): `Connector_Audio:Jack_3.5mm_PJ320D_Horizontal`
+  - metallic panel jack. Mechanically confirm against the actual purchased
+  part before routing the PCB.
+- **K1-K4** (relay): `Relay_THT:Relay_SPDT_Omron_G5V-1` - official
+  footprint for the real G5V-1.
+- **RV1-RV5** (dual potentiometer): `Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal`
+  - check alignment against the front panel holes.
+- **SW1-SW5** (MUTE + laptop selection): `Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical`
+  - switches are located on the panel, wired to the board (not PCB-mounted
+  buttons).
+- **U1, U2** (NE5532 / NJM4556A): `Package_DIP:DIP-8_W7.62mm` - DIP-8 to
+  ease manual assembly of the prototype (use a socket). Migrate to SOIC-8
+  for series production, if it becomes necessary to reduce board area.
+- **D1** (TVS protection): footprint `Diode_THT:D_DO-41_SOD81`; the actual
+  purchased value is PTVS5V0Z1USK (the symbol used in the library is the
+  generic ZPYxx, without altering pinout/geometry).
+- **TP1, TP2** (test points): `TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm`
+  - TP1 on the +5V_AUDIO net (POWER sheet), TP2 on the GND net, near U1.
+    TP2 is a mechanical-only footprint, added directly on the PCB (no
+    schematic symbol) - see PCB-001 Phase 8 for the history of why it
+    exists (generic GND test point, useful for measurement).
+- **MH1-MH4** (enclosure mounting holes): `MountingHole:MountingHole_3.2mm_M3`
+  - unplated 3.2mm hole for M3 screw, one at each corner of the board,
+    6mm margin from the edge. Mechanical-only, no schematic symbol - see
+    PCB-001 Phase 3.3.3 for the exact positions.
+
+
+# 4. Manufacturing status
+
+- ✅ Complete PCB layout (placement of jacks, potentiometers,
+  relays; audio/power separation by enclosure face - see PCB-001
+  Phases 3-5).
+- ✅ Real DRC (via KiCad, confirmed 23/07/2026): 0 unconnected pads,
+  0 errors. Only 5 remaining warnings are cosmetic and accepted
+  (library discrepancy for potentiometers RV1-RV5 - see PCB-001
+  Phase 8).
+- ✅ Board migrated to 4 layers (dedicated GND and +5V_AUDIO planes on
+  the inner layers - see PCB-001 Phase 6).
+- ✅ Gerbers, drill file (Excellon), and placement files exported and
+  validated via `kicad-cli` (no export errors).
+- ✅ ERC run (via KiCad, by the user), in two rounds, and all
+  real errors were fixed - see PCB-001 Phase 11 for the detail of
+  each one:
+  - **TP1 was never actually connected to +5V_AUDIO** (neither in the
+    schematic nor on the PCB) - the pin was visually placed over an
+    existing wire without an electrical junction. Fixed in both files.
+  - **TP2 also wasn't connected to GND on the PCB** (mechanical-only
+    footprint, added without a net). Fixed - now actually on the GND net.
+  - `power_pin_not_driven` on U1 (V+/V- pins): fixed with two
+    `power:PWR_FLAG` symbols in POWER.kicad_sch. On the first attempt the
+    +5V_AUDIO flag was connected on the wrong side of fuse F1 (it still
+    resolved the GND side, but not V+) - fixed on the second round, by
+    moving the flag to the same node that already feeds TP1 and the
+    +5V_AUDIO global label.
+  - `lib_symbol_issues` on J2-J6 (AudioJack4): the symbol was referenced
+    as `Connector:AudioJack4`, a library that no longer exists at that
+    location in current KiCad (the symbol was moved to `Connector_Audio`).
+    Fixed the `lib_id` to `Connector_Audio:AudioJack4` in TRRS.kicad_sch
+    (J2-J5) and HPAMP.kicad_sch (J6) - geometry and pins checked byte by
+    byte against the system library before the change.
+  - `pin_not_connected` (error, not warning) on the 9 data/CC/SBU/shield
+    pins of J1 (USB-C: D+, D-, CC1, CC2, SBU1, SBU2, SHIELD) and on pin 10
+    of relays K1-K4 (duplicate pin of the reverse contact of the G5V-1,
+    not used in this SPDT topology): both cases are intentional (J1 is
+    only used as a power input - see DR-002/DR-003), but were listed as
+    an **error** regardless. Fixed by adding explicit "no connect"
+    markers on each pin, the standard KiCad way of saying "I know this
+    pin is intentionally floating".
+  - `endpoint_off_grid` (233 warnings, practically every pin/wire in the
+    schematic): root cause identified - the entire schematic was drawn
+    at round positions in millimeters, which are not multiples of the
+    1.27mm (50 mil) grid that ERC uses for this check. Fixed via a script
+    that realigns every symbol, wire, and junction across the 5 sheets to
+    the nearest multiple of 1.27mm, preserving the electrical topology
+    (two points that already coincided still coincide, because they use
+    the same deterministic rounding function). **Validated with
+    `kicad-cli sch export netlist` before/after - the project's 72 nets
+    match node by node, none changed.** A single case needed manual
+    adjustment: the realignment brought D1 too close to the D+ pin of J1
+    (which sits next to it, unused), almost touching the two - fixed by
+    moving D1 one extra grid step away.
+  - **Confirmed by the user via a real KiCad report (23/07/2026,
+    16:27): 0 errors, 0 warnings.** ERC 100% clean.
+
+**Real pending item, outside the scope of this BOM**: final mechanical
+verification of the above footprints (J1-J6, K1-K4, RV1-RV5) against the
+datasheets of the parts actually purchased, at the time of purchase/receipt -
+recommended even with the layout validated, since small variations between
+suppliers of the same component may exist.

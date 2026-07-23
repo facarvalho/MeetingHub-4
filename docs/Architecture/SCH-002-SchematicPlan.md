@@ -5,32 +5,32 @@ Status: Draft
 
 ---
 
-# 1. Objetivo
+# 1. Objective
 
-Definir a organização do esquemático elétrico antes da implementação no KiCad.
+Define the organization of the electrical schematic before implementation in KiCad.
 
 ---
 
-# 2. Folhas do esquemático
+# 2. Schematic sheets
 
-O projeto será dividido em blocos:
+The project will be divided into blocks:
 
 ## Sheet 1 - Power Supply
 
-Responsável por:
+Responsible for:
 
-- entrada USB-C 5V;
-- proteção;
-- filtragem;
-- distribuição das tensões.
+- USB-C 5V input;
+- protection;
+- filtering;
+- voltage distribution.
 
 
 ## Sheet 2 - TRRS Inputs
 
-Responsável por:
+Responsible for:
 
-- conectores dos notebooks;
-- separação dos sinais:
+- laptop connectors;
+- signal separation:
   - Audio Left
   - Audio Right
   - Ground
@@ -39,34 +39,33 @@ Responsável por:
 
 ## Sheet 3 - Audio Mixer
 
-Responsável por:
+Responsible for:
 
-- volumes individuais;
-- somador estéreo;
-- pré-amplificação.
+- individual volumes;
+- stereo summing;
+- pre-amplification.
 
 
 ## Sheet 4 - Headphone Amplifier
 
-Responsável por:
+Responsible for:
 
-- amplificação final;
-- saída headset.
+- final amplification;
+- headset output.
 
 
 ## Sheet 5 - Microphone Switching
 
-Responsável por:
+Responsible for:
 
-- seleção notebook 1-4;
+- laptop 1-4 selection;
 - mute;
-- relés de sinal.
+- signal relays.
 
 
-# 3. Regras de projeto
+# 3. Design rules
 
-- manter linha de microfone transparente;
-- separar áudio analógico de alimentação;
-- minimizar loops de terra;
-- utilizar componentes de alta disponibilidade.
-
+- keep the microphone line transparent;
+- separate analog audio from power supply;
+- minimize ground loops;
+- use high-availability components.

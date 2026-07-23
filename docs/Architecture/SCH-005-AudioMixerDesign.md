@@ -4,46 +4,46 @@ Version: 0.1
 Status: Draft
 
 
-# 1. Objetivo
+# 1. Objective
 
-Definir o circuito responsável por misturar o áudio estéreo dos quatro notebooks.
+Define the circuit responsible for mixing the stereo audio of the four laptops.
 
-O sistema deverá permitir:
+The system shall allow:
 
-- ouvir quatro fontes simultaneamente;
-- controlar o volume de cada fonte;
-- manter separação entre canais esquerdo e direito;
-- fornecer sinal adequado ao amplificador de headphone.
+- listening to four sources simultaneously;
+- controlling the volume of each source;
+- maintaining separation between left and right channels;
+- providing a signal suitable for the headphone amplifier.
 
 
-# 2. Arquitetura
+# 2. Architecture
 
-Cada notebook possui dois canais:
+Each laptop has two channels:
 
 - Audio Left
 - Audio Right
 
 
-Fluxo:
+Flow:
 
 ```
 
-Notebook 1 L/R
+Laptop 1 L/R
 |
 v
 Volume 1
 
-Notebook 2 L/R
+Laptop 2 L/R
 |
 v
 Volume 2
 
-Notebook 3 L/R
+Laptop 3 L/R
 |
 v
 Volume 3
 
-Notebook 4 L/R
+Laptop 4 L/R
 |
 v
 Volume 4
@@ -53,54 +53,54 @@ Volume 4
     v
 ```
 
-Mixer Estéreo Ativo
+Active Stereo Mixer
 
 ```
     |
     v
 ```
 
-Volume Master
+Master Volume
 
 ```
     |
     v
 ```
 
-Amplificador Headphone
+Headphone Amplifier
 
 ```
 
 
-# 3. Topologia do Mixer
+# 3. Mixer Topology
 
-Será utilizado mixer ativo utilizando amplificadores operacionais.
+An active mixer using operational amplifiers will be used.
 
-Características:
+Characteristics:
 
-- baixo ruído;
-- impedância de entrada elevada;
-- baixa interferência entre fontes.
-
-
-# 4. Controle de Volume
-
-Cada notebook terá:
-
-- potenciômetro estéreo;
-- ajuste independente de volume.
+- low noise;
+- high input impedance;
+- low interference between sources.
 
 
-Quantidade:
+# 4. Volume Control
 
-- 4 controles individuais.
+Each laptop will have:
+
+- stereo potentiometer;
+- independent volume adjustment.
 
 
-# 5. Canal Estéreo
+Quantity:
 
-O projeto deverá manter:
+- 4 individual controls.
 
-Canal esquerdo:
+
+# 5. Stereo Channel
+
+The design shall maintain:
+
+Left channel:
 
 ```
 
@@ -119,7 +119,7 @@ Mixer_L
 ```
 
 
-Canal direito:
+Right channel:
 
 ```
 
@@ -138,31 +138,31 @@ Mixer_R
 ```
 
 
-# 6. Requisitos
+# 6. Requirements
 
-O mixer deverá:
+The mixer shall:
 
-- evitar que uma saída de notebook carregue outra;
-- manter baixa distorção;
-- preservar faixa de frequência de áudio;
-- funcionar com sinais de saída de notebook.
+- prevent one laptop output from loading another;
+- maintain low distortion;
+- preserve the audio frequency range;
+- work with laptop output signals.
 
 
-# 7. Componentes candidatos
+# 7. Candidate Components
 
-Amplificador operacional:
+Operational amplifier:
 
 - NE5532
 - OPA1652
-- equivalente de áudio
+- audio equivalent
 
 
-# 8. Observações
+# 8. Notes
 
-O circuito final será validado considerando:
+The final circuit will be validated considering:
 
-- ruído;
-- ganho;
-- nível máximo de saída;
-- compatibilidade com amplificador de headphone.
+- noise;
+- gain;
+- maximum output level;
+- compatibility with the headphone amplifier.
 ```
