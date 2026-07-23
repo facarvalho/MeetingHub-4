@@ -47,6 +47,7 @@ CHANGELOG.md              Histórico de marcos do projeto
 4. **[DR-001](docs/DesignReviews/DR-001-ArchitectureReview.md), [DR-002](docs/DesignReviews/DR-002-ElectricalArchitectureReview.md), [DR-003](docs/DesignReviews/DR-003-SchematicImplementationReview.md)** — revisões críticas do projeto antes de cada etapa seguinte.
 5. **[PCB-001](docs/Architecture/PCB-001-LayoutGuide.md)** — guia completo de layout de PCB (fases 2 a 10), incluindo todas as decisões e correções aplicadas até o estado final.
 6. **[BOM-002-AsBuilt](hardware/BOM/BOM-002-AsBuilt.md)** — lista de materiais real, extraída do projeto final.
+7. **[TEST-001](docs/Architecture/TEST-001-BringUpGuide.md)** — guia de teste da placa montada, da inspeção visual ao funcionamento completo com os 4 notebooks.
 
 ## Estado do hardware
 
