@@ -91,15 +91,54 @@ Escolha a quantidade (sugestão: **5 unidades** - é o mínimo comum do
 PCBWay para essa faixa de tamanho, e é bom ter placas sobrando caso
 algo dê errado na primeira montagem/solda).
 
-## 6. Montagem (PCBA) - **não contrate**
+## 6. Montagem (PCBA) - se você quer a placa pronta, já montada
 
-O PCBWay vai oferecer, na mesma tela ou logo depois, um serviço de
-**montagem automática dos componentes (PCBA)**. **Não é necessário
-para este projeto**: todos os 75 componentes são THT (through-hole),
-pensados para montagem manual (o BOM inclusive recomenda usar soquete
-nos CIs U1/U2 - ver [BOM-002-AsBuilt](../hardware/BOM/BOM-002-AsBuilt.md)),
-e contratar montagem automática custaria bem mais caro sem necessidade.
-Peça só a **placa nua (bare PCB)**.
+Se você não quer soldar os 75 componentes à mão, dá para o próprio
+PCBWay montar a placa pra você (serviço **PCBA - "Assembly"**, pago à
+parte, além da fabricação da placa nua).
+
+**Atenção, ponto importante**: este projeto é **100% THT** (nenhum
+componente SMD) - o fluxo de orçamento automático do site do PCBWay é
+pensado principalmente para montagem SMD (reflow). Montagem THT
+(solda de onda/manual) costuma **não** ter orçamento instantâneo -
+normalmente é preciso abrir um pedido de cotação manual ou falar com o
+suporte/vendas do PCBWay depois de enviar os arquivos, em vez de só
+clicar "Add to Cart". Prazo e custo tendem a ser maiores que uma
+montagem SMD equivalente. Confirme isso direto com o PCBWay antes de
+assumir que vai ser tão automático quanto pedir a placa nua.
+
+Arquivos que você vai precisar enviar para a cotação de montagem
+(além do zip de gerbers do passo 3):
+
+- **[`hardware/BOM/BOM-PCBA-MeetingHub-4.csv`](../hardware/BOM/BOM-PCBA-MeetingHub-4.csv)**
+  - lista de materiais com fabricante/número de peça, no formato que
+    serviços de montagem normalmente pedem.
+- **[`hardware/Gerbers/MeetingHub-4-Placement.csv`](../hardware/Gerbers/MeetingHub-4-Placement.csv)**
+  - posição X/Y/rotação de cada componente na placa (arquivo de
+    "Component Placement" / "Pick and Place", exigido mesmo sendo THT).
+
+**Antes de enviar, leia a coluna "Confidence" do BOM-PCBA**: a maioria
+dos componentes tem número de peça real e confirmado, mas **3 itens
+precisam da sua confirmação antes de comprar em quantidade**:
+- **J1** (USB-C): o footprint foi modelado na família GCT USB4085, mas
+  o sufixo exato do part number não está confirmado no projeto.
+- **RV1-RV5** (potenciômetros): família Alps RK097 confirmada, mas o
+  sufixo exato (comprimento do eixo, tipo de eixo, curva de
+  resposta) não está - isso também afeta se o eixo alcança o furo do
+  gabinete (ver [mechanical/README.md](../mechanical/README.md)).
+- **K1-K4** (relés): a tensão de bobina 5VDC foi **deduzida** (a placa
+  só tem uma alimentação, +5V_AUDIO), não é uma especificação
+  explícita de nenhum documento do projeto - confirme antes de
+  comprar em quantidade.
+
+Se ficar em dúvida em qualquer um desses 3, é mais seguro comprar uma
+unidade de cada primeiro e confirmar fisicamente contra o footprint da
+placa antes de fechar um pedido de montagem com dezenas de unidades.
+
+Se preferir montar você mesmo em vez de pagar pela montagem: a placa
+nua sozinha (sem esse serviço) já é suficiente, e o BOM original em
+[BOM-002-AsBuilt](../hardware/BOM/BOM-002-AsBuilt.md) recomenda usar
+soquete nos CIs U1/U2 para facilitar.
 
 ## 7. Adicionar ao carrinho e revisar o preço
 

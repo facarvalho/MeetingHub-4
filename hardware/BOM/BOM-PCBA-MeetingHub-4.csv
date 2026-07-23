@@ -1,0 +1,19 @@
+Item,Designator,Qty,Value/Description,Package,Manufacturer,Manufacturer Part Number,Confidence
+1,"C1, C4, C21",3,100nF ceramic capacitor,C_Disc_D5.0mm_W2.5mm_P2.50mm,Generic,Any equivalent 100nF/50V ceramic disc,Generic - any supplier
+2,"C2, C3, C16, C19",4,10uF electrolytic capacitor,CP_Radial_D5.0mm_P2.00mm,Generic,Any equivalent 10uF/16V radial electrolytic,Generic - any supplier
+3,"C5, C6, C7, C8, C9, C10, C11, C12, C13, C14, C15, C18",12,1uF ceramic capacitor,C_Disc_D5.0mm_W2.5mm_P2.50mm,Generic,Any equivalent 1uF/50V ceramic disc,Generic - any supplier
+4,"C17, C20",2,220uF electrolytic capacitor,CP_Radial_D8.0mm_P3.50mm,Generic,Any equivalent 220uF/16V radial electrolytic,Generic - any supplier
+5,D1,1,TVS diode 5V unidirectional,D_DO-41_SOD81_P10.16mm_Horizontal,Littelfuse,PTVS5V0Z1USK,Confirmed - exact part used in design
+6,"D2, D3, D4, D5",4,Small signal switching diode,D_DO-35_SOD27_P7.62mm_Horizontal,Generic,1N4148,Generic - any 1N4148 equivalent
+7,F1,1,Resettable fuse (PTC) 500mA,Fuse_Bourns_MF-RG500,Bourns,MF-RG500,Confirmed - exact part used in design
+8,J1,1,USB-C receptacle (power only - no data pins used),USB_C_Receptacle_GCT_USB4085,GCT (Global Connector Technology),USB4085 series - CONFIRM EXACT SUFFIX,"NEEDS VERIFICATION - footprint is modeled on this GCT family, exact order suffix not confirmed in project files"
+9,"J2, J3, J4, J5, J6",5,3.5mm TRRS jack (4-pole) - horizontal PCB mount,Jack_3.5mm_PJ320D_Horizontal,Generic (PJ-320D family),PJ-320D or equivalent,"Generic - PJ-320D is a widely-sourced generic part number, no single canonical manufacturer"
+10,"K1, K2, K3, K4",4,SPDT signal relay - 5VDC coil,Relay_SPDT_Omron_G5V-1,Omron,G5V-1 5DC,"Coil voltage inferred - board has only one supply rail (+5V_AUDIO), not an explicit spec in the project"
+11,"R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12",12,10k resistor,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal,Generic,10k 1/4W 5% (or better),Generic - wattage/tolerance not specified in project, 1/4W 5% is a safe standard assumption
+12,"R13, R17",2,100k resistor,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal,Generic,100k 1/4W 5% (or better),Generic - see note above
+13,"R14, R15, R18, R19",4,1k resistor,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal,Generic,1k 1/4W 5% (or better),Generic - see note above
+14,"R16, R20",2,47 ohm resistor,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal,Generic,47R 1/4W 5% (or better),Generic - see note above
+15,"RV1, RV2, RV3, RV4, RV5",5,10k dual-gang potentiometer (audio taper),Potentiometer_Alps_RK097_Dual_Horizontal,Alps Alpine,RK097 series - CONFIRM EXACT SUFFIX (shaft length/type/taper),"NEEDS VERIFICATION - RK097 family has many shaft-length/taper variants, exact order code not confirmed in project files. Shaft length also affects the enclosure knob fit - see mechanical/README.md"
+16,"SW1, SW2, SW3, SW4, SW5",5,2-pin JST-XH header (physical switch wired off-board),JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,JST,B2B-XH-A,Confirmed - standard JST part number
+17,U1,1,Dual low-noise op-amp,DIP-8_W7.62mm,Generic,NE5532,Generic - industry-standard part number used by multiple manufacturers (TI/ON Semi/etc.) - a socket is recommended (see BOM-002-AsBuilt)
+18,U2,1,Dual op-amp (headphone amplifier),DIP-8_W7.62mm,New Japan Radio (JRC),NJM4556A,Confirmed - exact part used in design - a socket is recommended (see BOM-002-AsBuilt)
