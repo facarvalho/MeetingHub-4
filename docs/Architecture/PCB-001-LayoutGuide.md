@@ -505,3 +505,24 @@ esquemático (não existem lá) nem geram erro óbvio de DRC se ficarem sem
 net (não há pad vizinho pra reclamar de "não conectado" com um único
 pad isolado). A forma de pegar isso foi checando net-a-net via script,
 não só olhando o relatório de DRC.
+
+Numa segunda rodada de ERC (depois de puxar as correções acima), o
+usuário reportou que o `power_pin_not_driven` do U1 **continuava** no
+pino V+ (pino 8), mesmo já com o `PWR_FLAG` adicionado. Investigando,
+o flag tinha sido ligado no fio errado: havia dois nós parecidos na
+folha POWER perto do fusível F1 - um **antes** do fusível (vindo do
+VBUS/proteção TVS) e outro **depois** (o net +5V_AUDIO de fato, o mesmo
+onde está o rótulo global `+5V_AUDIO` e o TP1). O flag caiu no nó de
+antes do fusível, que não tem o mesmo nome de net e por isso não conta
+pro ERC como fonte de +5V_AUDIO. Corrigido movendo o `PWR_FLAG` para o
+nó certo (o mesmo do TP1 e do rótulo global).
+
+Essa mesma rodada também confirmou 13 erros `pin_not_connected` que já
+existiam desde a primeira versão do esquemático, mas que eu tinha
+apenas documentado como "intencional" em vez de resolver de verdade: os
+9 pinos de dados/CC/SBU/shield do J1 (USB-C, não usados porque J1 é só
+alimentação) e o pino 10 dos 4 relés (pino duplicado, não usado na
+topologia SPDT). Corrigido adicionando **no connect** explícito
+(`no_connect`) em cada um desses 13 pinos - a forma correta e
+definitiva de zerar esse tipo de erro no ERC, em vez de deixá-lo como
+aviso pendente na documentação.

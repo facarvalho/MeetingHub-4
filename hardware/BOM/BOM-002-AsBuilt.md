@@ -70,30 +70,38 @@ Arquivo bruto: [BOM-MeetingHub-4.csv](BOM-MeetingHub-4.csv)
   camadas internas - ver PCB-001 Fase 6).
 - ✅ Gerbers, furação (Excellon) e posições de montagem exportados e
   validados via `kicad-cli` (sem erro de exportação).
-- ✅ ERC rodado (via KiCad, pelo usuário) e os problemas reais encontrados
-  foram corrigidos - ver PCB-001 Fase 9 para o detalhe de cada um:
+- ✅ ERC rodado (via KiCad, pelo usuário), em duas rodadas, e todos os
+  erros reais foram corrigidos - ver PCB-001 Fase 11 para o detalhe de
+  cada um:
   - **TP1 nunca esteve realmente ligado a +5V_AUDIO** (nem no esquemático,
     nem na PCB) - o pino ficava visualmente sobre um fio existente sem
     junção elétrica. Corrigido em ambos os arquivos.
   - **TP2 também não estava ligado a GND na PCB** (footprint só-mecânico,
     adicionado sem net). Corrigido - agora no net GND de fato.
   - `power_pin_not_driven` no U1 (pinos V+/V-): corrigido com dois símbolos
-    `power:PWR_FLAG` em POWER.kicad_sch, o idioma padrão do KiCad para
-    quando a alimentação vem de um conector (J1/USB-C) em vez de um símbolo
-    de alimentação dedicado.
+    `power:PWR_FLAG` em POWER.kicad_sch. Na primeira tentativa o flag de
+    +5V_AUDIO foi ligado no lado errado do fusível F1 (ainda resolveu o
+    lado GND, mas não o V+) - corrigido na segunda rodada, movendo o flag
+    para o mesmo nó que já alimenta o TP1 e o rótulo global +5V_AUDIO.
   - `lib_symbol_issues` em J2-J6 (AudioJack4): o símbolo estava referenciado
     como `Connector:AudioJack4`, biblioteca que não existe mais nessa
     posição no KiCad atual (o símbolo foi movido para `Connector_Audio`).
-    Corrigido o `lib_id` para `Connector_Audio:AudioJack4` (geometria e
-    pinos idênticos, conferido byte a byte contra a biblioteca do sistema).
-  - Avisos não corrigidos, por não serem defeitos: `pin_not_connected` no
-    pino 10 dos relés K1-K4 (pino duplicado do contato reverso do G5V-1,
-    não usado nesta topologia SPDT - normal); ~232 `endpoint_off_grid`
-    (cosmético, não afeta conectividade); USB-C D+/D-/CC/SBU/SHIELD sem uso
-    (intencional, ver DR-002/DR-003 - J1 é usado só como entrada de
-    alimentação).
+    Corrigido o `lib_id` para `Connector_Audio:AudioJack4` em TRRS.kicad_sch
+    (J2-J5) e HPAMP.kicad_sch (J6) - geometria e pinos conferidos byte a
+    byte contra a biblioteca do sistema antes da troca.
+  - `pin_not_connected` (erro, não aviso) nos 9 pinos de dados/CC/SBU/shield
+    do J1 (USB-C: D+, D-, CC1, CC2, SBU1, SBU2, SHIELD) e no pino 10 dos
+    relés K1-K4 (pino duplicado do contato reverso do G5V-1, não usado
+    nesta topologia SPDT): ambos os casos são intencionais (J1 só é usado
+    como entrada de alimentação - ver DR-002/DR-003), mas ficavam listados
+    como **erro** de qualquer forma. Corrigido adicionando marcadores
+    "no connect" explícitos em cada pino, a forma padrão do KiCad de dizer
+    "sei que este pino está solto de propósito".
+  - Não corrigido, por ser cosmético: ~233 `endpoint_off_grid` (pinos/fios
+    fora da grade de verificação do ERC, não afeta conectividade real).
   - **Recomendado**: rode o ERC de novo depois de puxar essas mudanças,
-    para confirmar que os erros/avisos acima realmente sumiram.
+    para confirmar 0 erros restantes (só os avisos de grade, que são
+    estéticos).
 
 **Pendente real, fora do escopo deste BOM**: conferência mecânica final
 dos footprints acima (J1-J6, K1-K4, RV1-RV5) contra os datasheets das
