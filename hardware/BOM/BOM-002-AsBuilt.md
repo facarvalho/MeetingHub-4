@@ -1,7 +1,7 @@
 # BOM-002 - As-Built Bill of Materials
 
 Version: 1.0
-Status: Draft (gerado a partir do esquemático, pendente de layout de PCB)
+Status: Final — confere com a PCB final de 4 camadas (layout completo e validado)
 
 Supersede: BOM-001 (lista conceitual, anterior ao esquemático real)
 

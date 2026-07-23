@@ -1,7 +1,7 @@
 # PCB-001 - Guia de Layout (Fases 2-10)
 
-Version: 0.1
-Status: Draft
+Version: 1.0
+Status: Final — layout completo, roteado e validado (0 não conectados, 0 erros de DRC)
 
 Guia prático para as fases que dependem da interface gráfica do KiCad e de
 componentes físicos - trabalho que só você pode executar. Este documento
