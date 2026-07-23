@@ -2250,7 +2250,7 @@
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp b80a05ff-5a22-4a41-af49-37ec13a19c42)
     )
-    (fp_text value "TestPoint_THTPad_D1.5mm_Drill0.7mm" (at 0 1.75) (layer "F.Fab")
+    (fp_text value "TestPoint_THTPad_D1.5mm_Drill0.7mm" (at 0 1.75) (layer "F.Fab") hide
         (effects (font (size 1 1) (thickness 0.15)))
       (tstamp 2bd66fb6-4e6e-41ed-bfd3-8c148f6cfac2)
     )
@@ -6875,6 +6875,9 @@
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp d73e86b4-8743-4127-9e2d-32f5b6e35bf2))
   (gr_line (start 60 245) (end 60 85)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp dd35164a-427c-481c-803c-f76d5d412559))
+  (gr_text "JUMPER GND\n->U1 PIN4" (at 67 128.199999) (layer "F.SilkS") (tstamp 514e0001-5a11-45a1-a7a0-ebf9604bdc8b)
+    (effects (font (size 0.7 0.7) (thickness 0.1)))
+  )
 
   (segment (start 82.62 118) (end 90 118) (width 0.3) (layer "F.Cu") (net 1) (tstamp 037890af-c527-4777-9da7-07d5402e0426))
   (segment (start 159.3019 233.3019) (end 174.6981 233.3019) (width 0.3) (layer "F.Cu") (net 1) (tstamp 215ae084-3f9c-4000-8759-fca8fe6e45ca))
