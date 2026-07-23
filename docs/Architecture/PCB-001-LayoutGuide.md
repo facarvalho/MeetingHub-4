@@ -190,8 +190,12 @@ na tela e a Fase 9 (mockup 1:1) antes de considerar definitivo.
    própria (y=190/203mm) pra não colidir com eles; K1 alinhado com SW2,
    K2 com SW3, etc.
 5. **U1 (mixer) + R1-R12 + C3-C14** - grade 5x5 entre a fileira de trás e
-   a fileira de cima (x=75mm, y=118mm em diante, pitch 13x11mm) - é
-   literalmente o meio do caminho do sinal (P2 → volume → mixer).
+   a fileira de cima (x=75mm, y=118mm em diante, **pitch 15x11mm** - o
+   pitch X foi alargado de 13 para 15mm numa segunda rodada, pelo mesmo
+   motivo do HPAMP: dava congestionamento demais pro plano de GND
+   conectar 2 pads específicos sem violar clearance - ver nota no fim
+   desta fase) - é literalmente o meio do caminho do sinal (P2 → volume
+   → mixer).
 6. **U2 (headphone amp) + R13-R20 + C15-C21** - grade 4x4 perto do J6
    (x=215mm, y=182mm em diante, pitch 12x11mm).
 
@@ -199,6 +203,22 @@ na tela e a Fase 9 (mockup 1:1) antes de considerar definitivo.
 cópia separada aqui porque ela ficaria desatualizada a cada ajuste fino
 que você fizer na tela. Se precisar conferir um valor específico, abra o
 KiCad e selecione o componente (painel de propriedades mostra X/Y).
+
+**Nota sobre o re-layout do grid do mixer (pitch 13→15mm)**: depois do
+primeiro roteamento (Fase 7), o plano de GND ficava com 2 pads presos em
+bolsões de cobre isolados do plano principal (pino 2 do C4 e pino 4 do
+U1) - a causa era falta de espaço para o preenchedor de zona (zone
+filler) colocar um "spoke" legal até esses pads sem violar clearance com
+trilhas de sinal vizinhas. Alargar o pitch X do grid, reposicionar os 25
+componentes, e rodar o Freerouting do zero resolveu o C4 completamente
+(mais um pequeno desvio manual numa trilha de sinal - NB2_L/NB3_L - pra
+abrir espaço de verdade). O pino 4 do U1 continua precisando só de uma
+via direta no próprio pad (sem trilha extra) - isso já era suficiente
+antes do re-layout e continua sendo depois. Todo o processo foi validado
+por script (paren balance, contagem de itens não conectados via
+`pcbnew`, checagem de clearance pad-a-pad e trilha-a-pad por camada, e
+`kicad-cli pcb export gerbers` limpo) - mas vale confirmar com um DRC
+real na tela antes de fabricar.
 
 **Pendente**: os 6mm de folga usados na validação são só entre âncoras
 (centro do footprint), não entre corpos reais - potenciômetro RK097,
