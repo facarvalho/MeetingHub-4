@@ -12,6 +12,7 @@ J3,1,TRRS Notebook 2,Connector_Audio:Jack_3.5mm_PJ320D_Horizontal
 J4,1,TRRS Notebook 3,Connector_Audio:Jack_3.5mm_PJ320D_Horizontal
 J5,1,TRRS Notebook 4,Connector_Audio:Jack_3.5mm_PJ320D_Horizontal
 J6,1,Headset (User),Connector_Audio:Jack_3.5mm_PJ320D_Horizontal
+"MH1, MH2, MH3, MH4",4,M3 mounting hole (3.2mm),MountingHole:MountingHole_3.2mm_M3
 K1,1,Select NB1,Relay_THT:Relay_SPDT_Omron_G5V-1
 K2,1,Select NB2,Relay_THT:Relay_SPDT_Omron_G5V-1
 K3,1,Select NB3,Relay_THT:Relay_SPDT_Omron_G5V-1
