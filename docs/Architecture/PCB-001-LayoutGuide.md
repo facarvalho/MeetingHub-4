@@ -205,20 +205,36 @@ que você fizer na tela. Se precisar conferir um valor específico, abra o
 KiCad e selecione o componente (painel de propriedades mostra X/Y).
 
 **Nota sobre o re-layout do grid do mixer (pitch 13→15mm)**: depois do
-primeiro roteamento (Fase 7), o plano de GND ficava com 2 pads presos em
-bolsões de cobre isolados do plano principal (pino 2 do C4 e pino 4 do
-U1) - a causa era falta de espaço para o preenchedor de zona (zone
-filler) colocar um "spoke" legal até esses pads sem violar clearance com
-trilhas de sinal vizinhas. Alargar o pitch X do grid, reposicionar os 25
-componentes, e rodar o Freerouting do zero resolveu o C4 completamente
-(mais um pequeno desvio manual numa trilha de sinal - NB2_L/NB3_L - pra
-abrir espaço de verdade). O pino 4 do U1 continua precisando só de uma
-via direta no próprio pad (sem trilha extra) - isso já era suficiente
-antes do re-layout e continua sendo depois. Todo o processo foi validado
-por script (paren balance, contagem de itens não conectados via
-`pcbnew`, checagem de clearance pad-a-pad e trilha-a-pad por camada, e
-`kicad-cli pcb export gerbers` limpo) - mas vale confirmar com um DRC
-real na tela antes de fabricar.
+primeiro roteamento (Fase 7), o plano de GND ficava com pads presos em
+bolsões de cobre isolados do plano principal - a causa era falta de
+espaço para o preenchedor de zona (zone filler) colocar um "spoke" legal
+até esses pads sem violar clearance com trilhas de sinal vizinhas.
+Alargar o pitch X do grid, reposicionar os 25 componentes, e rodar o
+Freerouting do zero resolveu C4, R2, C1 e C3 (via stitch manual de GND
++ pequenos desvios em trilhas de sinal vizinhas - NB2_L/NB3_L/NB2_R -
+para abrir espaço de verdade, e conexão sólida em vez de solda térmica
+para C1/C3). Validado por script (paren balance, contagem de itens não
+conectados via `pcbnew`, clearance pad-a-pad e trilha-a-pad por camada,
+`kicad-cli pcb export gerbers` limpo) e confirmado por DRC real na tela
+a cada rodada.
+
+**Limitação conhecida e aceita: pino 4 do U1 (GND)**. Esse pino
+especificamente não tem caminho de cobre disponível para o plano
+principal de GND, dentro da folga mínima de fabricação (0.15mm) - só a
+via direta no próprio pad, sem conexão ao plano. Causa raiz: num
+encapsulamento DIP-8, o pino 4 fica fisicamente entre o pino 3 e o pino
+5 (é assim que a numeração do encapsulamento dá a volta), então esse
+aperto local é inerente à pinagem do chip, não ao layout ao redor -
+confirmado tentando: (a) alargar o pitch X e depois também o Y do grid
+do mixer (2 rodadas completas de re-layout + reroteamento), (b) girar o
+U1 90° (mesma pinagem, mesmo aperto, só muda a direção), (c) busca
+exaustiva por script (A*, bulge de trilha vizinha) não encontrando
+nenhum caminho com folga confiável, e (d) tentativa manual na tela pelo
+usuário, mesma conclusão. **Solução prática**: jumper manual (fio curto
+soldado) do pino 4 do U1 (ou da via já presente ali) até um ponto
+acessível do plano de GND, na placa já montada - resolve eletricamente
+sem precisar de mais trilha na PCB. O DRC real vai continuar acusando
+esse único item; é esperado e esta é a explicação registrada.
 
 **Pendente**: os 6mm de folga usados na validação são só entre âncoras
 (centro do footprint), não entre corpos reais - potenciômetro RK097,
