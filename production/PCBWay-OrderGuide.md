@@ -1,31 +1,38 @@
 # PCBWay Guide - How to Order Board Manufacturing (for beginners)
 
-Version: 1.0
-Status: Final
+Version: 4.0
+Status: Final — updated 2026-08-06, SW2-SW5 (front-panel selector
+switches) rotated 90° to lie horizontal, re-routed
+(DRC-clean: 0 clearance errors, 0 unconnected pads, verified in KiCad)
 
-Step-by-step guide for ordering PCB manufacturing for the MeetingHub-4 at
-PCBWay (pcbway.com), written for someone who has never done this before. The
+Step-by-step guide for ordering **bare PCB manufacturing** for the
+MeetingHub-4 at PCBWay (pcbway.com), written for someone who has never
+done this before. **Assembly (PCBA) is a separate vendor, JLCPCB —
+see step 6.** The
 technical values below (size, layers, thickness) are the **real** values
 extracted from the final project - use them to check whether the site
 detected everything correctly, no need to know what they mean to follow
 the guide.
 
-**File to upload**: [`hardware/Gerbers/MeetingHub-4-Gerbers-v1.0.zip`](../hardware/Gerbers/MeetingHub-4-Gerbers-v1.0.zip)
+**File to upload**: [`hardware/Gerbers/MeetingHub-4-Gerbers-v4.0.zip`](../hardware/Gerbers/MeetingHub-4-Gerbers-v4.0.zip)
 (already contains gerbers for all layers + drilling, ready for upload).
+**Do not use v1.0, v2.0 or v3.0** — v1.0/v2.0 reflect an older
+265.1x160.1mm board revision that no longer exists; v3.0 has SW2-SW5
+in the old vertical orientation, superseded by this horizontal layout.
 
 
 # Board technical specifications (to check against what the site detects)
 
 | Item | Value |
 |---|---|
-| Dimensions | 265.1 x 160.1 mm |
+| Dimensions | 160.19 x 134.06 mm |
 | Layers | **4** |
 | Final thickness | 1.6 mm |
 | Material | FR-4 (standard) |
 | Minimum hole | 0.6 mm (within standard, no special option needed) |
 | Solder mask color | your choice (green is the cheapest/fastest standard) |
 | Silkscreen color | white (standard) |
-| Surface finish | HASL (with lead) recommended - cheaper, and the board is 100% THT (manual soldering), no need for ENIG |
+| Surface finish | HASL (with lead) recommended - cheaper; the board is mostly THT with a handful of SMD passives (see note below), HASL still works fine for both |
 | Copper weight | 1oz (standard) |
 | Suggested quantity | 5 units (PCBWay's common minimum for a prototype; leaves spare boards in case of an assembly error) |
 
@@ -46,12 +53,12 @@ home page, PCB section). This opens the board configuration form.
 ## 3. Upload the gerber file
 
 In the form, there's a button labeled **"Add Gerber File"** (or "Upload
-Gerber"). Upload the file `MeetingHub-4-Gerbers-v1.0.zip` (no need to
+Gerber"). Upload the file `MeetingHub-4-Gerbers-v3.0.zip` (no need to
 unzip it, the site accepts the zip directly).
 
 PCBWay tries to automatically detect the size and number of layers from
 the file. **Check**:
-- **Dimension**: should show something close to `265.1 x 160.1 mm`. If
+- **Dimension**: should show something close to `160.19 x 134.06 mm`. If
   it shows a very different value, the upload probably failed -
   try re-uploading before continuing.
 - **Layer**: should be set to **4**. If it shows 2, the site didn't read
@@ -93,22 +100,26 @@ something goes wrong during the first assembly/soldering).
 
 ## 6. Assembly (PCBA) - if you want the board pre-assembled
 
-If you don't want to hand-solder the 75 components, PCBWay can
-assemble the board for you (the **PCBA - "Assembly"** service, paid
-separately, in addition to bare board manufacturing).
+**Assembly is not done through PCBWay for this project — use
+[JLCPCB](https://jlcpcb.com) instead.** PCBWay in this guide is only
+for the bare board (steps 1-5, 7-9 above). JLCPCB has direct
+integration with the LCSC parts catalog, which is what
+[BOM-003-SourcingLinks](../hardware/BOM/BOM-003-SourcingLinks.md)'s
+LCSC codes are for — pick JLCPCB's own **"PCB Assembly"** flow at
+jlcpcb.com, upload the gerbers there too (JLCPCB will also fabricate
+the bare board as part of that flow, so this becomes a single order
+instead of two separate ones with two vendors).
 
-**Important note**: this project is **100% THT** (no SMD
-components) - PCBWay's automatic quoting flow is designed primarily
-for SMD assembly (reflow). THT assembly (wave/manual soldering) usually
-does **not** get an instant quote - it typically requires opening a
-manual quote request or contacting PCBWay support/sales after
-uploading the files, instead of simply clicking "Add to Cart". Lead
-time and cost tend to be higher than an equivalent SMD assembly. Confirm
-this directly with PCBWay before assuming it will be as automatic as
-ordering the bare board.
+**Important note**: this project is **mostly THT**, with a small
+number of SMD parts (C1/C4/C21, D1 — no THT stock exists for those 2
+specific values at any supplier; J2-J6 also has SMD signal pads on an
+otherwise THT jack). JLCPCB does handle mixed THT+SMD assembly, but
+THT parts are placed by hand (not reflow) and add cost/lead time
+compared to a pure-SMD board — confirm the quote reflects this before
+paying.
 
 Files you'll need to upload for the assembly quote (in addition to the
-gerber zip from step 3):
+gerber zip from step 3, uploaded to JLCPCB instead of PCBWay):
 
 - **[`hardware/BOM/BOM-PCBA-MeetingHub-4.csv`](../hardware/BOM/BOM-PCBA-MeetingHub-4.csv)**
   - bill of materials with manufacturer/part number, in the format
@@ -118,23 +129,15 @@ gerber zip from step 3):
     "Component Placement" / "Pick and Place" file, required even for
     THT).
 
-**Before uploading, read the "Confidence" column of the BOM-PCBA**: most
-components have a real, confirmed part number, but **3 items need your
-confirmation before buying in quantity**:
-- **J1** (USB-C): the footprint was modeled on the GCT USB4085 family,
-  but the exact part number suffix isn't confirmed in the project.
-- **RV1-RV5** (potentiometers): the Alps RK097 family is confirmed, but
-  the exact suffix (shaft length, shaft type, response taper) is
-  not - this also affects whether the shaft reaches the enclosure hole
-  (see [mechanical/README.md](../mechanical/README.md)).
-- **K1-K4** (relays): the 5VDC coil voltage was **inferred** (the board
-  only has one supply rail, +5V_AUDIO), it is not an explicit
-  specification from any project document - confirm before buying
-  in quantity.
-
-If you're unsure about any of these 3, it's safer to buy one unit of
-each first and physically confirm against the board footprint before
-placing an assembly order for dozens of units.
+**This section is superseded** by
+[BOM-003-SourcingLinks](../hardware/BOM/BOM-003-SourcingLinks.md) — a
+straight shopping-list table (component, code, link, quantity) for
+everything needed. All parts are confirmed in stock at LCSC as of
+2026-08-06, with one exception:
+- **SW2-SW5** (selector switches): the original CW Industries
+  GPTS203211B is out of stock at LCSC with no in-stock pin-compatible
+  equivalent found — buy 4 units separately (DigiKey CW181-ND or CW
+  Industries direct) and consign them to the assembler.
 
 If you'd rather assemble it yourself instead of paying for the assembly
 service: the bare board alone (without this service) is sufficient, and

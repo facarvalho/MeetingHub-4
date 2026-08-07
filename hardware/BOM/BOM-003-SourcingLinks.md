@@ -1,0 +1,27 @@
+# BOM-003 - Lista de Compras (MeetingHub-4)
+
+Verificado em estoque na LCSC/JLCPCB em 2026-08-06, exceto SW2-SW5 (comprar à parte).
+
+| Componente | Referência | Código | Link | Quantidade |
+|---|---|---|---|---|
+| Capacitor cerâmico 100nF SMD 0603 | C1, C4, C21 | LCSC C14663 | https://www.lcsc.com/product-detail/C14663.html | 3 |
+| Capacitor eletrolítico 10uF | C2, C3, C16, C19 | LCSC C88697 | https://www.lcsc.com/product-detail/C88697.html | 4 |
+| Capacitor cerâmico X7R 1uF THT | C5, C6, C7, C8, C9, C10, C11, C12, C13, C14, C15, C18 | LCSC C2167638 | https://www.lcsc.com/product-detail/C2167638.html | 12 |
+| Capacitor eletrolítico 220uF | C17, C20 | LCSC C2063 | https://www.lcsc.com/product-detail/C2063.html | 2 |
+| Diodo TVS 5V unidirecional SMD SOD-323 | D1 | LCSC C553448 | https://www.lcsc.com/product-detail/C553448.html | 1 |
+| Diodo 1N4148 | D2, D3, D4, D5 | LCSC C402212 | https://www.lcsc.com/product-detail/C402212.html | 4 |
+| Fusível PTC 500mA | F1 | LCSC C1562150 | https://www.lcsc.com/product-detail/C1562150.html | 1 |
+| Conector USB-C | J1 | LCSC C7095263 | https://www.lcsc.com/product-detail/C7095263.html | 1 |
+| Conector TRRS 3.5mm | J2, J3, J4, J5, J6 | LCSC C22459515 | https://www.lcsc.com/product-detail/C22459515.html | 5 |
+| Relé SPDT 5V | K1, K2, K3, K4 | LCSC C28695 | https://www.lcsc.com/product-detail/C28695.html | 4 |
+| Resistor 10k | R1-R12 | LCSC C5618323 | https://www.lcsc.com/product-detail/C5618323.html | 12 |
+| Resistor 100k | R13, R17 | LCSC C1364475 | https://www.lcsc.com/product-detail/C1364475.html | 2 |
+| Resistor 1k | R14, R15, R18, R19 | LCSC C120055 | https://www.lcsc.com/product-detail/C120055.html | 4 |
+| Resistor 47R | R16, R20 | LCSC C2896824 | https://www.lcsc.com/product-detail/C2896824.html | 2 |
+| Potenciômetro duplo 10k audio (Alps RK09712200HA) — RV1-4 montagem vertical, RV5 montagem horizontal (90°, painel frontal) | RV1, RV2, RV3, RV4, RV5 | LCSC C470545 | https://www.lcsc.com/product-detail/C470545.html | 5 |
+| Botão MUTE (Omron B3F-4005) — montagem horizontal | SW1 | LCSC C397283 | https://www.lcsc.com/product-detail/C397283.html | 1 |
+| Chave seletora SPST liga-desliga (CW Industries GPTS203211B) — montagem horizontal, painel frontal — sem estoque na LCSC, comprar à parte | SW2, SW3, SW4, SW5 | CW181-ND | https://www.digikey.com/en/products/detail/cw-industries/GPTS203211B/CW181-ND/3190590 | 4 |
+| Amplificador operacional duplo NE5532 | U1 | LCSC C2987282 | https://www.lcsc.com/product-detail/C2987282.html | 1 |
+| Amplificador operacional duplo NJM4556A | U2 | LCSC C2838125 | https://www.lcsc.com/product-detail/C2838125.html | 1 |
+| Knobs para RV1-RV5 (eixo chato 6mm) | RV1-RV5 | RS Online | https://ie.rs-online.com/web/p/potentiometer-knobs/7777353 | 5 |
+| Pés de borracha (base da placa) | — | genérico, loja local/AliExpress | — | 4 |

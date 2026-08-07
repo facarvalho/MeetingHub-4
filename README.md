@@ -4,8 +4,8 @@ Analog audio hub for 4 laptops, with a single TRRS headset and microphone select
 
 | | |
 |---|---|
-| **Status** | Hardware complete — schematic frozen v1.0, PCB routed and validated, ready for manufacturing |
-| **Version** | v1.0 |
+| **Status** | ⚠️ **PCB mid-rework, not ready for fabrication** — see [HANDOFF-2row-pots.md](hardware/KiCad/MeetingHub-4/HANDOFF-2row-pots.md) for what's left. Gerbers in `hardware/Gerbers/` are stale (from the previous, fully-validated 265.1x160.1mm version). |
+| **Version** | v1.0 (in progress: compact ~160x134mm board, potentiometers in 2 rows, all components direct-solder, no enclosure — see [BOM-003](hardware/BOM/BOM-003-SourcingLinks.md) and the handoff doc above) |
 | **PCB layers** | 4 (F.Cu / In1.Cu GND / In2.Cu +5V_AUDIO / B.Cu) |
 | **License** | Commercial, with usage royalty — see [LICENSE.md](LICENSE.md) |
 
@@ -36,7 +36,7 @@ hardware/
   PCB/                    Exported netlist
   Gerbers/                Gerbers + drill files ready for manufacturing (zip ready for upload)
 
-mechanical/                3D model of the enclosure (OpenSCAD, v0.1 draft)
+mechanical/                Obsolete (no enclosure in the current design — bare board with rubber feet, see BOM-003 §2)
 
 production/                Guides on how to order manufacturing (PCB, enclosure)
 
@@ -57,10 +57,11 @@ CHANGELOG.md              Project milestone history
 
 ## Hardware status
 
-- Schematic: 5 sheets (POWER, TRRS_INPUTS, AUDIO_MIXER, HEADPHONE_AMP, MIC_SWITCHING), frozen as v1.0.
-- PCB: 66 components, all THT, routed in 4 layers (dedicated GND and +5V_AUDIO planes on the inner layers — see Phase 6 of PCB-001 for the reasoning).
-- Validation: 0 unconnected pads, 0 DRC errors. The only remaining warning is cosmetic and documented (library mismatch on potentiometers RV1-RV5 — see Phase 8 of PCB-001).
-- Manufacturing files: generated and validated (clean `kicad-cli pcb export gerbers` run). **When ordering manufacturing, explicitly select a 4-layer board.**
+- Schematic: 5 sheets (POWER, TRRS_INPUTS, AUDIO_MIXER, HEADPHONE_AMP, MIC_SWITCHING), frozen as v1.0. Note: the schematic still shows JST headers for RV1-RV5/SW1-SW5 as symbols — the 2026-08-06 rework was done directly on the PCB (real, common practice for a footprint-only change), so the schematic is stale on this one visual detail; the netlist/connectivity itself is unaffected and was re-verified by DRC.
+- PCB: 265.1x160.1mm, routed in 4 layers (dedicated GND and +5V_AUDIO planes on the inner layers — see Phase 6 of PCB-001 for the reasoning). **No enclosure** — the bare board is the final product, resting on 4 rubber feet; all 5 potentiometers (RV1-RV5) and all 5 switches (SW1-SW5) are direct-solder on the board, no off-board wiring. 3 designator groups (C1/C4/C21, D1) are SMD because no THT stock exists for those parts at any supplier — see [BOM-003](hardware/BOM/BOM-003-SourcingLinks.md) §2 for the full rationale and design history.
+- Validation: 0 unconnected pads, 0 DRC errors — re-verified 3 times via `pcbnew.WriteDRCReport` after the 2026-08-06 rework (fresh board load each time).
+- Manufacturing files: generated and validated (clean `kicad-cli pcb export gerbers` run, includes F/B.Paste for the SMD parts). **When ordering manufacturing, explicitly select a 4-layer board.**
+- Assembly sourcing: 15 of 17 BOM lines have a confirmed, in-stock JLCPCB/LCSC part; 2 (the RV1-RV5 potentiometer and the SW1 pushbutton) need to be sourced separately and consigned — see [BOM-003-SourcingLinks](hardware/BOM/BOM-003-SourcingLinks.md) §4.
 
 ## Licensing and intellectual property
 

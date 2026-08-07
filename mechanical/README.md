@@ -1,5 +1,11 @@
 # MeetingHub-4 Enclosure - v0.1 (draft)
 
+> **OBSOLETE (2026-08-06)**: the project no longer uses an enclosure —
+> the bare PCB is the final product (all components, including RV1-RV5
+> and SW1-SW5, are direct-solder; see
+> [BOM-003-SourcingLinks](../hardware/BOM/BOM-003-SourcingLinks.md) §2).
+> Kept here for history only, not applicable to the current design.
+
 Status: **draft, not visually verified** - I don't have any
 3D CAD tool available in this environment (no OpenSCAD, FreeCAD, and
 no access to install one), so I have never seen this model rendered. You
