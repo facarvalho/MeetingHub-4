@@ -1,11 +1,11 @@
 # BOM-003 - Lista de Compras (MeetingHub-4)
 
-Verificado em estoque na LCSC/JLCPCB em 2026-08-06. SW1-SW5 e RV1-RV4 atualizados em 2026-08-07 (ver notas abaixo).
+Verificado em estoque na LCSC/JLCPCB em 2026-08-06. SW1-SW5 e RV1-RV4 atualizados em 2026-08-07; C2/C3/C16/C19 atualizado em 2026-08-08 (ver notas abaixo).
 
 | Componente | Referência | Código | Link | Quantidade |
 |---|---|---|---|---|
 | Capacitor cerâmico 100nF SMD 0603 | C1, C4, C21 | LCSC C14663 | https://www.lcsc.com/product-detail/C14663.html | 3 |
-| Capacitor eletrolítico 10uF | C2, C3, C16, C19 | LCSC C88697 | https://www.lcsc.com/product-detail/C88697.html | 4 |
+| Capacitor eletrolítico 10uF THT D5xL11mm (CX KM106M016D11RR0VH2FP0) — substitui UD2E100M1010 (era SMD D10x10.2mm, colidia com vizinhos no footprint THT da placa) | C2, C3, C16, C19 | LCSC C43799 | https://www.lcsc.com/product-detail/C43799.html | 4 |
 | Capacitor cerâmico X7R 1uF THT | C5, C6, C7, C8, C9, C10, C11, C12, C13, C14, C15, C18 | LCSC C2167638 | https://www.lcsc.com/product-detail/C2167638.html | 12 |
 | Capacitor eletrolítico 220uF | C17, C20 | LCSC C2063 | https://www.lcsc.com/product-detail/C2063.html | 2 |
 | Diodo TVS 5V unidirecional SMD SOD-323 | D1 | LCSC C553448 | https://www.lcsc.com/product-detail/C553448.html | 1 |
