@@ -21,16 +21,16 @@ K4,1,Select NB4,Relay_THT:Relay_SPDT_Omron_G5V-1
 "R13, R17",2,100k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
 "R14, R15, R18, R19",4,1k,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
 "R16, R20",2,47,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
-RV1,1,10k Vol NB1,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
-RV2,1,10k Vol NB2,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
-RV3,1,10k Vol NB3,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
-RV4,1,10k Vol NB4,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
+RV1,1,10k Vol NB1,MeetingHub-4:Potentiometer_Alps_RK09L_Double_Vertical
+RV2,1,10k Vol NB2,MeetingHub-4:Potentiometer_Alps_RK09L_Double_Vertical
+RV3,1,10k Vol NB3,MeetingHub-4:Potentiometer_Alps_RK09L_Double_Vertical
+RV4,1,10k Vol NB4,MeetingHub-4:Potentiometer_Alps_RK09L_Double_Vertical
 RV5,1,10k Master,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
-SW1,1,MUTE,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
-SW2,1,Select NB1,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
-SW3,1,Select NB2,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
-SW4,1,Select NB3,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
-SW5,1,Select NB4,Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical
+SW1,1,MUTE,MeetingHub-4:SW_SHOUHAN_TS665ZJ
+SW2,1,Select NB1,MeetingHub-4:SW_SHOUHAN_TS665ZJ
+SW3,1,Select NB2,MeetingHub-4:SW_SHOUHAN_TS665ZJ
+SW4,1,Select NB3,MeetingHub-4:SW_SHOUHAN_TS665ZJ
+SW5,1,Select NB4,MeetingHub-4:SW_SHOUHAN_TS665ZJ
 TP1,1,+5V_AUDIO,TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm
 TP2,1,GND,TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm
 U1,1,NE5532,Package_DIP:DIP-8_W7.62mm

@@ -57,7 +57,7 @@ CHANGELOG.md              Project milestone history
 
 ## Hardware status
 
-- Schematic: 5 sheets (POWER, TRRS_INPUTS, AUDIO_MIXER, HEADPHONE_AMP, MIC_SWITCHING), frozen as v1.0. Note: the schematic still shows JST headers for RV1-RV5/SW1-SW5 as symbols — the 2026-08-06 rework was done directly on the PCB (real, common practice for a footprint-only change), so the schematic is stale on this one visual detail; the netlist/connectivity itself is unaffected and was re-verified by DRC.
+- Schematic: 5 sheets (POWER, TRRS_INPUTS, AUDIO_MIXER, HEADPHONE_AMP, MIC_SWITCHING), frozen as v1.0. The Footprint property for SW1-SW5 and RV1-RV5 was brought back in sync with the PCB on 2026-08-07 (see CHANGELOG); netlist/connectivity was unaffected by the earlier staleness and re-verified by DRC throughout.
 - PCB: 265.1x160.1mm, routed in 4 layers (dedicated GND and +5V_AUDIO planes on the inner layers — see Phase 6 of PCB-001 for the reasoning). **No enclosure** — the bare board is the final product, resting on 4 rubber feet; all 5 potentiometers (RV1-RV5) and all 5 switches (SW1-SW5) are direct-solder on the board, no off-board wiring. 3 designator groups (C1/C4/C21, D1) are SMD because no THT stock exists for those parts at any supplier — see [BOM-003](hardware/BOM/BOM-003-SourcingLinks.md) §2 for the full rationale and design history.
 - Validation: 0 unconnected pads, 0 DRC errors — re-verified 3 times via `pcbnew.WriteDRCReport` after the 2026-08-06 rework (fresh board load each time).
 - Manufacturing files: generated and validated (clean `kicad-cli pcb export gerbers` run, includes F/B.Paste for the SMD parts). **When ordering manufacturing, explicitly select a 4-layer board.**

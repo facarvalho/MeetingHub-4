@@ -1,9 +1,16 @@
 # PCBWay Guide - How to Order Board Manufacturing (for beginners)
 
-Version: 4.0
-Status: Final — updated 2026-08-06, SW2-SW5 (front-panel selector
-switches) rotated 90° to lie horizontal, re-routed
-(DRC-clean: 0 clearance errors, 0 unconnected pads, verified in KiCad)
+Version: 7.0
+Status: Final — updated 2026-08-08. v6.0 changes: RV1-RV5
+potentiometers relaid out (2-row layout, RV1-4 vertical / RV5
+horizontal), fully re-routed, C1/C4/C21/D1 footprints corrected from
+THT to SMD (0603 / SOD-323), and a connection error found after
+upload fixed manually in KiCad. v7.0 fixes one more mismatch caught
+during a pre-purchase BOM review: D1's footprint was SOD-323, but the
+actual quoted part (PTVS5V0Z1USKYL, LCSC C553448) is package
+DSN1608-2/SOD964 — a different, smaller SMD footprint. Swapped to
+KiCad's `Nexperia_DSN1608-2_1.6x0.8mm` footprint and re-added the via
+connecting D1 to the GND plane.
 
 Step-by-step guide for ordering **bare PCB manufacturing** for the
 MeetingHub-4 at PCBWay (pcbway.com), written for someone who has never
@@ -14,11 +21,15 @@ extracted from the final project - use them to check whether the site
 detected everything correctly, no need to know what they mean to follow
 the guide.
 
-**File to upload**: [`hardware/Gerbers/MeetingHub-4-Gerbers-v4.0.zip`](../hardware/Gerbers/MeetingHub-4-Gerbers-v4.0.zip)
+**File to upload**: [`hardware/Gerbers/MeetingHub-4-Gerbers-v7.0.zip`](../hardware/Gerbers/MeetingHub-4-Gerbers-v7.0.zip)
 (already contains gerbers for all layers + drilling, ready for upload).
-**Do not use v1.0, v2.0 or v3.0** — v1.0/v2.0 reflect an older
-265.1x160.1mm board revision that no longer exists; v3.0 has SW2-SW5
-in the old vertical orientation, superseded by this horizontal layout.
+**Do not use v1.0-v6.0** — v1.0/v2.0 reflect an older 265.1x160.1mm
+board revision that no longer exists; v3.0 has SW2-SW5 in the old
+vertical orientation; v4.0 has the old single-row potentiometer layout
+and still has THT footprints for C1/C4/C21/D1 that don't match the
+SMD parts already quoted for assembly; v5.0 has a connection error
+that was fixed in v6.0; v6.0 still has the wrong D1 footprint
+(SOD-323 instead of the real DSN1608-2/SOD964 part), fixed in v7.0.
 
 
 # Board technical specifications (to check against what the site detects)
