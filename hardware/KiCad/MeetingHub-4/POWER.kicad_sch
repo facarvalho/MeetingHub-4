@@ -705,6 +705,7 @@
     )
   )
 
+  (label "+5V_AUDIO" (at 95.25 48.26 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee))
   (symbol (lib_id "Connector:TestPoint") (at 95.25 48.26 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0935f354-99ca-4675-b63d-2b4271db71b7)

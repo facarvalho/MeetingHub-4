@@ -169,3 +169,38 @@ ran directly through the pad's new footprint. Verified with a script-based
 geometric check (pad/track bounding boxes and segment distances, KiCad
 Python API) across all J2-J6 pads: 0 clearance violations. See gerbers
 v11.0 and BOM-PCBA-MeetingHub-4.csv item 9 for detail.
+
+**Full-circuit validation, 2026-08-12**: after the J1/J2-J6 fixes above were
+committed, ran a complete independent re-validation (not just the areas
+touched): whole-board copper clearance (every pad/track pair, different
+nets, using KiCad's own `SHAPE::Collide` geometry engine rather than
+bounding-box approximations - 757 copper items, 0 violations at the
+project's real 0.15mm netclass clearance, see `net_settings` in the
+`.kicad_pro` - note this is 0.15mm, not the 0.2mm zone `connect_pads`
+value that was mistakenly used as the threshold during the J1/J2-J6 work
+above), 0 unconnected pads/ratsnest lines, 0 pads outside the board
+outline, all GND/+5V_AUDIO pads confirmed inside their zone outlines, 0
+duplicate/overlapping drill holes, and a schematic-vs-PCB netlist
+cross-check (net-by-net membership, not just net names).
+
+That cross-check turned up one real, pre-existing bug, unrelated to
+today's other fixes and present since before this session (confirmed
+against the git history) despite this same document's July changelog
+above claiming it was fixed: **TP1 (the +5V_AUDIO test point) was not
+actually electrically connected** in the schematic. It sits at the exact
+midpoint of a wire between the `+5V_AUDIO` global label and F1, with a
+junction dot drawn at that point, which looks correct and is why it was
+missed visually - but KiCad's own netlist generator consistently placed
+TP1 on its own isolated `unconnected-(TP1-Pad1)` net instead (verified
+with isolated minimal test schematics to rule out a parsing mistake on
+our end, then reproduced and fixed on a scratch copy before touching the
+real file). Fixed by adding an explicit local label `+5V_AUDIO` at TP1's
+pin position in `POWER.kicad_sch` (schematic-only change, no PCB/copper
+impact - the PCB footprint for TP1 was already on the correct net).
+Re-verified: TP1 now appears correctly in the +5V_AUDIO net, and the only
+remaining schematic-vs-PCB net difference is TP2 (GND), which is expected
+since TP2 is mechanical-only with no schematic symbol (see above). This
+particular bug has no functional consequence (TP1 is a measurement point,
+not part of any signal path) but would have made voltage checks at TP1
+misleading. Not yet regenerated into a gerber version, since it doesn't
+touch the PCB.
