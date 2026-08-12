@@ -1,4 +1,4 @@
-### Footprint positions - created on Fri Aug  7 23:19:53 2026 ###
+### Footprint positions - created on Wed Aug 12 00:55:06 2026 ###
 ### Printed by KiCad version 7.0.11+dfsg-1build4
 ## Unit = mm, Angle = deg.
 ## Side : top
@@ -30,7 +30,7 @@ D3        1N4148                                    D_DO-35_SOD27_P7.62mm_Horizo
 D4        1N4148                                    D_DO-35_SOD27_P7.62mm_Horizontal                     97.9400  -199.8000    0.0000  top
 D5        1N4148                                    D_DO-35_SOD27_P7.62mm_Horizontal                    110.1600  -199.8000    0.0000  top
 F1        500mA                                     Fuse_Bourns_MF-RG500                                160.4500  -104.9500    0.0000  top
-J1        USB-C_POWER_IN                            USB_C_Receptacle_GCT_USB4085                        165.0800   -87.5500    0.0000  top
+J1        USB-C_POWER_IN                            USB_C_Receptacle_GCT_USB4085                        171.0400   -93.9800  180.0000  top
 J2        TRRS_Notebook_1                           Jack_3.5mm_PJ320D_Horizontal                         77.4500   -93.7300  -90.0000  top
 J3        TRRS_Notebook_2                           Jack_3.5mm_PJ320D_Horizontal                         90.4500   -93.7300  -90.0000  top
 J4        TRRS_Notebook_3                           Jack_3.5mm_PJ320D_Horizontal                        103.4500   -93.7300  -90.0000  top
@@ -64,12 +64,12 @@ RV1       10k_Vol_NB1                               Potentiometer_Alps_RK09L_Dou
 RV2       10k_Vol_NB2                               Potentiometer_Alps_RK09L_Double_Vertical             94.6250  -162.6000    0.0000  top
 RV3       10k_Vol_NB3                               Potentiometer_Alps_RK09L_Double_Vertical            114.9450  -162.6000    0.0000  top
 RV4       10k_Vol_NB4                               Potentiometer_Alps_RK09L_Double_Vertical            135.2650  -162.6000    0.0000  top
-RV5       Potentiometer_Alps_RK097_Dual_Horizontal  Potentiometer_Alps_RK097_Dual_Horizontal            157.5200  -205.7400   90.0000  top
-SW1       MUTE                                      SW_SHOUHAN_TS665ZJ                                   75.4000  -207.4000    0.0000  top
-SW2       Select_NB1                                SW_SHOUHAN_TS665ZJ                                   99.0600  -208.2800    0.0000  top
-SW3       Select_NB2                                SW_SHOUHAN_TS665ZJ                                  111.7600  -208.2800    0.0000  top
-SW4       Select_NB3                                SW_SHOUHAN_TS665ZJ                                  126.0400  -208.2400    0.0000  top
-SW5       Select_NB4                                SW_SHOUHAN_TS665ZJ                                  138.1200  -208.2400    0.0000  top
+RV5       Potentiometer_Alps_RK097_Dual_Horizontal  Potentiometer_Alps_RK097_Dual_Horizontal            157.5200  -213.5100   90.0000  top
+SW1       MUTE                                      SW_SHOUHAN_TS665ZJ                                   75.4000  -213.2600    0.0000  top
+SW2       Select_NB1                                SW_SHOUHAN_TS665ZJ                                   99.0600  -213.2600    0.0000  top
+SW3       Select_NB2                                SW_SHOUHAN_TS665ZJ                                  111.7600  -213.2600    0.0000  top
+SW4       Select_NB3                                SW_SHOUHAN_TS665ZJ                                  126.0400  -213.2600    0.0000  top
+SW5       Select_NB4                                SW_SHOUHAN_TS665ZJ                                  138.1200  -213.2600    0.0000  top
 U1        NE5532                                    DIP-8_W7.62mm                                        73.5500  -105.3500    0.0000  top
 U2        NJM4556A                                  DIP-8_W7.62mm                                       158.6500  -121.8500    0.0000  top
 ## End

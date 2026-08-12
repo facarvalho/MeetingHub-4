@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 fix_j1_full.py)",
+      "Bash(python3 verify_j1_final.py)"
+    ]
+  },
+  "autoApprove": [
+    "Bash",
+    "Edit",
+    "Write",
+    "Read"
+  ]
+}

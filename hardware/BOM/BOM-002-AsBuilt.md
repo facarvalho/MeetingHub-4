@@ -116,8 +116,56 @@ Raw file: [BOM-MeetingHub-4.csv](BOM-MeetingHub-4.csv)
   - **Confirmed by the user via a real KiCad report (23/07/2026,
     16:27): 0 errors, 0 warnings.** ERC 100% clean.
 
+**J1 orientation corrected 2026-08-12**: the user compared our layout against a
+real photo of the purchased part (LCSC C7095263 / GCT USB4085-GF-A) and the
+official GCT datasheet, and found the connector was mounted backwards - the
+mating face overhung into the board interior instead of past the board edge
+(this is what JLCPCB's "please confirm J1 orientation" DFM question,
+SMT026081260178_Y11, was actually flagging - previously misjudged as correct
+from the layout data alone, without a physical-part comparison). J1 needed a
+180° flip, which is **not** a safe operation to do as a single naive rotation
+for this footprint: the 16 signal pins are symmetric under 180° (USB-C's
+VBUS/GND pinout is reversible by design - A1↔B1, A4↔B4/A9↔B9, A12↔B12 are all
+the same net), but the 4 shield/mounting legs are asymmetric front-to-back
+(clustered on one side, anchoring the overhanging shell), so a plain in-place
+rotation pushes them off the board edge - caught via the KiCad Python API
+before it was saved to the real file. Final placement (now at 171.04, 93.98mm,
+180°, board top edge at y=85mm) and the VBUS reroute to F1/D1 were done
+directly in KiCad by the user, after an automated first pass was found to
+route a couple of local jogs too tight and was reverted in favor of doing it
+by hand. Validated 2026-08-12: **KiCad DRC reports 0 errors** (only cosmetic
+silkscreen-over-solder-mask and footprint-library-mismatch warnings, none
+related to this fix, plus one pre-existing dangling GND stub near
+RV5/SW1 unrelated to J1, present since before this session). Independently
+cross-checked: VBUS (Net-(D1-K)) is a single connected net spanning
+J1-F1-D1 with no dangling ends, and GND reaches J1's 4 pads through the
+In1.Cu zone pour at the new locations (confirmed inside the zone's outline).
+The 4 shield/mounting pads (unconnected, no schematic net) are no longer tied
+together by copper - that connection served no electrical function and was
+dropped during the reroute. See gerbers v13.0 and BOM-PCBA-MeetingHub-4.csv
+item 8 for detail.
+
 **Real pending item, outside the scope of this BOM**: final mechanical
 verification of the above footprints (J1-J6, K1-K4, RV1-RV5) against the
 datasheets of the parts actually purchased, at the time of purchase/receipt -
 recommended even with the layout validated, since small variations between
 suppliers of the same component may exist.
+
+**J2-J6 pad size corrected 2026-08-12**: this is exactly the kind of
+discrepancy the pending item above warned about, and it surfaced via a
+JLCPCB DFM check (SMT026081260178_Y11) rejecting J2-J6 as
+"package doesn't match pads, unable to assemble". Root cause: the KiCad
+stock footprint (`Jack_3.5mm_PJ320D_Horizontal`) uses 1.2x2.5mm SMD pads,
+but the HanElectricity PJ-320D datasheet for the actually-purchased part
+(C22459515) specifies 1.5x3.0mm pads. Fixed by resizing the 4 SMD pads
+(R1/R2/S/T) on all 5 jacks to 1.5x3.0mm (3.0x1.5mm on J6, since that
+instance's rotation is mirrored relative to J2-J5, confirmed empirically
+via the KiCad Python API rather than assumed). The larger pads collided
+with 4 already-routed traces (clearance <0.2mm or outright overlap): J3/S,
+J4/S and J6/T were resolved with a small pad copper offset (0.3-0.4mm,
+footprint anchor/CPL position untouched); J6/S required rerouting the
+adjacent GND segment around the enlarged pad, since a straight GND trace
+ran directly through the pad's new footprint. Verified with a script-based
+geometric check (pad/track bounding boxes and segment distances, KiCad
+Python API) across all J2-J6 pads: 0 clearance violations. See gerbers
+v11.0 and BOM-PCBA-MeetingHub-4.csv item 9 for detail.
