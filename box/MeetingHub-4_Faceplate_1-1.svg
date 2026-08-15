@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160.09mm" height="133.96mm" viewBox="0 0 160.09 133.96" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>MeetingHub-4 Faceplate Component Map — 1:1 Scale</title>
+  <desc>High-end audio interface sticker with subtle Matrix-inspired background and professional audio component layout.</desc>
+  <defs>
+    <style>
+      @keyframes matrix-fall {
+        0% { transform: translateY(-20px); opacity: 0; }
+        10% { opacity: 0.02; }
+        90% { opacity: 0.02; }
+        100% { transform: translateY(140px); opacity: 0; }
+      }
+      .matrix-char { 
+        font-family: 'Courier New', monospace; 
+        font-size: 1.1px;
+        fill: #00cc44;
+        opacity: 0.02;
+        animation: matrix-fall 18s infinite linear;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        .panel-bg { fill: #2a2a28; }
+        .brush { opacity: 0.08; }
+        .label-main { fill: #e8e8e8; }
+        .label-sub { fill: #b8b8b8; }
+        .screw { fill: #a0a0a0; }
+        .glow-ring { stroke: #3db3d4; }
+        .dashed-outline { stroke: #7a7a78; }
+      }
+      @media (prefers-color-scheme: light) {
+        .panel-bg { fill: #3a3a38; }
+        .brush { opacity: 0.12; }
+        .label-main { fill: #e8e8e8; }
+        .label-sub { fill: #c8c8c8; }
+        .screw { fill: #989898; }
+        .glow-ring { stroke: #2db3d4; }
+        .dashed-outline { stroke: #888880; }
+      }
+      .panel-bg { filter: none; }
+      .brush-texture { fill: none; }
+      .component-label { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 2.8px; font-weight: 500; letter-spacing: 0.1px; text-anchor: middle; }
+      .title-text { font-family: "Helvetica Neue", Arial, sans-serif; font-weight: 600; letter-spacing: 0.08px; }
+      .subtitle-text { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 1.6px; font-weight: 400; letter-spacing: 0px; }
+    </style>
+    
+    <!-- Subtle Matrix background -->
+    <g id="matrix-bg" opacity="0.02">
+      <text class="matrix-char" x="5" y="10" style="animation-delay: 0s;">01ヲ1ヲ</text>
+      <text class="matrix-char" x="25" y="20" style="animation-delay: 1.5s;">ヲ01ヲ0</text>
+      <text class="matrix-char" x="45" y="15" style="animation-delay: 3s;">01ヲ01ヲ</text>
+      <text class="matrix-char" x="65" y="25" style="animation-delay: 0.8s;">ヲ01ヲ01</text>
+      <text class="matrix-char" x="85" y="18" style="animation-delay: 2.2s;">01ヲ01</text>
+      <text class="matrix-char" x="105" y="22" style="animation-delay: 3.5s;">ヲ01ヲ</text>
+      <text class="matrix-char" x="125" y="16" style="animation-delay: 1.2s;">01ヲ01ヲ01</text>
+      <text class="matrix-char" x="145" y="28" style="animation-delay: 2.8s;">ヲ01ヲ01</text>
+      
+      <text class="matrix-char" x="12" y="45" style="animation-delay: 2s;">01ヲ1ヲ</text>
+      <text class="matrix-char" x="32" y="50" style="animation-delay: 3.2s;">ヲ01ヲ01</text>
+      <text class="matrix-char" x="52" y="42" style="animation-delay: 0.5s;">01ヲ01</text>
+      <text class="matrix-char" x="72" y="55" style="animation-delay: 1.8s;">ヲ01ヲ</text>
+      <text class="matrix-char" x="92" y="48" style="animation-delay: 2.6s;">01ヲ01ヲ01</text>
+      <text class="matrix-char" x="112" y="52" style="animation-delay: 0.9s;">ヲ01ヲ01</text>
+      <text class="matrix-char" x="132" y="46" style="animation-delay: 3.1s;">01ヲ01</text>
+      
+      <text class="matrix-char" x="8" y="75" style="animation-delay: 1.1s;">01ヲ1ヲ</text>
+      <text class="matrix-char" x="28" y="82" style="animation-delay: 2.4s;">ヲ01ヲ01</text>
+      <text class="matrix-char" x="48" y="78" style="animation-delay: 0.3s;">01ヲ01</text>
+      <text class="matrix-char" x="68" y="85" style="animation-delay: 1.6s;">ヲ01ヲ</text>
+      <text class="matrix-char" x="88" y="80" style="animation-delay: 2.9s;">01ヲ01ヲ</text>
+      <text class="matrix-char" x="108" y="82" style="animation-delay: 0.7s;">ヲ01ヲ01</text>
+      <text class="matrix-char" x="128" y="78" style="animation-delay: 3.3s;">01ヲ01</text>
+    </g>
+    
+    <radialGradient id="glow-cyan" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#5fc9e8;stop-opacity:0.4" />
+      <stop offset="70%" style="stop-color:#3db3d4;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#2a98b8;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Subtle Matrix background -->
+  <use href="#matrix-bg"/>
+  
+  <!-- Panel background: matte dark charcoal aluminum -->
+  <rect class="panel-bg" x="0" y="0" width="160.09" height="133.96" rx="4.02"/>
+  
+  <!-- Subtle brushed-metal texture overlay -->
+  <g class="brush-texture">
+    <line x1="0" y1="2.5" x2="160.09" y2="2.5" class="brush" stroke-width="0.1"/>
+    <line x1="0" y1="7.2" x2="160.09" y2="7.2" class="brush" stroke-width="0.08"/>
+    <line x1="0" y1="15.5" x2="160.09" y2="15.5" class="brush" stroke-width="0.06"/>
+    <line x1="0" y1="35.7" x2="160.09" y2="35.7" class="brush" stroke-width="0.07"/>
+    <line x1="0" y1="58" x2="160.09" y2="58" class="brush" stroke-width="0.08"/>
+    <line x1="0" y1="85.3" x2="160.09" y2="85.3" class="brush" stroke-width="0.06"/>
+    <line x1="0" y1="110.2" x2="160.09" y2="110.2" class="brush" stroke-width="0.07"/>
+  </g>
+
+  <!-- ========== FOUR MOUNTING SCREWS ========== -->
+  <circle class="screw" cx="5.92" cy="6.02" r="0.65" opacity="0.65"/>
+  <circle class="screw" cx="154.17" cy="6.02" r="0.65" opacity="0.65"/>
+  <circle class="screw" cx="6.08" cy="128.94" r="0.65" opacity="0.65"/>
+  <circle class="screw" cx="155.88" cy="128.94" r="0.65" opacity="0.65"/>
+
+  <!-- ========== FOUR INPUT VOLUME TRIMMERS ========== -->
+  
+  <!-- VOL 1 -->
+  <g>
+    <circle cx="14.25" cy="77.47" r="2.2" fill="url(#glow-cyan)" opacity="0.8"/>
+    <circle class="glow-ring" cx="14.25" cy="77.47" r="2.2" stroke-width="0.35" fill="none"/>
+    <circle class="glow-ring" cx="14.25" cy="77.47" r="1.8" stroke-width="0.2" fill="none" opacity="0.5"/>
+    <circle cx="14.25" cy="77.47" r="0.5" class="label-main" fill="currentColor"/>
+    <text class="component-label label-main" x="14.25" y="88.8">VOL 1</text>
+  </g>
+
+  <!-- VOL 2 -->
+  <g>
+    <circle cx="34.58" cy="77.47" r="2.2" fill="url(#glow-cyan)" opacity="0.8"/>
+    <circle class="glow-ring" cx="34.58" cy="77.47" r="2.2" stroke-width="0.35" fill="none"/>
+    <circle class="glow-ring" cx="34.58" cy="77.47" r="1.8" stroke-width="0.2" fill="none" opacity="0.5"/>
+    <circle cx="34.58" cy="77.47" r="0.5" class="label-main" fill="currentColor"/>
+    <text class="component-label label-main" x="34.58" y="88.8">VOL 2</text>
+  </g>
+
+  <!-- VOL 3 -->
+  <g>
+    <circle cx="54.91" cy="77.47" r="2.2" fill="url(#glow-cyan)" opacity="0.8"/>
+    <circle class="glow-ring" cx="54.91" cy="77.47" r="2.2" stroke-width="0.35" fill="none"/>
+    <circle class="glow-ring" cx="54.91" cy="77.47" r="1.8" stroke-width="0.2" fill="none" opacity="0.5"/>
+    <circle cx="54.91" cy="77.47" r="0.5" class="label-main" fill="currentColor"/>
+    <text class="component-label label-main" x="54.91" y="88.8">VOL 3</text>
+  </g>
+
+  <!-- VOL 4 -->
+  <g>
+    <circle cx="75.24" cy="77.47" r="2.2" fill="url(#glow-cyan)" opacity="0.8"/>
+    <circle class="glow-ring" cx="75.24" cy="77.47" r="2.2" stroke-width="0.35" fill="none"/>
+    <circle class="glow-ring" cx="75.24" cy="77.47" r="1.8" stroke-width="0.2" fill="none" opacity="0.5"/>
+    <circle cx="75.24" cy="77.47" r="0.5" class="label-main" fill="currentColor"/>
+    <text class="component-label label-main" x="75.24" y="88.8">VOL 4</text>
+  </g>
+
+  <!-- ========== TITLE & SUBTITLE ========== -->
+  <text class="title-text label-main" x="112" y="72" font-size="6.2">MeetingHub-4</text>
+  <text class="subtitle-text label-sub" x="112" y="78.5">Hub de áudio para reunião —</text>
+  <text class="subtitle-text label-sub" x="112" y="82">compartilha um headset entre</text>
+  <text class="subtitle-text label-sub" x="112" y="85">até 4 dispositivos</text>
+
+  <!-- ========== OTHER COMPONENTS ========== -->
+
+  <!-- USB POWER -->
+  <g opacity="0.6">
+    <rect class="dashed-outline" x="108.2" y="1.2" width="3.2" height="2.8" rx="0.5" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <text class="component-label label-sub" x="111" y="8.5">USB POWER</text>
+  </g>
+
+  <!-- IN 1 -->
+  <g opacity="0.6">
+    <circle class="dashed-outline" cx="17.44" cy="1.7" r="0.8" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <text class="component-label label-sub" x="17.44" y="7.2">IN 1</text>
+  </g>
+
+  <!-- IN 2 -->
+  <g opacity="0.6">
+    <circle class="dashed-outline" cx="30.42" cy="1.7" r="0.8" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <text class="component-label label-sub" x="30.42" y="7.2">IN 2</text>
+  </g>
+
+  <!-- IN 3 -->
+  <g opacity="0.6">
+    <circle class="dashed-outline" cx="43.40" cy="1.7" r="0.8" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <text class="component-label label-sub" x="43.40" y="7.2">IN 3</text>
+  </g>
+
+  <!-- IN 4 -->
+  <g opacity="0.6">
+    <circle class="dashed-outline" cx="56.49" cy="1.7" r="0.8" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <text class="component-label label-sub" x="56.49" y="7.2">IN 4</text>
+  </g>
+
+  <!-- HEADSET -->
+  <g opacity="0.6">
+    <path class="dashed-outline" d="M 140.7 123.2 Q 141.2 121.8 141.8 123.2" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3" stroke-linecap="round"/>
+    <text class="component-label label-sub" x="140.7" y="128.5">HEADSET</text>
+  </g>
+
+  <!-- MUTE -->
+  <g opacity="0.6">
+    <circle class="dashed-outline" cx="15.36" cy="128.1" r="0.7" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <path class="dashed-outline" d="M 14.8 129.5 L 15.9 129.5" stroke-width="0.2" stroke-dasharray="0.6,0.3" stroke-linecap="round"/>
+    <text class="component-label label-sub" x="15.36" y="132.8">MUTE</text>
+  </g>
+
+  <!-- OUT 1 -->
+  <g opacity="0.6">
+    <circle class="dashed-outline" cx="39.04" cy="128.1" r="0.7" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <text class="component-label label-sub" x="39.04" y="132.8">OUT 1</text>
+  </g>
+
+  <!-- OUT 2 -->
+  <g opacity="0.6">
+    <circle class="dashed-outline" cx="51.74" cy="128.1" r="0.7" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <text class="component-label label-sub" x="51.74" y="132.8">OUT 2</text>
+  </g>
+
+  <!-- OUT 3 -->
+  <g opacity="0.6">
+    <circle class="dashed-outline" cx="66.09" cy="128.1" r="0.7" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <text class="component-label label-sub" x="66.09" y="132.8">OUT 3</text>
+  </g>
+
+  <!-- OUT 4 -->
+  <g opacity="0.6">
+    <circle class="dashed-outline" cx="78.12" cy="128.1" r="0.7" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <text class="component-label label-sub" x="78.12" y="132.8">OUT 4</text>
+  </g>
+
+  <!-- VOL MIC -->
+  <g opacity="0.5">
+    <circle class="dashed-outline" cx="97.45" cy="128.32" r="1.2" fill="none" stroke-width="0.25" stroke-dasharray="0.6,0.3"/>
+    <circle cx="97.45" cy="128.32" r="0.4" class="label-main" fill="currentColor" opacity="0.6"/>
+    <text class="component-label label-sub" x="97.45" y="133.2">VOL MIC</text>
+  </g>
+
+</svg>
