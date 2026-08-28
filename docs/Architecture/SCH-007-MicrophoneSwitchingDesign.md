@@ -116,6 +116,13 @@ Characteristics:
 - immediate response;
 - no software.
 
+Implementation (2026-08-28): with **latching** selector buttons (PS-22F03),
+"no selector engaged" leaves every relay de-energised, so COM rests on the
+open NC contact and the microphone reaches no laptop. That is the mute — a
+separate MUTE switch (SW1) was removed. Selecting a laptop un-mutes; the
+selectors are not interlocked, so engaging two routes the mic to two laptops
+(user responsibility, as in section 6).
+
 
 # 8. Considerations
 

@@ -2,6 +2,60 @@
 
 Milestone history of the MeetingHub-4 project, by phase. For the line-by-line history, see `git log`.
 
+## First-article bring-up: 3 schematic bugs found on the fabricated boards (2026-08-28)
+
+All 5 boards from JLCPCB lot `W2026080810364558` show identical faults →
+design errors, not fabrication. Root causes found in the schematic and
+confirmed against the PCB netlist:
+
+1. **Volume pots RV1-RV5 reversed.** Signal was wired to the terminal that
+   should be the cold/VBIAS end and vice-versa (pin 1/4 ↔ pin 3/6). Reverses
+   the control direction and, because the pots are audio-taper wired
+   backwards, leaves most of the travel near full volume with a cut only at
+   the very end ("won't mute"). Fixed in `MIXER.kicad_sch`: pin 1/4 → VBIAS,
+   pin 3/6 → signal, wiper (2/5) unchanged. Netlist verified.
+2. **Mic-select relays K1-K4 have coil and contacts swapped.** `NBx_MIC` was
+   on a coil pin (KiCad G5V-1 coil = pins 2 & 9), the switch/+5V drive was on
+   the NC contact (pin 1), and the NO contact (pin 10) was a no-connect. The
+   coils never energised and each laptop's mic line was loaded to GND through
+   a ~167 Ω coil → mic dead on every laptop. Fixed in `MICSW.kicad_sch`: coil
+   = pins 2 (GND) & 9 (drive), COM = 5/6 (headset mic), `NBx_MIC` → pin 10,
+   pin 1 left open, D2-D5 reoriented as correct freewheel diodes. Netlist
+   verified.
+3. **VBIAS has no buffer** (10k/10k + 10 µF only) — flagged in DR-003 §6;
+   likely source of residual bleed at min volume. Not changed in the
+   schematic yet; documented as an optional fix.
+
+Also noted: SW1-SW5 are momentary switches, so post-fix the mic is only live
+while MUTE + a Select button are held.
+
+**Switch decision for the respin (2026-08-28):** go with latching push-on/
+push-off buttons. `MICSW.kicad_sch` updated: **SW1 (MUTE) removed** — with no
+Select latched, all relays are off and the headset mic reaches no laptop,
+which is the mute; `HEADSET_MIC` now goes straight to the relay COMs.
+**SW2-SW5** kept as `Switch:SW_SPST` but re-pointed to a new footprint
+`MeetingHub-4:SW_PushLock_PS-22F03` (PS-22F03 / A03 self-locking DPDT,
+right-angle, DIP-6 2.54×7.62mm). Part: LCSC C2848947 (G-Switch PS-22F03NC) or
+C19190927 (HOOYA). Footprint is a DRAFT — body/actuator dims and COM/NO pin
+positions to be verified against the datasheet; front-panel spacing and the
+enclosure cutouts need re-work (part is ~9.5mm vs the ~6mm tact switch). BOMs
+updated (SW1-SW5 5pc → SW2-SW5 4pc). PCB switch work folded into
+`docs/REWORK-002-PCB-Reroute.md` (Group F).
+
+PCB (`MeetingHub-4.kicad_pcb`) **pre-staged by script** (no manual routing yet):
+- Fixed a **latent repo bug**: 14 footprints (RV1-5, C1, C4, C21, D1, SW2-5)
+  had no schematic link (`path`), so any "Update PCB from Schematic" duplicated
+  them off-board. All now linked (only MH1-4, TP2 unlinked — no symbol, normal).
+- Reassigned affected pad nets to the corrected schematic (RV1-5 1/3/4/6,
+  K1-4 1/9/10, D2-5 1/2, SW2-5); deleted the now-invalid/orphan track segments.
+- **SW1 removed**; `Net-(SW1-B)` merged into `HEADSET_MIC` (+ short bridge).
+- **SW2-SW5** swapped to `SW_PushLock_PS-22F03` and placed roughly in the front
+  row (final placement + all routing still to do).
+- Zones left unfilled (press `B`). No duplicate footprints, nothing off-board.
+Opens with ~42 ratsnest lines. Routing checklist + Group F details:
+`docs/REWORK-002-PCB-Reroute.md`. Hand-rework of the existing 5 boards:
+`docs/REWORK-001-ExistingBoardFixes.md`.
+
 ## DRC pass on the SW1-SW5 / RV1-RV4 footprint changes (2026-08-07)
 
 Ran a real DRC via `pcbnew.WriteDRCReport` (only path available - this

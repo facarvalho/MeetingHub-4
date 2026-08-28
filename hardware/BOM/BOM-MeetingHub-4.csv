@@ -26,11 +26,10 @@ RV2,1,10k Vol NB2,MeetingHub-4:Potentiometer_Alps_RK09L_Double_Vertical
 RV3,1,10k Vol NB3,MeetingHub-4:Potentiometer_Alps_RK09L_Double_Vertical
 RV4,1,10k Vol NB4,MeetingHub-4:Potentiometer_Alps_RK09L_Double_Vertical
 RV5,1,10k Master,Potentiometer_THT:Potentiometer_Alps_RK097_Dual_Horizontal
-SW1,1,MUTE,MeetingHub-4:SW_SHOUHAN_TS665ZJ
-SW2,1,Select NB1,MeetingHub-4:SW_SHOUHAN_TS665ZJ
-SW3,1,Select NB2,MeetingHub-4:SW_SHOUHAN_TS665ZJ
-SW4,1,Select NB3,MeetingHub-4:SW_SHOUHAN_TS665ZJ
-SW5,1,Select NB4,MeetingHub-4:SW_SHOUHAN_TS665ZJ
+SW2,1,Select NB1 (latching),MeetingHub-4:SW_PushLock_PS-22F03
+SW3,1,Select NB2 (latching),MeetingHub-4:SW_PushLock_PS-22F03
+SW4,1,Select NB3 (latching),MeetingHub-4:SW_PushLock_PS-22F03
+SW5,1,Select NB4 (latching),MeetingHub-4:SW_PushLock_PS-22F03
 TP1,1,+5V_AUDIO,TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm
 TP2,1,GND,TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm
 U1,1,NE5532,Package_DIP:DIP-8_W7.62mm
