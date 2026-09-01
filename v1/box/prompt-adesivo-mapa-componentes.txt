@@ -1,0 +1,82 @@
+PROMPT FINAL — Adesivo "MeetingHub-4 — Mapa de componentes, escala 1:1"
+================================================================
+(gerar em uma IA de imagem; o resultado será depois montado por mim
+em um PDF A4 com escala real garantida)
+
+-----------------------------------------------------------------
+PROMPT (versão final com alterações)
+-----------------------------------------------------------------
+
+Design a beautiful, intuitive product-identification sticker/label for the top panel of an audio device, meant to be printed and glued onto the real enclosure. Clean technical-poster style — think a high-end audio interface or synth faceplate: confident typography, restrained color, generous whitespace, a short line explaining what the device does. Not cartoonish, not cluttered — every mark on this sticker must correspond to a real, physical position on the real hardware, so precision and legibility come before decoration.
+
+OUTPUT FORMAT — critical: the image frame must be landscape with aspect ratio exactly 160.09:133.96 (≈ 1.195:1, close to a 6:5 ratio). The artwork must fill the entire frame edge-to-edge — no letterboxing, no white margin around it, rounded corners with a radius about 3% of the panel height (real corner radius is 5mm on a 133.96mm-tall panel). If the tool only accepts preset ratios, pick the closest to 1.195:1 (e.g. 5:4) rather than square or 16:9. Render at the highest resolution available on the long edge (1800px+).
+
+TITLE / INTRO (small, tasteful, in the panel's otherwise-empty area — see layout notes below):
+"MeetingHub-4" as the product wordmark, plus a one-line subtitle:
+"Hub de áudio para reunião — compartilha um headset entre até 4 notebooks."
+
+LABEL STYLE — every per-component tag below is written the way real pro-audio gear silkscreens its panels (short, English, upper case, no punctuation) — e.g. Behringer/Focusrite/Yamaha convention. Use these exact tags only. Do NOT print any reference designators (do not write J1, J2, J3, J4, J5, J6, RV1, RV2, RV3, RV4, RV5, SW1, SW2, SW3, SW4 or SW5 anywhere on the artwork):
+
+IN 1, IN 2, IN 3, IN 4 — the four notebook inputs  
+USB POWER — power input  
+VOL 1, VOL 2, VOL 3, VOL 4 — the four input-volume trimmers  
+VOL MIC — mic volume  
+MUTE — mute button (simplified label)
+OUT 1, OUT 2, OUT 3, OUT 4 — mic routing selectors (simplified from "MIC OUT")
+HEADSET — headset jack
+
+LAYOUT — this is a real component map, so positions below are given as percentages of panel width (X%) and panel height (Y%), measured from the top-left corner, matching the real board:
+
+Corner fixing screws (small, quiet, metallic dot — NOT a highlighted feature, these are just M3 mounting screws, no drilling callout needed):
+- top-left corner (X=3.7%, Y=4.5%)
+- top-right corner (X=96.3%, Y=4.5%)
+- bottom-left corner (X=3.8%, Y=96.2%)
+- bottom-right corner (X=97.4%, Y=96.2%)
+
+THESE FOUR ARE REAL DRILL HOLES IN THIS EXACT PANEL — give them the strongest visual treatment on the sticker: a glowing ring, and a small icon suggesting a hole/drill-through. They are input-volume trimmer knobs, laid out in a horizontal row in the LEFT HALF of the panel only (nothing to their right on this row) at Y=58% (below vertical center):
+- X=8.9%, Y=57.9% — label "VOL 1" [ICON POSITION — text descends 3mm below icon]
+- X=21.6%, Y=57.9% — label "VOL 2" [ICON POSITION — text descends 3mm below icon]
+- X=34.3%, Y=57.9% — label "VOL 3" [ICON POSITION — text descends 3mm below icon]
+- X=47.0%, Y=57.9% — label "VOL 4" [ICON POSITION — text descends 3mm below icon]
+
+Each should look like a small round trimmer/knob glyph with its real drill diameter implied (9.2mm on a 160mm-wide panel — small, precise, not a big chunky knob), plus the glowing cyan treatment. The ikon itself (glowing ring, central hole indicator) remains at Y=57.9%. Only the text label "VOL 1", "VOL 2", "VOL 3", "VOL 4" descends approximately 3mm below the icon to improve spacing in the lower section.
+
+The RIGHT HALF of the row (X > 55%) has no volume controls — that's where the wordmark/subtitle from above goes.
+
+The remaining components are REAL, but they are NOT drilled on this panel — they sit on other faces of the enclosure (front/back walls). Mark them with a visibly DIFFERENT, quieter treatment: no glow, a dashed outline instead of solid, and the convention is understood without repeated explanatory text:
+- X=69.4%, Y=6.7% — label "USB POWER" (USB-C connector)
+- X=10.9%, Y=6.5% — label "IN 1"
+- X=19.0%, Y=6.5% — label "IN 2"
+- X=27.1%, Y=6.5% — label "IN 3"
+- X=35.3%, Y=6.5% — label "IN 4"
+- X=88.5%, Y=92.6% — label "HEADSET"
+- X=9.6%, Y=95.7% — label "MUTE" (simplified from "MUTE MIC")
+- X=24.4%, Y=95.7% — label "OUT 1" (simplified from "MIC OUT 1")
+- X=32.3%, Y=95.7% — label "OUT 2" (simplified from "MIC OUT 2")
+- X=41.3%, Y=95.7% — label "OUT 3" (simplified from "MIC OUT 3")
+- X=48.8%, Y=95.7% — label "OUT 4" (simplified from "MIC OUT 4")
+- X=60.9%, Y=95.9% — label "VOL MIC" (slightly larger dashed/translucent knob than the VOL 1–4 ones)
+
+TYPOGRAPHY & LABELS:
+Every marked component gets only its short functional label (given above, verbatim, upper case, English). Keep label text small and out of the way of neighboring marks — prefer short leader lines from the mark to its label. The rest of the sticker's copy (title, subtitle) is in Portuguese — only the per-component tags are in English.
+
+DO NOT include any legend at all (do not write "Furo real nesta chapa", "Referência — montado em outra face do gabinete", or any similar explanatory key).
+
+DO NOT include: any print-setup instructions, calibration bars, ruler graphics, "scale 100%" text, or any technical disclaimer text anywhere in the image. Leave a clean, empty margin strip along the very bottom of the panel (about 8% of panel height) with no graphic elements — that space is reserved for print-scale information added separately afterward.
+
+Professional high-end audio equipment faceplate sticker, clean technical poster style, landscape orientation exact aspect ratio 1.195:1 (160.09:133.96), fill entire frame edge-to-edge with no margins or letterboxing, rounded corners radius approximately 3% of height. Matte dark charcoal-gray aluminum panel background with subtle brushed metal texture, restrained cool neutral palette (deep graphite, soft silver, muted cyan accents only for emphasis), generous whitespace, confident minimalist typography.
+Four small quiet metallic M3 screw heads as subtle low-contrast silver dots at exact positions: top-left 3.7% x 4.5%, top-right 96.3% x 4.5%, bottom-left 3.8% x 96.2%, bottom-right 97.4% x 96.2%. No callouts on screws.
+Four real input-volume trimmer positions in left half only, horizontal row at Y≈58%: VOL 1 at 8.9% x 57.9%, VOL 2 at 21.6% x 57.9%, VOL 3 at 34.3% x 57.9%, VOL 4 at 47.0% x 57.9%. Each shown as precise small circular 9.2mm-scale trimmer glyph with glowing cyan ring and tiny central hole icon suggesting drill-through. Icons remain at Y=57.9%. Text labels descend 3mm below icons for improved bottom-section spacing. No reference text or legend explaining the treatment. These four receive the strongest visual treatment.
+Right half of that row (X>55%) left completely empty for title.
+Title wordmark "MeetingHub-4" in clean confident technical sans-serif, medium weight, silver-white, positioned in the otherwise empty right-center area. Directly beneath it the one-line Portuguese subtitle in smaller lighter weight: "Hub de áudio para reunião — compartilha um headset entre até 4 notebooks."
+All other components marked with quieter treatment: thin dashed silver outlines, no glow, translucent. Exact positions and uppercase English labels only (no extra tags or explanatory text of any kind):
+
+USB POWER (USB-C style connector icon) at 69.4% x 6.7%
+IN 1 at 10.9% x 6.5%, IN 2 at 19.0% x 6.5%, IN 3 at 27.1% x 6.5%, IN 4 at 35.3% x 6.5%
+HEADSET (headset jack icon) at 88.5% x 92.6%
+MUTE (mute microphone icon) at 9.6% x 95.7%
+OUT 1 at 24.4% x 95.7%, OUT 2 at 32.3% x 95.7%, OUT 3 at 41.3% x 95.7%, OUT 4 at 48.8% x 95.7%
+VOL MIC (slightly larger dashed translucent knob) at 60.9% x 95.9%
+
+Every component label is short, uppercase, English, Behringer/Focusrite style, placed with short thin leader lines so text never collides. Absolutely no coordinate percentages printed anywhere. No legends, no scale bars, no calibration marks, no print instructions, no disclaimers. Clean empty horizontal strip along the very bottom ≈8% of panel height with zero graphic elements.
+Ultra-precise layout matching the percentage coordinates for placement only, high legibility, professional product identification sticker ready to print and glue, 1800px+ on long edge, photorealistic technical illustration quality.

@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "MeetingHub-4")(type "KiCad")(uri "${KIPRJMOD}/MeetingHub-4.pretty")(options "")(descr "Local project footprints (parts not in KiCad standard libraries)"))
+)

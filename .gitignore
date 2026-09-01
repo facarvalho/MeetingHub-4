@@ -9,7 +9,7 @@ _autosave-*
 fp-info-cache
 
 # Manual/full project zip backups
-hardware/KiCad/*.zip
+**/hardware/KiCad/*.zip
 
 # DRC/ERC report exports (regenerate on demand, not meant to be versioned)
 *.rpt

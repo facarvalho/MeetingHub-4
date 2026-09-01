@@ -1,0 +1,9 @@
+(version 1)
+
+# The KiCad stock USB-C receptacle footprint (GCT USB4085) has 0.8 mm pad
+# pitch on VBUS/GND/CC; the connector is manufactured this way. Relax the
+# net-clearance check between two pads of J1 so DRC reflects real risk.
+(rule "USB-C J1 internal pads"
+  (condition "A.Reference == 'J1' && B.Reference == 'J1'")
+  (constraint clearance (min 0.1mm))
+  (constraint hole_clearance (min 0.1mm)))
