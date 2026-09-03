@@ -1,0 +1,23 @@
+MeetingHub-4 v2 - headphone amplifier  (U2A, NJM4556A, one channel)
+* Non-inverting, AC gain 1 + R15/R14 = 2 ; DC gain 1 (C16 blocks the divider).
+* Output: C17 (220u) DC block -> R16 (47) series -> J6.T -> 32 ohm headset.
+* Requirement: flat audio band, no DC on the phones, drives 16-32 ohm.
+.include opamp.sub
+
+V5   p5 0 5
+V    bias vbias 0 2.5
+Vin  mix vbias AC 1 SINE(0 0.30 1k)
+
+C15  mix  inp  1u
+R13  inp  vbias 100k
+R15  inn  out   1k
+R14  inn  fbg   1k
+C16  fbg  0     10u
+XU2  out  inp inn p5 0  OPAMP1 params: A0=1e5 GBW=9e6 ROUT=25 VSAT=1.2
+C17  out  n1    220u
+R16  n1   j6t   47
+Rhp  j6t  0     32
+
+.ac dec 40 2 200k
+.tran 0 8m 0 2u
+.end

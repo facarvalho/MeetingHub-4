@@ -1,0 +1,22 @@
+MeetingHub-4 v2 - VBIAS reference + LM358 buffer  (v1 bug #3 fix)
+* Requirement: VBIAS = 2.50 V, source impedance < 1 ohm across the audio band.
+* Nets per hardware/PCB/MeetingHub-4-v2.net :
+*   +5V -R1- VBIAS_REF -R2- GND ; C3 filters VBIAS_REF
+*   U3A: +in = VBIAS_REF, -in = VBIAS (fb taken AFTER R38), out = VB_OUT
+*   VB_OUT -R38(47)- VBIAS ; C26 (1u) on VBIAS
+.include opamp.sub
+
+V5    p5  0   5
+R1    p5  vref  10k
+R2    vref 0    10k
+C3    vref 0    10u
+XU3   vbout vref vbias p5 0  OPAMP1 params: A0=1e5 GBW=1e6 ROUT=100 VSAT=1.5
+R38   vbout vbias 47
+C26   vbias 0   1u
+
+* --- probe: 1 A AC current into VBIAS  =>  V(vbias) reads Zout in ohms
+Iprobe 0 vbias AC 1
+
+.ac dec 40 1 200k
+.op
+.end

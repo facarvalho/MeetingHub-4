@@ -9,16 +9,17 @@ itself, no mute button, and all three bugs from the first fabricated batch fixed
 
 | | |
 |---|---|
-| **Status** | Schematic complete, PCB **fully auto-routed** (2 layers), DRC clean apart from known cosmetic items. Not yet fabricated. Open in KiCad to tidy silkscreen and run native DRC before ordering. |
-| **PCB** | 2 layers, ~328 × 128 mm, GND pour both sides. |
+| **Status** | Schematic complete, PCB **fully auto-routed** (2 layers, rev-8: 850 seg / 30 vias), DRC clean apart from known cosmetic items. Not yet fabricated. Open in KiCad to tidy silkscreen and run native DRC before ordering. |
+| **PCB** | 2 layers, **192 × 156 mm**, R6 rounded corners, 6× M3, GND pour both sides. |
+| **Enclosure** | top + bottom acrylic only, sides open (no front panel). |
 | **Supply** | USB-C, 5 V only (no regulator, no boost). |
-| **BOM** | 118 parts, 100 % THT — [`hardware/BOM/BOM-MeetingHub-4-v2.csv`](hardware/BOM/BOM-MeetingHub-4-v2.csv) |
-| **Fab files** | [`hardware/Gerbers/MeetingHub-4-v2-Gerbers.zip`](hardware/Gerbers/) — order as **2-layer**, 1.6 mm, HASL is fine. |
+| **BOM** | 117 parts, 100 % THT — every LCSC code in stock with a ready footprint (rev-8 audit). PCBA: [`BOM-PCBA`](hardware/BOM/BOM-PCBA-MeetingHub-4-v2.csv) · upload [`BOM-JLC`](hardware/BOM/BOM-JLC-MeetingHub-4-v2.csv) for assembly · [component photos + links](docs/components.html). |
+| **Fab files** | [`hardware/Gerbers/MeetingHub-4-v2-Gerbers.zip`](hardware/Gerbers/) — order as **2-layer**, 1.6 mm, HASL is fine. `…-CPL.csv` has the per-footprint rotation fixes for JLC assembly. |
 
 ## How it works
 
 - **Monitor:** each laptop plugs into J2–J5 (TRRS). Its L/R audio goes through a
-  DC-block, a per-laptop volume pot (RV1–RV2), a 4-input stereo summing mixer
+  DC-block, a per-laptop volume pot (RV1–RV4), a 4-input stereo summing mixer
   (U1 NJM4580), a master volume (RV5), a headphone amp (U2 NJM4556A), out to the
   headset J6. All four are always summed.
 - **Talk:** the headset mic (J6 sleeve) is routed by one of four signal relays

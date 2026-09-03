@@ -1,0 +1,42 @@
+(footprint "Jack_3.5mm_PJ-3200B-4A_Horizontal" (version 20211014) (generator pcbnew)
+  (layer "F.Cu")
+  (descr "Korean Hroparts Elec PJ-3200B-4A - 3.5mm 4-conductor (TRRS) headset jack, 100% through-hole (LCSC C136687). Built from the HRO datasheet (rev A, 2013/11/11): copper-side PCB layout row 3/4/2 at 3.00/4.00 mm pitch + offset pin 1, 2xO1.30 locating posts, barrel nose overhangs 2.0 mm past the body face. Footprint rotated so the barrel points -Y (overhangs the -Y board edge, same convention as Jack_3.5mm_PJ320E_Horizontal). Pin->function from the datasheet schematic (pin 1 = barrel/Sleeve; springs 2/4/3 at increasing depth = Tip/Ring1/Ring2) and cross-checked against the KiCad PJ320E pad pattern: T=pin2, R1=pin4, R2=pin3, S=pin1.")
+  (tags "3.5mm jack trrs 4-conductor headset audio through-hole PJ-3200B-4A KoreanHropartsElec HRO")
+  (attr through_hole)
+  (fp_text reference "REF**" (at -2.3 4.4) (layer "F.SilkS")
+    (effects (font (size 1 1) (thickness 0.15))))
+  (fp_text value "Jack_3.5mm_PJ-3200B-4A_Horizontal" (at -2.3 6.4) (layer "F.Fab")
+    (effects (font (size 1 1) (thickness 0.15))))
+  (fp_text user "${REFERENCE}" (at -2.3 -6.2) (layer "F.Fab")
+    (effects (font (size 1 1) (thickness 0.15))))
+
+  (fp_line (start -5.4 -12.2) (end 1.6 -12.2) (layer "F.Fab") (width 0.1))
+  (fp_line (start 1.6 -12.2) (end 1.6 2.4) (layer "F.Fab") (width 0.1))
+  (fp_line (start 1.6 2.4) (end -5.4 2.4) (layer "F.Fab") (width 0.1))
+  (fp_line (start -5.4 2.4) (end -5.4 -12.2) (layer "F.Fab") (width 0.1))
+  (fp_line (start -4.6 -12.2) (end -4.6 -10.2) (layer "F.Fab") (width 0.1))
+  (fp_line (start 0.4 -12.2) (end 0.4 -10.2) (layer "F.Fab") (width 0.1))
+  (fp_line (start -4.6 -10.2) (end 0.4 -10.2) (layer "F.Fab") (width 0.1))
+
+  (fp_line (start -5.7 -8.2) (end -5.7 2.7) (layer "F.SilkS") (width 0.12))
+  (fp_line (start -5.7 2.7) (end 1.9 2.7) (layer "F.SilkS") (width 0.12))
+  (fp_line (start 1.9 2.7) (end 1.9 -8.2) (layer "F.SilkS") (width 0.12))
+  (fp_line (start -5.7 -8.2) (end -3.4 -8.2) (layer "F.SilkS") (width 0.12))
+  (fp_line (start -0.6 -8.2) (end 1.9 -8.2) (layer "F.SilkS") (width 0.12))
+
+  (fp_line (start -5.9 -12.5) (end 1.9 -12.5) (layer "F.CrtYd") (width 0.05))
+  (fp_line (start 1.9 -12.5) (end 1.9 2.7) (layer "F.CrtYd") (width 0.05))
+  (fp_line (start 1.9 2.7) (end -5.9 2.7) (layer "F.CrtYd") (width 0.05))
+  (fp_line (start -5.9 2.7) (end -5.9 -12.5) (layer "F.CrtYd") (width 0.05))
+
+  (pad "T"  thru_hole rect   (at 0 0)        (size 1.7 1.7) (drill oval 1.2 0.7) (layers *.Cu *.Mask))
+  (pad "R1" thru_hole circle (at 0 -4.0)     (size 1.7 1.7) (drill oval 1.2 0.7) (layers *.Cu *.Mask))
+  (pad "R2" thru_hole circle (at 0 -7.0)     (size 1.7 1.7) (drill oval 1.2 0.7) (layers *.Cu *.Mask))
+  (pad "S"  thru_hole circle (at -4.6 1.1)   (size 1.7 1.7) (drill oval 1.2 0.7) (layers *.Cu *.Mask))
+
+  (pad "" np_thru_hole circle (at -2.3 -7.8) (size 1.3 1.3) (drill 1.3) (layers *.Cu *.Mask))
+  (pad "" np_thru_hole circle (at -2.3 -3.2) (size 1.3 1.3) (drill 1.3) (layers *.Cu *.Mask))
+
+  (model "${KICAD6_3DMODEL_DIR}/Connector_Audio.3dshapes/Jack_3.5mm_PJ320E_Horizontal.wrl"
+    (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 90)))
+)

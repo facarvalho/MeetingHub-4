@@ -148,8 +148,9 @@ is biased by whichever laptop is selected (passive switching, as v1).
   (body overhangs the edge), SW2–SW5 and J6 (headset, barrel overhangs);
   rear edge carries J1 (USB-C, 180°) and J2–J5 (barrels overhang for panel
   mounting). Everything else is in the middle.
-- **Rounded outline** (8 mm corner radius), **286 × 157 mm**, 2 layers.
-- **4× M3 mounting holes** just inside the corners/edges; **TP2** GND test
+- **Rounded outline**, 2 layers. *(rev-2 was 286 × 157 mm / R8 / 4× M3 — now
+  192 × 156 mm / R6 / 6× M3 as of rev-7/8, see below.)*
+- **M3 mounting holes** just inside the corners/edges; **TP2** GND test
   point added near U1.
 - ERC-grid and footprint-library issues from the first review round are fixed
   — see `v2-ERC-DRC-status.md`.
@@ -175,6 +176,36 @@ is biased by whichever laptop is selected (passive switching, as v1).
   1R–4R = 3,7,11,15; 1S–4S = 4,6,12,14; OE = 5; NC = 13) — the project-local
   symbol is correct.
 - Re-routed: 848 seg / 35 vias, 0 unconnected, 0 SMD pads.
+
+### rev-8 (2026-09-03) — sourcing, footprints, front-edge controls
+- **Full JLCPCB stock audit.** Every BOM LCSC code was re-checked; the ones on
+  the old "verify" list all pointed at the wrong part (SMD or a different
+  component) or were out of stock. All fixed — **every rev-8 part is in stock,
+  min-order 1, with a ready LCEDA footprint + 3D model**. See CHANGELOG rev-8
+  and `v1-vs-v2.md` §2/§3 for the table. Highlights: D1→C152132, U1→C5184871,
+  U3→C5213, U4→C22390239 (CD4043BE lingxingic), 100nF→C2167231, 3k3→C119335,
+  100µF→C346930, 47R→C3373549 (47.5Ω), F1→C76399 (RXEF050).
+- **J2–J6 → Korean Hroparts PJ-3200B-4A** (C136687), 4-conductor TRRS, 100% THT.
+  New local footprint `Jack_3.5mm_PJ-3200B-4A_Horizontal` built from the HRO
+  datasheet (pin map T=2/R1=4/R2=3/S=1 confirmed vs the datasheet schematic +
+  the KiCad PJ320E pad pattern). The v1-vs-v2 "PJ-320E" plan is superseded —
+  no HTC PJ-320-series THT jack is in JLC's assembly stock.
+- **SW2–SW5 → C&K PTS645VK392LFS** right-angle THT tact (C285519), plunger out
+  the front edge (`SW_Tactile_SPST_Angled_PTS645Vx39-2LFS`, rot 180).
+- **Enclosure: top + bottom acrylic only, sides open** (no front panel). Front
+  controls re-placed so the can body is ~flush with the open edge: RV1–RV5 at
+  y=FRONT-5.5 (RK097 can ~0.5 mm inside the edge, ~20 mm shaft overhang);
+  SW2–SW5 at y=FRONT-3 (plunger ~1 mm past the edge).
+- **CPL rotation corrected per footprint** against JLC's LCEDA library parts
+  (DIP/relay/jack 270° off, RK097 pot + PTS645 tact 180° off — the LCEDA
+  footprints draw body/actuator on the opposite side of the pins). `bomcpl.py`
+  applies `FP_ROT_OFFSET`.
+- New `hardware/BOM/BOM-JLC-MeetingHub-4-v2.csv` — native JLC format
+  (`Comment,Designator,Footprint,JLCPCB Part #`); upload this one for assembly.
+- Re-routed: **850 seg / 30 vias, 0 unconnected, 0 SMD pads**, DRC unchanged
+  (8 J1-internal + 5 silk). Netlist connectivity node-identical to rev-7.
+- Board is **192 × 156 mm, R6 corners, 6× M3** (the rev-2 "286 × 157 / 4× M3"
+  note below is stale).
 
 ### Open items / limitations (not blocking)
 1. **No runtime "none selected".** Once a laptop is chosen the mic stays on it

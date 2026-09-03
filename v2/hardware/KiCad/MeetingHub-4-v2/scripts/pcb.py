@@ -73,9 +73,12 @@ place("F1", 56, REAR+22, 0)
 place("C1", 70, REAR+22, 0)
 place("TP1", 84, REAR+7, 0)
 place("C2", 96, REAR+22, 0)
-# J2-J5: rot 0. On the PJ-320E the plug enters at the footprint's -Y (the barrel
-# nub); at rot 0 that -Y end overhangs the REAR edge and the plug faces out.
-block(["J2","J3","J4","J5"], 112, REAR+9, 4, 23, 0, 0)
+# J2-J5: rot 0. The local PJ-3200B-4A footprint is pre-rotated so the insertion
+# barrel points -Y; at rot 0 that barrel overhangs the REAR edge and the plug
+# faces out. y = REAR+10.2 puts the jack body face ~at the board edge, the 2.0 mm
+# barrel nose overhanging, and the O1.30 locating posts ~2.5 mm inside the edge
+# (verify the overhang vs the acrylic panel in the GUI / 3D view).
+block(["J2","J3","J4","J5"], 112, REAR+10.2, 4, 23, 0, 0)
 
 # ---- MIXER (left lane x18..76) ----
 place("U1", 44, 38, 0)
@@ -108,11 +111,19 @@ block(["R21","R22","R23","R24","R25","R26",
 block(["D10","D11","D12","D13","D14","D15","D16","D17","D18","D19",
        "D20","D21","D22","D23","D24","D25","D26","D27","D28","D29"], 124, 140, 10, 7, 12, 90)  # 2 rows, right above the buttons
 
-# ---- FRONT edge: pots + buttons + headset, at the edge ----
-block(["RV1","RV2","RV3","RV4","RV5"], 30, FRONT-3, 5, 15, 0, 90)
-block(["SW2","SW3","SW4","SW5"], 124, FRONT-8, 4, 14, 0, 0)
-# J6: rot 180 -> the PJ-320E barrel (-Y end) points to the FRONT edge, plug out.
-place("J6", 182, FRONT-11, 180)
+# ---- FRONT edge: pots + buttons + headset ----
+# Enclosure is top+bottom acrylic only, sides OPEN (no front panel). Controls
+# are operated directly, so each part's CAN body sits ~just behind the open
+# edge and only the functional bit (shaft / plunger / barrel) overhangs.
+# RV1-5: y=FRONT-5.5 -> RK097 9.55mm can ends ~0.5mm inside the edge, ~22mm of
+#        M7 bushing + shaft overhangs for the knob.
+block(["RV1","RV2","RV3","RV4","RV5"], 30, FRONT-5.5, 5, 15, 0, 90)
+# SW2-5: right-angle PTS645 tact, rot 180 -> plunger points +Y (out the open
+# front edge). y=FRONT-3 -> plunger tip ~1mm past the edge for a clean finger
+# press (or a button cap).
+block(["SW2","SW3","SW4","SW5"], 124, FRONT-3, 4, 14, 0, 180)
+# J6: rot 180 -> the PJ-3200B-4A barrel (-Y end) points to the FRONT edge, plug out.
+place("J6", 182, FRONT-10.2, 180)
 
 tp2 = place("TP2", 118, 44, 0, "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm")
 if tp2:

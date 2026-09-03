@@ -1,0 +1,31 @@
+VBIAS buffer - final stability check (ngspice + LM358 macromodel)
+* As drawn: feedback at VBIAS (after R38).  No artificial DC load (the real
+* circuit puts ~0 DC load on VBIAS - both pot ends and R13/R17 sit at VBIAS).
+.include models.lib
+V5 p5 0 DC 5
+R1 p5 vr 10k
+R2 vr 0 10k
+C3 vr 0 10u
+XU3 vbo vr vbias p5 0 LM358
+R38 vbo vbias 47
+C26 vbias 0 1u
+* AC probe for |Zout|
+Iac vbias 0 AC 1
+* transient 2 mA load step at t = 0.5 s (well after settling)
+Istep vbias 0 PWL(0 0 0.4999 0 0.5 2m 0.7 2m 0.7000001 0)
+
+.control
+ac dec 60 10 2meg
+meas ac z_1k  FIND vm(vbias) AT=1k
+meas ac z_20k FIND vm(vbias) AT=20k
+let zz = vm(vbias)
+meas ac z_pk MAX zz FROM=1k TO=1meg
+wrdata vbias_zout_bom.dat vm(vbias)
+alter Iac ac=0
+tran 5u 0.9 uic
+meas tran v_dc     FIND v(vbias) AT=0.49
+meas tran v_min    MIN  v(vbias) FROM=0.5 TO=0.7
+meas tran v_ring   PP   v(vbias) FROM=0.502 TO=0.56
+wrdata vbias_step_bom.dat v(vbias)
+.endc
+.end

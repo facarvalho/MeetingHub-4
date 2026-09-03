@@ -1,0 +1,130 @@
+MeetingHub-4 v2 - BOM one-hot mic selector (ngspice, datasheet models)
+* SW2..SW5 -> BTN1..4 ; diode matrix D10-D25 -> SET/RST ; U4 = 4x CD4043B NOR
+* latch ; POR C24/R37 + D26-29 ; 2N7000 Q1-4 drivers ; K1-4 relays route
+* HEADSET_MIC (electret) to the selected laptop's NBn_MIC.
+.include models.lib
+
+* ---- power: VBUS ramps in 4 ms
+VBUS p5 0 PWL(0 0 4m 5 1 5)
+C23  p5 0 100u
+
+* ---- momentary buttons: press = connect +5V to BTNn for ~120 ms
+* sequence: SW2 @ 0.4s, SW3 @ 0.9s, SW4 @ 1.4s, SW5 @ 1.9s, SW3+SW4 @ 2.5s
+SBTN1 p5 btn1 press1 0 SWB
+SBTN2 p5 btn2 press2 0 SWB
+SBTN3 p5 btn3 press3 0 SWB
+SBTN4 p5 btn4 press4 0 SWB
+.model SWB SW(VT=2.5 VH=0.2 RON=20 ROFF=1G)
+Vp1 press1 0 PWL(0 0  0.4 0 0.401 5  0.52 5 0.521 0)
+Vp2 press2 0 PWL(0 0  0.9 0 0.901 5  1.02 5 1.021 0   2.5 0 2.501 5 2.7 5 2.701 0)
+Vp3 press3 0 PWL(0 0  1.4 0 1.401 5  1.52 5 1.521 0   2.5 0 2.501 5 2.7 5 2.701 0)
+Vp4 press4 0 PWL(0 0  1.9 0 1.901 5  2.02 5 2.021 0)
+* pulldowns so an un-pressed BTN line is low
+Rb1 btn1 0 100k
+Rb2 btn2 0 100k
+Rb3 btn3 0 100k
+Rb4 btn4 0 100k
+
+* ---- diode matrix  (anode = BTNn, cathode = SETx/RSTx)
+* BTN1 -> SET1,RST2,RST3,RST4
+D10 btn1 set1 D1N4148
+D11 btn1 rst2 D1N4148
+D12 btn1 rst3 D1N4148
+D13 btn1 rst4 D1N4148
+* BTN2 -> SET2,RST1,RST3,RST4
+D14 btn2 set2 D1N4148
+D15 btn2 rst1 D1N4148
+D16 btn2 rst3 D1N4148
+D17 btn2 rst4 D1N4148
+* BTN3 -> SET3,RST1,RST2,RST4
+D18 btn3 set3 D1N4148
+D19 btn3 rst1 D1N4148
+D20 btn3 rst2 D1N4148
+D21 btn3 rst4 D1N4148
+* BTN4 -> SET4,RST1,RST2,RST3
+D22 btn4 set4 D1N4148
+D23 btn4 rst1 D1N4148
+D24 btn4 rst2 D1N4148
+D25 btn4 rst3 D1N4148
+* pulldowns R21-28 (100k) on SET1-4 / RST1-4
+R21 set1 0 100k
+R22 set2 0 100k
+R23 set3 0 100k
+R24 set4 0 100k
+R25 rst1 0 100k
+R26 rst2 0 100k
+R27 rst3 0 100k
+R28 rst4 0 100k
+
+* ---- power-on reset : +5V -C24(10u)- PORN -R37(100k)- GND, D26-29 -> RST1-4
+C24 p5 porn 10u
+R37 porn 0 100k
+D26 porn rst1 D1N4148
+D27 porn rst2 D1N4148
+D28 porn rst3 D1N4148
+D29 porn rst4 D1N4148
+
+* ---- U4 CD4043B : 4 NOR R/S latches, OE tied high
+XL1 qo1 set1 rst1 p5 0 CD4043LATCH
+XL2 qo2 set2 rst2 p5 0 CD4043LATCH
+XL3 qo3 set3 rst3 p5 0 CD4043LATCH
+XL4 qo4 set4 rst4 p5 0 CD4043LATCH
+
+* ---- coil drivers : QOn -R29-32(1k)- GATEn -> 2N7000 ; R33-36(100k) pulldown
+R29 qo1 gate1 1k
+R30 qo2 gate2 1k
+R31 qo3 gate3 1k
+R32 qo4 gate4 1k
+R33 gate1 0 100k
+R34 gate2 0 100k
+R35 gate3 0 100k
+R36 gate4 0 100k
+XQ1 coil1 gate1 0 Q2N7000
+XQ2 coil2 gate2 0 Q2N7000
+XQ3 coil3 gate3 0 Q2N7000
+XQ4 coil4 gate4 0 Q2N7000
+
+* ---- relays K1-4 : coil p5..COILn ; COM = HEADSET_MIC ; NO = NBn_MIC
+* freewheel diodes D2-5 : anode = COILn, cathode = +5V
+XK1 p5 coil1 hmic nb1 RELAY_G5V1
+XK2 p5 coil2 hmic nb2 RELAY_G5V1
+XK3 p5 coil3 hmic nb3 RELAY_G5V1
+XK4 p5 coil4 hmic nb4 RELAY_G5V1
+D2 coil1 p5 D1N4148
+D3 coil2 p5 D1N4148
+D4 coil3 p5 D1N4148
+D5 coil4 p5 D1N4148
+
+* ---- headset electret mic (1 kHz test tone on HEADSET_MIC) + laptop mic loads
+Vmic hmic 0 DC 2.0 AC 0 SIN(2.0 0.02 1k)
+Rl1 nb1 0 2.2k
+Rl2 nb2 0 2.2k
+Rl3 nb3 0 2.2k
+Rl4 nb4 0 2.2k
+
+.control
+tran 200u 3.0 uic
+* latch outputs after each press settles
+meas tran q1_a FIND v(qo1) AT=0.7
+meas tran q2_a FIND v(qo2) AT=0.7
+meas tran q3_a FIND v(qo3) AT=0.7
+meas tran q4_a FIND v(qo4) AT=0.7
+meas tran q_after_sw3_1 FIND v(qo1) AT=1.2
+meas tran q_after_sw3_2 FIND v(qo2) AT=1.2
+meas tran q_after_sw4_2 FIND v(qo2) AT=1.7
+meas tran q_after_sw4_3 FIND v(qo3) AT=1.7
+meas tran q_after_sw5_3 FIND v(qo3) AT=2.3
+meas tran q_after_sw5_4 FIND v(qo4) AT=2.3
+meas tran q_2btn_1 FIND v(qo1) AT=2.6
+meas tran q_2btn_4 FIND v(qo4) AT=2.6
+meas tran q_2btn_2 FIND v(qo2) AT=2.6
+meas tran q_2btn_3 FIND v(qo3) AT=2.6
+meas tran porn_at_100m FIND v(porn) AT=0.1
+* mic routing: signal amplitude at each NBn after SW2 (PC1) and after SW5 (PC4)
+meas tran mic_nb1_after_sw2 PP v(nb1) FROM=0.6 TO=0.8
+meas tran mic_nb2_after_sw2 PP v(nb2) FROM=0.6 TO=0.8
+meas tran mic_nb1_after_sw5 PP v(nb1) FROM=2.2 TO=2.4
+meas tran mic_nb4_after_sw5 PP v(nb4) FROM=2.2 TO=2.4
+wrdata selector_tran.dat v(porn) v(qo1) v(qo2) v(qo3) v(qo4) v(btn1) v(btn2) v(btn3) v(btn4) v(nb1) v(nb4)
+.endc
+.end

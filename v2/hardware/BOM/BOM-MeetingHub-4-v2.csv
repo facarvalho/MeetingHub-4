@@ -9,11 +9,11 @@ D1,1,P6KE6.8A (TVS 5V uni),D_DO-15_P10.16mm_Horizontal
 "D2, D3, D4, D5, D10, D11, D12, D13, D14, D15, D16, D17, D18, D19, D20, D21, D22, D23, D24, D25, D26, D27, D28, D29",24,1N4148,D_DO-35_SOD27_P7.62mm_Horizontal
 F1,1,500mA,Fuse_Bourns_MF-RG500
 J1,1,USB-C POWER IN,USB_C_Receptacle_GCT_USB4085
-J2,1,TRRS Notebook 1,Jack_3.5mm_PJ320E_Horizontal
-J3,1,TRRS Notebook 2,Jack_3.5mm_PJ320E_Horizontal
-J4,1,TRRS Notebook 3,Jack_3.5mm_PJ320E_Horizontal
-J5,1,TRRS Notebook 4,Jack_3.5mm_PJ320E_Horizontal
-J6,1,Headset (User),Jack_3.5mm_PJ320E_Horizontal
+J2,1,TRRS Notebook 1,Jack_3.5mm_PJ-3200B-4A_Horizontal
+J3,1,TRRS Notebook 2,Jack_3.5mm_PJ-3200B-4A_Horizontal
+J4,1,TRRS Notebook 3,Jack_3.5mm_PJ-3200B-4A_Horizontal
+J5,1,TRRS Notebook 4,Jack_3.5mm_PJ-3200B-4A_Horizontal
+J6,1,Headset (User),Jack_3.5mm_PJ-3200B-4A_Horizontal
 K1,1,Select NB1,Relay_SPDT_Omron_G5V-1
 K2,1,Select NB2,Relay_SPDT_Omron_G5V-1
 K3,1,Select NB3,Relay_SPDT_Omron_G5V-1
@@ -31,10 +31,10 @@ RV2,1,10k Vol NB2,Potentiometer_Alps_RK097_Dual_Horizontal
 RV3,1,10k Vol NB3,Potentiometer_Alps_RK097_Dual_Horizontal
 RV4,1,10k Vol NB4,Potentiometer_Alps_RK097_Dual_Horizontal
 RV5,1,10k Master,Potentiometer_Alps_RK097_Dual_Horizontal
-SW2,1,Select NB1 (momentary),SW_PUSH_6mm
-SW3,1,Select NB2 (momentary),SW_PUSH_6mm
-SW4,1,Select NB3 (momentary),SW_PUSH_6mm
-SW5,1,Select NB4 (momentary),SW_PUSH_6mm
+SW2,1,Select NB1 (momentary),SW_Tactile_SPST_Angled_PTS645Vx39-2LFS
+SW3,1,Select NB2 (momentary),SW_Tactile_SPST_Angled_PTS645Vx39-2LFS
+SW4,1,Select NB3 (momentary),SW_Tactile_SPST_Angled_PTS645Vx39-2LFS
+SW5,1,Select NB4 (momentary),SW_Tactile_SPST_Angled_PTS645Vx39-2LFS
 TP1,1,+5V_AUDIO,TestPoint_THTPad_D1.5mm
 TP2,1,GND,TestPoint_THTPad_D1.5mm
 U1,1,NJM4580,DIP-8_W7.62mm

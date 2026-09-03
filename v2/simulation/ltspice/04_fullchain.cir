@@ -1,0 +1,36 @@
+MeetingHub-4 v2 - full monitor chain, one laptop  (Jn.T -> RVn -> U1A -> RV5 -> U2A -> J6.T)
+* Requirement (v2-DESIGN sec.4): ~0.66x system gain, audio band flat.
+* FINDING: 0.66x is the UNLOADED figure. With R16 = 47 ohm feeding a 32 ohm
+* headset the loaded gain is ~0.27x (-11 dB).  Set Rhp = 1e6 to see 0.66x.
+.include opamp.sub
+
+V5   p5 0 5
+V    bias vbias 0 2.5
+Vin  in 0 AC 1 SINE(0 0.316 1k)
+
+* input DC block + volume pot RVn (10k), full-CW: wiper at the signal end
+C5   in    ptop  1u
+RVt  ptop  pw    1
+RVb  pw    vbias 10k
+Rin  pw    sum   10k
+* mixer U1A
+R3   sum   mo    3k3
+XU1  mo    vbias sum p5 0  OPAMP1 params: A0=1e5 GBW=15e6 ROUT=60 VSAT=1.2
+* master pot RV5 full-CW
+C13  mo    mtop  1u
+RMt  mtop  ml    1
+RMb  ml    vbias 10k
+* headphone amp U2A gain 2
+C15  ml    inp   1u
+R13  inp   vbias 100k
+R15  inn   ho    1k
+R14  inn   fbg   1k
+C16  fbg   0     10u
+XU2  ho    inp inn p5 0  OPAMP1 params: A0=1e5 GBW=9e6 ROUT=25 VSAT=1.2
+C17  ho    n1    220u
+R16  n1    j6t   47
+Rhp  j6t   0     32
+
+.ac dec 40 2 200k
+.tran 0 10m 0 2u
+.end

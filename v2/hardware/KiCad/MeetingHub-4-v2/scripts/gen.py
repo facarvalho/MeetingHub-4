@@ -161,7 +161,7 @@ FP_CP= "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"
 FP_CP5="Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
 FP_D = "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
 FP_Q = "Package_TO_SOT_THT:TO-92_Inline"
-FP_SW= "Button_Switch_THT:SW_PUSH_6mm"
+FP_SW= "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS"
 FP_DIP8="Package_DIP:DIP-8_W7.62mm"
 FP_DIP16="Package_DIP:DIP-16_W7.62mm"
 

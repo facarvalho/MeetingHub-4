@@ -19,23 +19,30 @@ was removed in the 2026-09-01 restructure.)
 | Mixer op-amp | NE5532 (OOS at 5 V) | **NJM4580** |
 | Mixer fb R3/R4 | 10k (clips w/ 4 srcs) | **3k3** (0.33×/ch) |
 | Volume pots | RV1-4 vert RK09L, RV5 horiz RK097 | **all 5 = Alps RK09712200HA horiz** (C470545) |
-| TRRS jacks | PJ-320D (hybrid) | **PJ-320E all-THT** (C2939642, local fp, silk trimmed) — J2-J5 rot 0 (barrel overhangs rear edge), J6 rot 180 (barrel overhangs front edge) |
+| TRRS jacks | PJ-320D (hybrid) | **Korean Hroparts PJ-3200B-4A all-THT** (C136687, local fp `Jack_3.5mm_PJ-3200B-4A_Horizontal`) — J2-J5 rot 0 (barrel overhangs rear edge), J6 rot 180 (barrel overhangs front edge). rev-8: was PJ-320E/C2939642 (bad code, no HTC THT stock). |
 | Board | 265×160 square | **192 × 156 mm (near-square), rounded R6**, front = RV1-5/SW2-5/J6, rear = J1+J2-5, **6× M3** (MH5/6 behind the front edge), TP2 |
 
 All 3 v1 first-article bugs fixed + verified (netlist review, session dd4368fd).
 Pot direction: CW = louder (signal on Alps term 3, VBIAS on term 1) — **rests on
 the RK097 T1=CCW / T3=CW convention, confirm on the first article.**
 CD4043B pinout verified vs the TI datasheet. Jack orientation verified correct
-(PJ-320E plug enters at the footprint's −Y). Front controls ~3-4 mm from the
-front edge, bodies overhanging. **rev-7:** C24 1 µF → 10 µF (longer POR),
-MH5/MH6 added; jacks unchanged.
+(barrel overhangs the board edge, opening faces out). Front controls ~3-4 mm
+from the front edge, bodies overhanging. **rev-7:** C24 1 µF → 10 µF (longer
+POR), MH5/MH6 added. **rev-8 (2026-09-03):** full JLCPCB stock audit — every
+BOM code re-verified, all now in stock with a ready LCEDA footprint+3D model
+(D1→C152132, J2-6→HTC PJ-3200B-4A C136687 (new local fp), SW2-5→C&K PTS645
+right-angle THT C285519, U1→C5184871, U3→C5213, U4→C22390239, 100nF→C2167231,
+3k3→C119335, 100µF→C346930, 47R→C3373549, F1→C76399). Enclosure = top+bottom
+acrylic, sides open: front controls repositioned (RV1-5 y=FRONT-5.5, SW2-5
+y=FRONT-3). CPL rotation corrected per footprint vs the LCEDA parts. Re-routed
+850 seg / 30 vias. New `BOM-JLC-*.csv` (native format). See CHANGELOG rev-8.
 
 ## Files
 
 - `hardware/KiCad/MeetingHub-4-v2/` — KiCad 7 project. 6 sheets (POWER, TRRS,
   MIXER, HPAMP, MICSW, **SELECT_LOGIC**).
   - `MeetingHub-4-v2.kicad_sym` + `sym-lib-table` — local **CD4043B** + **2N7000**.
-  - `MeetingHub-4-v2.pretty` — local footprints: 2 Alps pots + PJ-320E (silk
+  - `MeetingHub-4-v2.pretty` — local footprints: 2 Alps pots + PJ-3200B-4A (silk
     near the overhang trimmed so it doesn't trip `silk_edge_clearance`).
   - `.kicad_dru` — relaxes clearance between two J1 pads.
   - `scripts/` — `gen.py`, `pcb.py`, `ses_import.py`, `post.py`, `bomcpl.py`.
@@ -48,8 +55,8 @@ MH5/MH6 added; jacks unchanged.
 
 ## State
 
-Fully routed, 2-layer, **848 seg / 35 vias, 0 unconnected, 0 SMD pads**
-(rev-7). **DRC 0 errors** in the GUI (the 8 J1 pad-pitch clearances pass at the
+Fully routed, 2-layer, **850 seg / 30 vias, 0 unconnected, 0 SMD pads**
+(rev-8). **DRC 0 errors** in the GUI (the 8 J1 pad-pitch clearances pass at the
 netclass **0.15 mm** that v1 also used — set in `.kicad_pro`; headless
 `WriteDRCReport` still lists them). Remaining: ~10 cosmetic `silk_over_copper`
 warnings. Open in the GUI, run native ERC/DRC, tidy silk, verify the

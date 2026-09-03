@@ -1,0 +1,51 @@
+MeetingHub-4 v2 - BOM power + VBIAS buffer (ngspice, datasheet device models)
+.include models.lib
+
+* ---- USB-C power in : VBUS ramp -> F1 (PTC ~0.4 ohm cold) -> +5V_AUDIO
+VBUS  vbus 0  PWL(0 0  4m 5  1 5)
+RF1   vbus p5  0.4
+D1    0 p5   DP6KE68            ; P6KE6.8A TVS: anode=GND, cathode=+5V rail
+C1  p5 0 100n
+C2  p5 0 10u
+C23 p5 0 100u
+
+* ---- VBIAS reference + LM358 buffer (v1 bug #3 fix)
+R1   p5   vref  10k
+R2   vref 0     10k
+C3   vref 0     10u
+XU3  vbout vref vbias p5 0  LM358
+R38  vbout vbias 47
+C26  vbias 0    1u
+
+* representative downstream DC load on VBIAS (10 pot cold ends + R13/R17 + servo)
+Rload vbias 0 3k
+
+* AC probe: 1 A into VBIAS -> V(vbias) magnitude = |Zout| in ohms
+Iprobe 0 vbias AC 1
+* transient load step to check for ringing / instability: 2 mA pulse on VBIAS
+Istep vbias 0 PWL(0 0  199.999m 0  200m 2m  260m 2m  260.001m 0) DC 0
+
+.control
+op
+print v(p5) v(vref) v(vbias) v(vbout)
+tran 20u 400m uic
+meas tran vbias_final  FIND v(vbias) AT=0.399
+meas tran vbias_at140m FIND v(vbias) AT=0.140
+wrdata power_vbias_tran.dat v(vbus) v(p5) v(vref) v(vbias)
+ac dec 40 1 5meg
+meas ac zout_1k   FIND vm(vbias) AT=1k
+meas ac zout_20k  FIND vm(vbias) AT=20k
+meas ac zout_peak MAX vm(vbias) FROM=1k TO=1meg
+wrdata power_vbias_zout.dat vm(vbias)
+* closed-loop reference transfer for stability (no peaking = stable)
+alter Iprobe ac=0
+alter Istep dc=0
+VrefAC vref2 0 DC 0 AC 1
+* (skip - handled by the step transient below)
+tran 20u 300m uic
+meas tran vbias_settle_lo MIN v(vbias) FROM=200m TO=260m
+meas tran vbias_settle_hi MAX v(vbias) FROM=200m TO=260m
+meas tran vbias_ring      PP  v(vbias) FROM=200.5m TO=210m
+wrdata power_vbias_step.dat v(vbias)
+.endc
+.end

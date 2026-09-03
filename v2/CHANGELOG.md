@@ -1,5 +1,107 @@
 # MeetingHub-4 v2 — changelog
 
+## 2026-09-03 — v2 rev-8 (JLCPCB stock substitutions)
+
+Audited **every** BOM LCSC code against JLCPCB's assembly library
+(`POST jlcpcb.com/api/overseas-pcb-order/v1/shoppingCart/smtGood/selectSmtComponentList`,
+keyword = code; exact-match only). Every code on the old "verify" list was
+either not in the PCBA library or pointed at the wrong part (SMD or a
+completely different component). All fixed; **every part in rev-8 is now in
+JLCPCB assembly stock, min-order 1**:
+
+| ref | was | now | why the old code was bad |
+|---|---|---|---|
+| C1,C4,C21,C22,C25 (100 nF) | C49678 | **C2167231** (Vishay K104K15X7RF5TH5, 100 nF 50 V X7R, 5 mm pitch) | C49678 is an **0805 SMD** cap; the interim C5128365 had no LCEDA footprint/model. C2167231 is the same Vishay K-series as the 1 µF (C2167638). |
+| C23 (100 µF 16 V) | C2909340 | **C346930** (NXA 100 µF 16 V, D5×11, 2.5 mm pitch — fits the D6.3/P2.5 pad) | C2909340 is a **0402 24 Ω resistor** |
+| D1 | C736020 (MDD P6KE6.8A) | **C152132** (BORN P6KE6.8A, DO-15, uni, 5 k stock) | C736020 not in the PCBA library |
+| R3,R4 (3k3) | C22978 | **C119335** (CCO MF1/4W-3.3K, 1/4 W metal-film axial +/-1%) | C22978 is an **0603 SMD** resistor; the interim C1369023 (TE LR1F3K3) had no LCEDA model. C119335 is the same CCO family as the 1 k (C120055). |
+| J2–J6 | C2939642 "PJ-320E" | **C136687** (Korean Hroparts / HTC **PJ-3200B-4A**, 4-conductor TRRS, THT) | C2939642 is not a real LCSC code; HTC has no PJ-320-series THT jack in JLC stock |
+| SW2–SW5 | C318884 | **C285519** (C&K **PTS645VK392LFS**, 6 mm right-angle THT tact) | C318884 is an **SMD-4P tact**; user wants a horizontal side-actuated button |
+| U1 | C7466 | **C5184871** (NJM4580DD DIP-8) | C7466 resolves to a **SN74AHC1G04** single inverter (SOT-353) |
+| U3 | C7950 | **C5213** (TI LM358P DIP-8) | C7950 is an LM358 in **SOIC-8**, not DIP |
+| U4 | C39537 (0 stock, min 14) | **C22390239** (CD4043BE(LX/lingxingic) DIP-16, 490 stock) | genuine drop-in DIP CD4043B, no logic change. The interim C18723483 (XBLW) had no LCEDA footprint/model ("completed after order paid, +1 day"); C22390239 has a full footprint + 3D model. |
+| F1 | C1562150 (Bourns MF-RG500, 60 stock) | **C76399** (Littelfuse RXEF050, 500 mA hold, 5.1 mm radial, 6 k stock) | stock too thin; same PTC spec |
+| R16,R20,R38 (47R) | C2896824 (VO, insufficient stock for the order) | **C3373549** (Yageo MFR-25FBF52-**47R5** = 47.5 Ω 1 %, 7 k stock) | 1 % off nominal — series/isolation resistors, value not critical; same series as the other axials |
+
+RV1–RV5 (C470545, Alps RK09712200HA) is in stock (185) but the JLCPCB BOM tool
+does not auto-assign it (Extended part). **Fix: upload
+`hardware/BOM/BOM-JLC-MeetingHub-4-v2.csv`** — new native-format BOM
+(`Comment, Designator, Footprint, JLCPCB Part #`) that makes JLC use the LCSC
+code for *every* part directly, no fuzzy matching. The PCBA BOM's LCSC column
+was also renamed `JLCPCB Part #`.
+
+**CPL / orientation — corrected.** JLC's 3D preview showed several THT parts
+rotated wrong. `bomcpl.py` now applies a per-footprint rotation offset in the
+CPL: for each footprint the KiCad pads were aligned to JLCPCB's own LCEDA
+library footprint (`easyeda.com/api/products/<code>/components`) and the
+0deg-to-0deg delta computed, calibrated against the PJ-3200B-4A barrel
+direction. `CPL angle = KiCad orientation - offset`.
+
+| footprint | offset | refs | CPL was -> now |
+|---|---|---|---|
+| DIP-8_W7.62mm | 270 | U1 U2 U3 | 0 -> **90** |
+| DIP-16_W7.62mm | 270 | U4 | 90 -> **180** |
+| Relay_SPDT_Omron_G5V-1 | 270 | K1-K4 | 0 -> **90** |
+| Jack_3.5mm_PJ-3200B-4A_Horizontal | 270 | J2-J5 / J6 | 0 -> **90** / 180 -> **270** |
+| Potentiometer_Alps_RK097_Dual_Horizontal | 180 | RV1-5 | 90 -> **270** |
+| SW_Tactile_SPST_Angled_PTS645Vx39-2LFS | 180 | SW2-5 | 180 -> **0** |
+
+The RK097 and PTS645 needed a second pass: JLC's 3D preview showed the pot
+shafts pointing *into* the board. Their pad grids are too symmetric for the
+pad-fit to resolve 0 vs 180, but the LCEDA footprint draws the body/actuator on
+the opposite side of the pins from KiCad (KiCad's RK097 body is on the -X side,
+matching the Alps datasheet top view; LCEDA's is on +X) -> offset 180, so the
+shaft/plunger points off the front edge like the board silk shows.
+
+Everything else matched at offset 0 and is unchanged (elec caps, all diodes,
+TO-92, all axial R, ceramics, USB-C J1). Still worth a glance at JLC's upload
+preview: electrolytic + diode polarity vs the silk, the DIP/relay pin-1 dot, and
+that the J/RV/SW barrel/shaft/plunger points off the right board edge - THT
+assembly at JLC is manual + a production review.
+
+**Front-edge controls re-positioned.** Enclosure decided: top + bottom acrylic
+only, **sides open, no front panel**. Controls are operated directly, so each
+part's can body now sits ~flush with / just behind the open edge and only the
+functional bit overhangs:
+- RV1-5: y FRONT-3 -> **FRONT-5.5** (pull back 2.5 mm). RK097 9.55 mm can ends
+  ~0.5 mm inside the edge; ~20 mm of M7 bushing + shaft overhangs for the knob.
+  (Note: that shaft is only held by the 6 THT pins - no locating peg on this
+  horizontal variant - so mount the knob near the body.)
+- SW2-5: y FRONT-4.5 -> **FRONT-3** (push forward 1.5 mm). PTS645 plunger tip now
+  ~1 mm past the edge for a clean finger press / button cap.
+Re-routed **850 seg / 30 vias, 0 unconnected, 0 SMD**, DRC unchanged (8 J1 +
+5 silk), no courtyard overlaps, no hole crosses the edge. Netlist node-identical.
+
+New local footprint **`Jack_3.5mm_PJ-3200B-4A_Horizontal`** (pads T/R1/R2/S)
+built from the HRO PJ-3200B datasheet (rev A): 3.00/4.00 mm pad pitch + offset
+pin 1, 2×Ø1.30 locating posts, barrel nose 2.0 mm past the body face. Rotated
+so the barrel overhangs −Y like the old PJ-320E fp. **Pin→function
+confirmed** two ways: the datasheet schematic (pin 1 = barrel/Sleeve; springs
+2/4/3 = Tip/Ring1/Ring2 by insertion depth) and the KiCad PJ320E pad pattern
+(4 mm-gap end = T, 3 mm-gap end = R2). → T=pin2, R1=pin4, R2=pin3, S=pin1.
+
+SW2–SW5 → `Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS`.
+**Plunger direction confirmed** from the C&K PTS645 datasheet: the "V"
+(vertical) termination actuates in the board plane; the KiCad fp's actuator is
+at −Y, so **rot 180** points it at the FRONT edge. Placed at FRONT−4.5 → plunger
+tip ~0.7 mm inside the edge (enclosure needs a hole/cap per button).
+
+Board re-placed (jacks at REAR/FRONT ± 10.2 → body face ~at the edge, 2 mm
+barrel overhang, Ø1.30 posts ~2.5 mm inboard; angled buttons rot 180) and
+re-routed: **848 track segments / 39 vias, 0 unconnected pads, 0 SMD pads.**
+DRC unchanged (8 J1-internal pad-pitch items that pass in the GUI at the
+0.15 mm netclass; 5 cosmetic silk-over-copper). Netlist connectivity
+node-identical to rev-7. BOMs + CPL + gerbers + schematic PDF regenerated.
+
+**Still owed — a KiCad GUI / 3D pass before ordering** (mechanical only, the
+electrical netlist is unchanged and already reviewed):
+1. Open the 3D view, confirm the PJ-3200B-4A barrel overhang (~2 mm) and the
+   PTS645 plunger reach vs the real acrylic panel; nudge REAR/FRONT offsets and
+   re-route if the enclosure needs it.
+2. Tidy silkscreen (5 silk-over-copper), run native ERC + DRC.
+3. Update the acrylic enclosure cut plan for the new (larger) jack cut-outs.
+4. First article: confirm the Alps RK097 T1=CCW / T3=CW pot convention.
+
 ## 2026-09-01 — v2 rev-7 (review follow-ups: POR + front support)
 
 Circuit review (session dd4368fd) confirmed the 3 v1 bugs and the one-hot mic

@@ -1,0 +1,28 @@
+MeetingHub-4 v2 - 4-input monitor mixer  (U1A, NJM4580, one channel)
+* Requirement: -0.33x per channel, no clipping with 4 laptops at -10 dBV.
+* Rin = R5/R7/R9/R11 = 10k ; Rf = R3 = 3k3 ; virtual ground = VBIAS = 2.5 V
+.include opamp.sub
+
+V5    p5 0 5
+* VBIAS (ideal 2.5 V here; see 01_vbias.cir for the real buffer)
+V bias vbias 0 2.5
+
+* four line sources, -10 dBV = 0.316 Vrms = 0.447 Vpk, worst case in phase
+V1 s1 vbias SINE(0 0.447 1k)
+V2 s2 vbias SINE(0 0.447 1k)
+V3 s3 vbias SINE(0 0.447 1k)
+V4 s4 vbias SINE(0 0.447 1k)
+* AC drive on s1 only for the .ac gain measurement
+* (comment the SINE and use "AC 1" lines to read gain per channel)
+
+Rin1 s1 sum 10k
+Rin2 s2 sum 10k
+Rin3 s3 sum 10k
+Rin4 s4 sum 10k
+R3   sum out 3k3
+XU1  out vbias sum p5 0  OPAMP1 params: A0=1e5 GBW=15e6 ROUT=60 VSAT=1.2
+
+Rload out vbias 100k
+
+.tran 0 5m 0 2u
+.end

@@ -1063,7 +1063,7 @@
     (property "Value" "Headset (User)" (at 199.39 66.04 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "MeetingHub-4:Jack_3.5mm_PJ320E_Horizontal" (at 199.39 59.69 0)
+    (property "Footprint" "MeetingHub-4:Jack_3.5mm_PJ-3200B-4A_Horizontal" (at 199.39 59.69 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "" (at 199.39 59.69 0)

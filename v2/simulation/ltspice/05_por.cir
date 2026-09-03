@@ -1,0 +1,16 @@
+MeetingHub-4 v2 - power-on reset  (SELECT_LOGIC: C24 / R37 / D26-29)
+* Requirement: hold the CD4043B RST lines high long enough that a slow VBUS
+* ramp still powers up with Q1..Q4 = 0  =>  no relay  =>  mic muted.
+* +5V --C24(10u)-- PORN --R37(100k)-- GND ;  D26-29 anode=PORN, cathode=RSTx,
+* each RSTx has a 100k pulldown -> ~25k extra load on PORN while diodes conduct.
+
+Vbus p5 0 PWL(0 0  100u 5  3 5)      ; 100 us VBUS ramp
+C24  p5  porn  10u
+R37  porn 0    100k
+* diode-matrix load approximation (4x 100k RST pulldowns via D26-29):
+Rrst porn 0    25k
+
+* CD4043B input-high threshold on a 5 V rail ~ 2.5 V  (see .meas)
+.tran 0 1.5 0 1m
+.meas TRAN treset FIND time WHEN V(porn)=2.5 FALL=1
+.end

@@ -1,0 +1,84 @@
+MeetingHub-4 v2 - BOM monitor/audio chain, L channel (ngspice, datasheet models)
+* Jn.T -> Cn(1u) -> RVn(10k) -> Rn(10k) -> U1A(NJM4580) mixer, Rf=R3 3k3
+*       -> C13(1u) -> RV5(10k master) -> C15(1u) -> U2A(NJM4556A) x2 -> C17(220u)
+*       -> R16(47) -> J6.T -> 32 ohm headset
+* Pots: signal on term 3, VBIAS on term 1, wiper -> Rn.  {kA..kD,kM} = rotation
+* fraction (1 = full CW = loud, 0 = full CCW = min).  Set on the .param line.
+.include models.lib
+.param kA=1 kB=1 kC=1 kD=1 kM=1
+.param rend=5              ; pot end/wiper residual resistance (ohm)
+.param amp=0.447          ; per-source peak (V);  -10 dBV = 0.447 Vpk
+.param fA=1k fB=1k fC=1k fD=1k
+
+V5   p5 0 DC 5
+* VBIAS reference + buffer (same as bom_power_vbias)
+R1 p5 vref 10k
+R2 vref 0 10k
+C3 vref 0 10u
+XU3 vbout vref vbias p5 0 LM358
+R38 vbout vbias 47
+C26 vbias 0 1u
+
+* ---- 4 laptop inputs
+VinA inA 0 DC 0 AC 1 SIN(0 {amp} {fA})
+VinB inB 0 DC 0 AC 0 SIN(0 {amp} {fB})
+VinC inC 0 DC 0 AC 0 SIN(0 {amp} {fC})
+VinD inD 0 DC 0 AC 0 SIN(0 {amp} {fD})
+
+.subckt VOLPOT sig wiper vbias PARAMS: k=1 rend=5
+Rsw sig  wiper  {max(10k*(1-k), rend)}
+Rwb wiper vbias {max(10k*k,     rend)}
+.ends
+
+CA inA sigA 1u
+XPA sigA wA vbias VOLPOT params: k={kA} rend={rend}
+RA wA sumL 10k
+CB inB sigB 1u
+XPB sigB wB vbias VOLPOT params: k={kB} rend={rend}
+RB wB sumL 10k
+CC inC sigC 1u
+XPC sigC wC vbias VOLPOT params: k={kC} rend={rend}
+RC wC sumL 10k
+CD inD sigD 1u
+XPD sigD wD vbias VOLPOT params: k={kD} rend={rend}
+RD wD sumL 10k
+
+* ---- U1A mixer  (inverting summer, virtual ground = VBIAS)
+R3   sumL u1o 3k3
+XU1  u1o vbias sumL p5 0 NJM4580
+
+* ---- master pot RV5
+C13  u1o msig 1u
+XPM  msig mixL vbias VOLPOT params: k={kM} rend={rend}
+
+* ---- U2A headphone amp (non-inverting, gain 1 + R15/R14 = 2 at AC)
+C15  mixL u2p 1u
+R13  u2p vbias 100k
+R15  u2n u2o 1k
+R14  u2n fbg 1k
+C16  fbg 0 10u
+XU2  u2o u2p u2n p5 0 NJM4556A
+C17  u2o n1 220u
+R16  n1 j6t 47
+Rhp  j6t 0 32
+
+.control
+op
+print v(vbias) v(u1o) v(mixL) v(j6t)
+* -- AC: full-chain response, one source driven
+ac dec 30 5 100k
+meas ac g_1k    FIND vm(j6t)  AT=1k
+meas ac g_100   FIND vm(j6t)  AT=100
+meas ac g_20    FIND vm(j6t)  AT=20
+meas ac g_20k   FIND vm(j6t)  AT=20k
+meas ac gmix_1k FIND vm(u1o)  AT=1k
+wrdata audio_ac.dat vdb(j6t) vdb(u1o) vdb(mixL)
+* -- TRAN: 4 correlated sources, worst-case clip check
+alter VinB ac=0
+alter VinB SIN(0 {amp} {fB})
+tran 5u 25m uic
+meas tran u1o_pp   PP v(u1o)   FROM=10m TO=25m
+meas tran j6t_pp   PP v(j6t)   FROM=10m TO=25m
+wrdata audio_tran.dat v(u1o) v(mixL) v(j6t)
+.endc
+.end

@@ -1,0 +1,20 @@
+* -------------------------------------------------------------------
+* opamp.sub  -  self-contained single-pole op-amp macromodel
+*
+* .subckt OPAMP1 out inp inn vcc vee  params: A0=1e5 GBW=10e6 ROUT=50 VSAT=1.2
+*
+* Behavioural: gm stage -> internal pole node -> unity buffer -> ROUT.
+* Output swing soft-limited to VSAT volts from each supply rail (single-rail
+* friendly).  Pin order is the LTspice standard  out inp inn V+ V- .
+* Swap this for a vendor model (NJM4580 / NJM4556A / LM358) when you have one.
+* -------------------------------------------------------------------
+.subckt OPAMP1 out inp inn vcc vee
++ params: A0=1e5 GBW=10e6 ROUT=50 VSAT=1.2
+BGm 0 x  I={ (V(inp)-V(inn)) * A0/ROUT }
+Rp  x 0  {ROUT}
+Cp  x 0  {A0/(2*3.14159265*GBW*ROUT)}
+Bhi x 0  I= uramp( V(x) - (V(vcc)-VSAT) ) * 1m
+Blo x 0  I= -uramp( (V(vee)+VSAT) - V(x) ) * 1m
+Eb  ob 0 x 0 1
+Ro  ob out {ROUT}
+.ends OPAMP1

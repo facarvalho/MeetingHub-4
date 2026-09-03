@@ -1,5 +1,21 @@
 # v2 — ERC / DRC status
 
+**rev-8 (2026-09-03): re-placed + re-routed after the JLCPCB stock swaps**
+(D1→C152132, J2-J6→HTC PJ-3200B-4A on a new local footprint, SW2-5→C&K PTS645
+right-angle THT, U1→C5184871, U3→C5213, U4→C22390239, plus 100nF/C23/R3-4/47R/F1
+sourcing fixes — every code now in stock with a ready LCEDA footprint+3D model,
+see CHANGELOG). Jacks moved to REAR/FRONT ± 10.2 mm. Enclosure
+= top + bottom acrylic only, sides open: front-edge controls re-placed so the
+can body is ~flush with the open edge (RV1-5 y FRONT-5.5, SW2-5 y FRONT-3).
+Freerouting: **850 track segments / 30 vias, 0 unconnected pads, 0 SMD pads.**
+Headless `WriteDRCReport`: the same 8 J1-internal pad-pitch `clearance` items
+(pass in the GUI at the 0.15 mm netclass) + 5 cosmetic `silk_over_copper`.
+Netlist connectivity node-identical to rev-7. Jack pin map + PTS645 plunger
+direction confirmed from datasheets. **CPL rotation corrected per footprint**
+against JLCPCB's LCEDA library parts (DIP/relay/jack 270deg off, RK097 pot +
+PTS645 tact 180deg off — see CHANGELOG). Still owed: a GUI/3D pass (RK097 body
+Z-clearance under the top acrylic) and a glance at JLC's upload preview.
+
 **rev-7 (2026-09-01): re-routed after C24 → 10 µF + MH5/MH6.**
 Jack rotations unchanged (the original J2–J5 rot 0 / J6 rot 180 is correct —
 barrels overhang the edges). Freerouting: **848 track segments / 35 vias,
