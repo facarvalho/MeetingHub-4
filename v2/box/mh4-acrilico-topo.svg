@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="208mm" height="172mm" viewBox="-8 -8 208 172">
+<title>MeetingHub-4 v2 - acrilico topo - plano de corte</title>
+<desc>v2 nao tem potenciometros montados no topo (RV1-RV5 sao horizontais, saem pela borda) - chapa topo e identica a chapa base, so fixacao.</desc>
+<rect x="-8" y="-8" width="208" height="172" fill="#ffffff"/>
+<g id="CORTE_EXTERNO" fill="none" stroke="#ff0000" stroke-width="0.1">
+<path d="M 6.0000 0.0000 L 186.0000 0.0000 A 6.0 6.0 0 0 1 192.0000 6.0000 L 192.0000 150.0000 A 6.0 6.0 0 0 1 186.0000 156.0000 L 6.0000 156.0000 A 6.0 6.0 0 0 1 0.0000 150.0000 L 0.0000 6.0000 A 6.0 6.0 0 0 1 6.0000 0.0000 Z"/>
+</g>
+<g id="FUROS" fill="none" stroke="#0000ff" stroke-width="0.1">
+<circle cx="8.0000" cy="8.0000" r="1.7500"/>
+<circle cx="184.0000" cy="8.0000" r="1.7500"/>
+<circle cx="8.0000" cy="126.0000" r="1.7500"/>
+<circle cx="184.0000" cy="126.0000" r="1.7500"/>
+<circle cx="9.0000" cy="144.0000" r="1.7500"/>
+<circle cx="183.0000" cy="144.0000" r="1.7500"/>
+</g>
+</svg>
