@@ -1,0 +1,36 @@
+MeetingHub-4 v3 mic path (K2 energised)
+.include models.lib
+Vp5 p5 0 5
+Vc1 cd1 0 5
+XK1 p5 cd1 nb1 hmic ncb1 RELAY_G5V1
+RNC1 ncb1 0 2.2k
+Vb1 vb1 0 2.2
+Rn1 vb1 nb1 2200.0
+Cw1 nb1 0 40p
+Vc2 cd2 0 0.08
+XK2 p5 cd2 nb2 hmic ncb2 RELAY_G5V1
+RNC2 ncb2 0 2.2k
+Vb2 vb2 0 2.2
+Rn2 vb2 nb2 2200.0
+Cw2 nb2 0 40p
+Vc3 cd3 0 5
+XK3 p5 cd3 nb3 hmic ncb3 RELAY_G5V1
+RNC3 ncb3 0 2.2k
+Vb3 vb3 0 2.2
+Rn3 vb3 nb3 2200.0
+Cw3 nb3 0 40p
+Vc4 cd4 0 5
+XK4 p5 cd4 nb4 hmic ncb4 RELAY_G5V1
+RNC4 ncb4 0 2.2k
+Vb4 vb4 0 2.2
+Rn4 vb4 nb4 2200.0
+Cw4 nb4 0 40p
+XMIC hmic 0 ELECTRET
+.options reltol=1e-4
+.control
+ op
+ print v(hmic) v(nb2) v(nb1)
+ ac dec 30 20 200k
+ plot vdb(nb2) vdb(nb1)
+.endc
+.end

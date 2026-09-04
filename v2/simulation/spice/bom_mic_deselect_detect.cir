@@ -1,0 +1,35 @@
+MeetingHub-4 v2 - DC on a de-selected laptop's mic pin (what the codec reads)
+* The board's TRRS plug never leaves laptop 1's jack, so mechanical jack-detect
+* stays "inserted".  The codec classifies headset-vs-headphones-vs-none by the
+* DC it reads on the MIC sleeve: it drives the pin via Rbias (~2.2k) from Vbias
+* (~2.5V).  sleeve ~Vbias => "open / no mic" ;  mid-range => "headset mic" ;
+* ~0 => "shorted / no mic".
+* Four board scenarios, each an independent .op (voltage divider):
+
+.param vbias=2.5 rbias=2200 relec=2000
+
+* --- 1. laptop 1 SELECTED: sleeve sees the real headset electret (~2k DC) ---
+V1 vb1 0 {vbias}
+R1b vb1 s1 {rbias}
+R1e s1 0 {relec}
+
+* --- 2. laptop 1 DE-SELECTED, relay NC = OPEN  (as-built v2) ---
+V2 vb2 0 {vbias}
+R2b vb2 s2 {rbias}
+R2o s2 0 1000meg          ; "open" (codec input Z ~ 100M-1G)
+
+* --- 3. laptop 1 DE-SELECTED, relay NC -> 2k2 to GND  (proposed fix) ---
+V3 vb3 0 {vbias}
+R3b vb3 s3 {rbias}
+R3d s3 0 2200
+
+* --- 4. laptop 1 DE-SELECTED, relay NC -> straight GND ---
+V4 vb4 0 {vbias}
+R4b vb4 s4 {rbias}
+R4g s4 0 1
+
+.control
+op
+print v(s1) v(s2) v(s3) v(s4)
+.endc
+.end

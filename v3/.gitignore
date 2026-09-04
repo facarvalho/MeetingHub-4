@@ -1,0 +1,16 @@
+*.lck
+*-backups/
+_autosave-*
+*.kicad_pcb-bak
+*.kicad_sch-bak
+fp-info-cache
+*.rpt
+freerouting-*.jar
+
+# simulation venv + generated data
+simulation/.venv/
+simulation/.ngspice/
+simulation/scripts/__pycache__/
+simulation/**/*.dat
+*.DRC.rpt
+MeetingHub-4-v3.DRC.rpt

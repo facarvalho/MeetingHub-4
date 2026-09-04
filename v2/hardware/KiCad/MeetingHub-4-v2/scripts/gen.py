@@ -298,23 +298,37 @@ print("SELECT_LOGIC written; refs:", "R21..R37, C22..C26, D10..D29, Q1..Q4, U3, 
 m = Sheet(MIC_SHEET_UUID, "6")
 FP_RELAY="Relay_THT:Relay_SPDT_Omron_G5V-1"
 FP_D2="Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+# Contact mapping (SCH-P, 2026-09-03 — "de-selected laptop must still read as a
+# live-but-silent headset mic, not 'mic unplugged'"):
+#   COM (5/6) -> NBn_MIC  (laptop n's mic pin)
+#   NO  (10)  -> HEADSET_MIC  (headset electret, commoned across K1-K4)
+#   NC  (1)   -> R_NCn (2k2) -> GND   [was: no-connect]
+# Energised Kn : laptop n <-> headset electret (talk).  De-energised Kn : laptop n
+# sees 2k2 to GND == an idle electret's DC, so its codec keeps the mic endpoint
+# alive (far end just hears silence) instead of dropping it / falling back to the
+# laptop's internal mic.  Coil / free-wheel-diode side (pins 2, 9) unchanged.
 for n in (1,2,3,4):
     kx,ky = 90, 40+(n-1)*40
     m.sym("Relay:G5V-1", f"K{n}", f"Select NB{n}", kx, ky, FP_RELAY,
           ["1","2","5","6","9","10"])
     m.connect(kx,ky,K_PINS,"2","+5V_AUDIO",glob=True)
     m.connect(kx,ky,K_PINS,"9",f"COIL{n}",glob=True)
-    m.connect(kx,ky,K_PINS,"5","HEADSET_MIC",glob=True)
-    m.connect(kx,ky,K_PINS,"6","HEADSET_MIC",glob=True)
-    m.connect(kx,ky,K_PINS,"10",f"NB{n}_MIC",glob=True)
-    m.nc(kx,ky,K_PINS,"1")
+    m.connect(kx,ky,K_PINS,"5",f"NB{n}_MIC",glob=True)     # COM -> laptop n
+    m.connect(kx,ky,K_PINS,"6",f"NB{n}_MIC",glob=True)     # COM -> laptop n
+    m.connect(kx,ky,K_PINS,"10","HEADSET_MIC",glob=True)   # NO  -> headset electret
+    m.connect(kx,ky,K_PINS,"1",f"NCHLD{n}")                # NC  -> hold-up resistor
+    # de-selected hold-up resistor R39..R42 : NC -> 2k2 -> GND
+    rx,ry = 70, 40+(n-1)*40 - 8
+    m.sym("Device:R", f"R{38+n}", "2k2", rx, ry, FP_R, ["1","2"])
+    m.connect(rx,ry,R_PINS,"1",f"NCHLD{n}")
+    m.connect(rx,ry,R_PINS,"2","GND",glob=True)
     # freewheel diode : cathode(1) -> +5V(pin2 side) ; anode(2) -> COILn (pin9 side)
     dx,dy = 120, 40+(n-1)*40
     m.sym("Device:D", f"D{n+1}", "1N4148", dx, dy, FP_D2, ["1","2"])
     m.connect(dx,dy,D_PINS,"1","+5V_AUDIO",glob=True)
     m.connect(dx,dy,D_PINS,"2",f"COIL{n}",glob=True)
 
-need_m=["Device:D","power:GND","Relay:G5V-1"]
+need_m=["Device:D","Device:R","power:GND","Relay:G5V-1"]
 libtext_m="\n".join(symblocks[k] for k in need_m)
 open(PRJ+"/MICSW.kicad_sch","w").write(m.render(libtext_m))
 print("MICSW rebuilt")

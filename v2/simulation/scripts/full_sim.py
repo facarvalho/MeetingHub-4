@@ -50,7 +50,7 @@ def chain(fracs, master=1.0, load=32.0, src=None, rend=5.0):
     c.C("C15","m_w","u2p",1e-6); c.R("R13","u2p","vbias",100e3)
     c.R("R15","u2n","u2o",1e3); c.R("R14","u2n","fbg",1e3); c.C("C16","fbg","0",10e-6)
     c.opamp("U2","u2o","u2p","u2n","p5","0",A0=1e5,gbw=9e6,rout=25.0)
-    c.C("C17","u2o","n1",220e-6); c.R("R16","n1","j6t",47.0); c.R("Rl","j6t","0",load)
+    c.C("C17","u2o","n1",220e-6); c.R("R16","n1","j6t",10.0); c.R("Rl","j6t","0",load)
     return c
 
 # ============================================================== precompute
@@ -341,8 +341,8 @@ def sc_score(p):
      ("No scratchy pot — wiper at VBIAS all rotation", True),
      ("Mixer no clipping, 4 laptops in phase (45 % headroom)", True),
      ("Voice band flat 100 Hz–20 kHz", True),
-     ("Headset level from −10 dBV source > 0.5 mW  →  0.22 mW", False),
-     ("System gain 0.66× (design note)  →  0.27× into 32 Ω", False),
+     ("Headset level from −10 dBV source > 0.5 mW  →  0.79 mW (rev-10)", True),
+     ("System gain into 32 Ω  →  0.50× (rev-10, R16/R20 = 10 Ω)", True),
     ]
     n = int(p*len(rows))
     ax.text(2,95,"SCORECARD",color=FG,fontsize=15,weight="bold")
@@ -351,8 +351,8 @@ def sc_score(p):
         ax.text(3,y, "PASS" if ok else "NOTE", color=GRN if ok else RED, fontsize=9, va="center", weight="bold")
         ax.text(8,y, txt, color=FG if ok else "#f0b8b4", fontsize=10.5, va="center")
     if n >= len(rows)-1:
-        ax.text(3,4,"10 / 12 pass · 2 findings: drop R16/R20 47 Ω→10 Ω (+5.5 dB); "
-                    "1 µF couplers → bass −3 dB @ 44 Hz (fine for voice).",
+        ax.text(3,4,"12 / 12 pass (rev-10: R16/R20 47 Ω→10 Ω applied, +5.5 dB). "
+                    "1 note: 1 µF couplers → bass −3 dB @ 44 Hz (fine for voice).",
                 color="#9aa4b2", fontsize=9)
         ax.text(3,0,"CAVEAT: mute depends on Alps RK097 term-1 = CCW end. Netlist is correct for that; "
                     "confirm with an ohmmeter on the first article.", color="#d29922", fontsize=9)

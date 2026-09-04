@@ -30,28 +30,28 @@
   {
     "check": "B1 system voltage gain @1 kHz, all pots max",
     "require": "design note v2-DESIGN sec.4 states ~0.66x",
-    "measure": "0.659x into hi-Z ; 0.267x into 32 ohm  (-11.5 dB)",
+    "measure": "0.659x into hi-Z ; 0.502x into 32 ohm  (-6.0 dB)",
     "pass": true,
-    "note": "FINDING: the 0.66x holds only unloaded. R16/R20=47 ohm in series with a 16-32 ohm headset drops it to ~0.27x (-11 dB)."
+    "note": "rev-10: R16/R20 = 10 ohm. Unloaded still ~0.66x; into 32 ohm now ~0.50x (-6 dB) instead of 0.27x (-11.5 dB) with the old 47 ohm."
   },
   {
     "check": "B2 pot direction (CW = louder, full-CCW = mute)",
     "require": "CCW gain << CW gain",
-    "measure": "CW 0.267x vs CCW 2.7e-05x  (80 dB range)",
+    "measure": "CW 0.502x vs CCW 5.1e-05x  (80 dB range)",
     "pass": true,
     "note": "signal on Alps term 3, VBIAS on term 1 -> full-CCW = wiper at VBIAS = silent"
   },
   {
     "check": "B3 audio-band response 100 Hz - 20 kHz",
     "require": "within +/-1 dB (conference/voice band)",
-    "measure": "@100 Hz -0.66 dB  @1 kHz 0 dB  @20 kHz +0.01 dB",
+    "measure": "@100 Hz -0.75 dB  @1 kHz 0 dB  @20 kHz +0.01 dB",
     "pass": true,
     "note": ""
   },
   {
     "check": "B4 low-frequency extension",
     "require": "note: bass roll-off from the 1 uF couplers",
-    "measure": "-3 dB at 44 Hz ; @50 Hz -2.4 dB ; @20 Hz -10.3 dB",
+    "measure": "-3 dB at 48 Hz ; @50 Hz -2.8 dB ; @20 Hz -11.9 dB",
     "pass": true,
     "note": "FINDING: C5/C7/C9/C11 and C13/C14 = 1 uF into ~10 k give ~16 Hz sections that stack; fine for speech, weak for music. 4.7 uF -> -3 dB ~12 Hz."
   },
@@ -78,10 +78,10 @@
   },
   {
     "check": "D1 HP-amp AC gain (mix_l -> J6.T)",
-    "require": "~2x minus 47R/(47R+32R) divider",
-    "measure": "0.810x  (-1.83 dB)",
+    "require": "~2x minus 10R/(10R+32R) divider (rev-10)",
+    "measure": "1.523x  (+3.66 dB)",
     "pass": true,
-    "note": "closed-loop 2x, then 47R series into 32R = 0.405 divider -> ~0.81x"
+    "note": "closed-loop 2x, then 10R series into 32R = 0.762 divider -> ~1.52x"
   },
   {
     "check": "D2 DC on headphone terminal J6.T",
@@ -93,21 +93,21 @@
   {
     "check": "D3 HP output LF corner into 32 ohm",
     "require": "C17 = 220 uF -> -3 dB well below 20 Hz for the output cap alone",
-    "measure": "stage -3 dB (whole chain) = 44 Hz ; C17/32ohm alone = 22.6 Hz",
+    "measure": "stage -3 dB (whole chain) = 48 Hz ; C17/32ohm alone = 22.6 Hz",
     "pass": true,
     "note": "220 uF is the right call - a 1 uF here (as v2-DESIGN sec.4 text says) would give 5 kHz"
   },
   {
     "check": "D4 headset drive level",
     "require": "> 0.5 mW into 32 ohm from a -10 dBV (0.316 Vrms) source",
-    "measure": "84 mVrms -> 0.22 mW into 32 ohm  (~86 dB SPL @100 dB/mW IEM)",
-    "pass": false,
-    "note": "FINDING: marginal. Loud enough for sensitive IEMs, quiet for 32 ohm over-ears. Dropping R16/R20 47->10 ohm recovers ~5 dB (still safe for stability/shorts)."
+    "measure": "159 mVrms -> 0.79 mW into 32 ohm  (~92 dB SPL @100 dB/mW IEM)",
+    "pass": true,
+    "note": "rev-10: R16/R20 = 10 ohm (was 47 ohm). Finding 1 applied -> passes."
   },
   {
-    "check": "D5 what-if: R16/R20 = 10 ohm",
-    "require": "quantify the recommended change",
-    "measure": "gain 0.502x  ->  0.79 mW into 32 ohm  (+5.5 dB vs as-built)",
+    "check": "D5 back-check: R16/R20 = 47 ohm (the old value)",
+    "require": "confirm the rev-10 change is what buys the level",
+    "measure": "old gain 0.267x -> 0.22 mW ; rev-10 (10 ohm) is +5.5 dB",
     "pass": true,
     "note": ""
   },

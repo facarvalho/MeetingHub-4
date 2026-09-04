@@ -1,0 +1,350 @@
+<title>Manual do MeetingHub-4</title>
+<meta name="description" content="Manual de uso do MeetingHub-4: um headset, quatro notebooks, sem instalar nada.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#f0efe9; --panel:#faf9f5; --ink:#1a1e22; --ink-soft:#4c5760;
+    --line:#ddd8ca; --line-strong:#c6c0ad;
+    --accent:#0e8f7e; --accent-ink:#0a6d60; --accent-soft:#0e8f7e18;
+    --amber:#c07f2a; --amber-soft:#c07f2a18;
+    --red:#bf3a2b;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    --cond:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#12161a; --panel:#1a2026; --ink:#e8edef; --ink-soft:#9db0bc;
+    --line:#28323b; --line-strong:#3a4650;
+    --accent:#41b9a7; --accent-ink:#7fd3c6; --accent-soft:#41b9a722;
+    --amber:#d59a55; --amber-soft:#d59a5520; --red:#e17264;
+  }}
+  :root[data-theme="dark"]{
+    --bg:#12161a; --panel:#1a2026; --ink:#e8edef; --ink-soft:#9db0bc;
+    --line:#28323b; --line-strong:#3a4650;
+    --accent:#41b9a7; --accent-ink:#7fd3c6; --accent-soft:#41b9a722;
+    --amber:#d59a55; --amber-soft:#d59a5520; --red:#e17264;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:16px;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:740px;margin:0 auto;padding:0 22px 120px}
+  h1,h2,h3{font-family:var(--cond);font-weight:600;line-height:1.15;text-wrap:balance}
+  h1{font-size:2.6rem;letter-spacing:-.015em;margin:.1em 0 0}
+  h2{font-size:1.55rem;margin:3em 0 .4em;padding-top:1em;border-top:2px solid var(--line-strong)}
+  h3{font-size:1.1rem;margin:1.8em 0 .2em}
+  p{margin:.65em 0}
+  a{color:var(--accent-ink)}
+  .lede{font-size:1.12rem;color:var(--ink-soft);margin-top:.5em}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-ink)}
+  code,.m{font-family:var(--mono);font-size:.9em}
+  header{padding:60px 0 6px}
+
+  /* animation stage */
+  .stage{margin:26px 0 8px;border:1px solid var(--line);border-radius:14px;background:var(--panel);
+    overflow:hidden}
+  .stage svg{display:block;width:100%;height:auto;background:
+    radial-gradient(120% 80% at 50% 0%, var(--accent-soft), transparent 70%)}
+  .stage .cap{border-top:1px solid var(--line);padding:12px 18px;font-family:var(--cond);
+    font-weight:600;font-size:1.02rem;min-height:44px;display:flex;align-items:center;gap:10px}
+  .stage .cap .step{font-family:var(--mono);font-weight:500;font-size:.7rem;color:var(--accent-ink);
+    border:1px solid var(--accent);border-radius:5px;padding:1px 6px;flex:none}
+  .capline{position:relative;flex:1}
+  .capline span{position:absolute;left:0;right:0;opacity:0}
+
+  @keyframes c1{0%,14%{opacity:1}17%,100%{opacity:0}}
+  @keyframes c2{0%,14%{opacity:0}17%,31%{opacity:1}34%,100%{opacity:0}}
+  @keyframes c3{0%,31%{opacity:0}34%,48%{opacity:1}51%,100%{opacity:0}}
+  @keyframes c4{0%,48%{opacity:0}51%,64%{opacity:1}67%,100%{opacity:0}}
+  @keyframes c5{0%,64%{opacity:0}67%,81%{opacity:1}84%,100%{opacity:0}}
+  @keyframes c6{0%,81%{opacity:0}84%,97%{opacity:1}100%{opacity:0}}
+  .capline span:nth-child(1){opacity:1;animation:c1 26s infinite}
+  .capline span:nth-child(2){animation:c2 26s infinite}
+  .capline span:nth-child(3){animation:c3 26s infinite}
+  .capline span:nth-child(4){animation:c4 26s infinite}
+  .capline span:nth-child(5){animation:c5 26s infinite}
+  .capline span:nth-child(6){animation:c6 26s infinite}
+
+  /* svg element animations */
+  .cable{stroke:var(--line-strong);stroke-width:3.5;fill:none;stroke-linecap:round}
+  .box-body{fill:var(--panel);stroke:var(--ink-soft);stroke-width:2}
+  .knob{fill:var(--bg);stroke:var(--ink-soft);stroke-width:2}
+  .knob-mark{stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
+  .btn{fill:var(--bg);stroke:var(--ink-soft);stroke-width:2}
+  .lp{fill:var(--panel);stroke:var(--ink-soft);stroke-width:2}
+  .lp-screen{fill:var(--bg);stroke:var(--ink-soft);stroke-width:1.5}
+  .label{font-family:var(--mono);font-size:11px;fill:var(--ink-soft)}
+
+  .mic-path{stroke:var(--accent);stroke-width:4;fill:none;stroke-linecap:round;opacity:0;
+    stroke-dasharray:5 6}
+  @keyframes micTo1{0%,31%{opacity:0}34%,64%{opacity:.95}67%,100%{opacity:0}}
+  @keyframes micTo3{0%,64%{opacity:0}67%,81%{opacity:.95}84%,100%{opacity:0}}
+  #micp1{animation:micTo1 26s infinite}
+  #micp3{animation:micTo3 26s infinite}
+  #micp1,#micp3{animation-timing-function:linear}
+  .flow{stroke-dashoffset:0;animation:flow 1s linear infinite}
+  @keyframes flow{to{stroke-dashoffset:-22}}
+
+  @keyframes b1{0%,31%{fill:var(--bg)}34%,64%{fill:var(--accent)}67%,100%{fill:var(--bg)}}
+  @keyframes b3{0%,64%{fill:var(--bg)}67%,81%{fill:var(--accent)}84%,100%{fill:var(--bg)}}
+  @keyframes bmute{0%,81%{fill:var(--bg)}84%,97%{fill:var(--red)}100%{fill:var(--bg)}}
+  #btn1{animation:b1 26s infinite}
+  #btn3{animation:b3 26s infinite}
+  #btn1b,#btn2b{animation:bmute 26s infinite}
+
+  @keyframes rot{0%,48%{transform:rotate(-38deg)}56%,100%{transform:rotate(34deg)}}
+  @keyframes rotm{0%,48%{transform:rotate(-20deg)}56%,100%{transform:rotate(18deg)}}
+  .kg{transform-box:fill-box;transform-origin:center}
+  #k1{animation:rot 26s infinite}#k2{animation:rot 26s infinite}
+  #k3{animation:rot 26s infinite;animation-delay:-.3s}#k4{animation:rot 26s infinite;animation-delay:-.15s}
+  #k5{animation:rotm 26s infinite}
+
+  @keyframes cableIn{0%{stroke-dashoffset:180}9%,100%{stroke-dashoffset:0}}
+  .cable{stroke-dasharray:180;animation:cableIn 26s infinite}
+
+  @keyframes talk{0%,31%{opacity:0}34%,97%{opacity:1}100%{opacity:0}}
+  .talk{opacity:0;animation:talk 26s infinite}
+  .wave{stroke:var(--accent);stroke-width:2.5;fill:none;stroke-linecap:round}
+
+  @media (prefers-reduced-motion:reduce){
+    .capline span{position:static;opacity:1!important;animation:none!important;display:block;margin:2px 0}
+    .capline span:not(:first-child){display:none}
+    *{animation:none!important}
+    .mic-path{opacity:.4}
+  }
+
+  /* step blocks */
+  ol.steps{list-style:none;padding:0;margin:22px 0;counter-reset:s}
+  ol.steps>li{counter-increment:s;position:relative;padding:16px 18px 16px 60px;background:var(--panel);
+    border:1px solid var(--line);border-radius:12px;margin:10px 0}
+  ol.steps>li::before{content:counter(s);position:absolute;left:16px;top:14px;width:30px;height:30px;
+    display:grid;place-items:center;background:var(--accent);color:#fff;border-radius:8px;
+    font-family:var(--cond);font-weight:700;font-size:1rem}
+  ol.steps>li b{font-family:var(--cond)}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 20px;margin:20px 0}
+  .callout{border-left:4px solid var(--accent);background:var(--accent-soft);padding:12px 16px;
+    border-radius:0 8px 8px 0;margin:16px 0;font-size:.95rem}
+  .callout.warn{border-color:var(--amber);background:var(--amber-soft)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+  @media(max-width:560px){.grid2{grid-template-columns:1fr}}
+  .mini{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .mini h3{margin:.1em 0 .3em;font-size:1rem}
+  .mini p{margin:.3em 0;font-size:.9rem;color:var(--ink-soft)}
+  table{border-collapse:collapse;width:100%;margin:16px 0;font-size:.9rem}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  td.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+  dl.faq dt{font-family:var(--cond);font-weight:600;margin-top:16px}
+  dl.faq dd{margin:.3em 0 0;color:var(--ink-soft)}
+  .foot{margin-top:64px;padding-top:16px;border-top:1px solid var(--line);font-size:.82rem;color:var(--ink-soft)}
+  .scroll{overflow-x:auto}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Manual de uso</div>
+  <h1>MeetingHub-4</h1>
+  <p class="lede">Um headset. Quatro notebooks. Você ouve os quatro ao mesmo tempo e escolhe,
+  num toque, para qual deles o seu microfone fala. Sem instalar nada, sem USB de dados, sem firmware.</p>
+</header>
+
+<div class="stage">
+<svg viewBox="0 0 640 400" role="img" aria-label="Animação: o usuário conecta quatro notebooks e um headset ao MeetingHub-4, liga o cabo USB-C, toca em SELECT para mandar o microfone a um notebook, ajusta os volumes e troca de notebook sem cortar o áudio.">
+  <!-- cables from 4 laptops -->
+  <path class="cable" d="M110 96 C 150 150, 200 150, 250 172"/>
+  <path class="cable" d="M530 96 C 490 150, 440 150, 390 172"/>
+  <path class="cable" d="M110 304 C 150 250, 200 250, 250 228"/>
+  <path class="cable" d="M530 304 C 490 250, 440 250, 390 228"/>
+  <!-- headset cable -->
+  <path class="cable" d="M320 372 C 320 320, 320 300, 320 250"/>
+  <!-- USB-C cable -->
+  <path class="cable" d="M470 372 C 430 340, 400 320, 388 250"/>
+
+  <!-- laptops -->
+  <g class="lp-g">
+   <g transform="translate(40 40)"><rect class="lp" x="0" y="0" width="90" height="56" rx="5"/>
+     <rect class="lp-screen" x="7" y="7" width="76" height="42" rx="3"/>
+     <rect class="lp" x="-6" y="56" width="102" height="7" rx="3"/>
+     <text class="label" x="14" y="33">PC 1</text></g>
+   <g transform="translate(510 40)"><rect class="lp" x="0" y="0" width="90" height="56" rx="5"/>
+     <rect class="lp-screen" x="7" y="7" width="76" height="42" rx="3"/>
+     <rect class="lp" x="-6" y="56" width="102" height="7" rx="3"/>
+     <text class="label" x="14" y="33">PC 2</text></g>
+   <g transform="translate(40 304)"><rect class="lp" x="0" y="0" width="90" height="56" rx="5"/>
+     <rect class="lp-screen" x="7" y="7" width="76" height="42" rx="3"/>
+     <rect class="lp" x="-6" y="56" width="102" height="7" rx="3"/>
+     <text class="label" x="14" y="33">PC 3</text></g>
+   <g transform="translate(510 304)"><rect class="lp" x="0" y="0" width="90" height="56" rx="5"/>
+     <rect class="lp-screen" x="7" y="7" width="76" height="42" rx="3"/>
+     <rect class="lp" x="-6" y="56" width="102" height="7" rx="3"/>
+     <text class="label" x="14" y="33">PC 4</text></g>
+  </g>
+
+  <!-- mic paths (headset -> selected laptop) -->
+  <path id="micp1" class="mic-path flow" d="M320 250 C 300 210, 270 195, 250 178 C 200 150, 150 150, 110 100"/>
+  <path id="micp3" class="mic-path flow" d="M320 250 C 300 270, 270 240, 250 224 C 200 250, 150 250, 110 300"/>
+
+  <!-- the box -->
+  <g transform="translate(190 168)">
+    <rect class="box-body" x="0" y="0" width="260" height="84" rx="10"/>
+    <text class="label" x="12" y="16" style="font-weight:500;fill:var(--ink)">MeetingHub-4</text>
+    <!-- 5 knobs -->
+    <g id="k1" class="kg"><g transform="translate(30 52)"><circle class="knob" r="15"/><line class="knob-mark" x1="0" y1="0" x2="0" y2="-11"/></g></g>
+    <g id="k2" class="kg"><g transform="translate(68 52)"><circle class="knob" r="15"/><line class="knob-mark" x1="0" y1="0" x2="0" y2="-11"/></g></g>
+    <g id="k3" class="kg"><g transform="translate(106 52)"><circle class="knob" r="15"/><line class="knob-mark" x1="0" y1="0" x2="0" y2="-11"/></g></g>
+    <g id="k4" class="kg"><g transform="translate(144 52)"><circle class="knob" r="15"/><line class="knob-mark" x1="0" y1="0" x2="0" y2="-11"/></g></g>
+    <g id="k5" class="kg"><g transform="translate(190 52)"><circle class="knob" r="17" style="stroke:var(--accent)"/><line class="knob-mark" x1="0" y1="0" x2="0" y2="-12"/></g></g>
+    <text class="label" x="182" y="20">GERAL</text>
+    <!-- 4 select buttons -->
+    <rect id="btn1" class="btn" x="218" y="14" width="28" height="14" rx="3"/>
+    <rect id="btn2" class="btn" x="218" y="32" width="28" height="14" rx="3"/>
+    <rect id="btn3" class="btn" x="218" y="50" width="28" height="14" rx="3"/>
+    <rect id="btn4" class="btn" x="218" y="68" width="28" height="14" rx="3"/>
+    <text class="label" x="214" y="10">SELECT</text>
+    <!-- mute-combo highlight uses btn1b/btn2b overlay -->
+    <rect id="btn1b" class="btn" x="218" y="14" width="28" height="14" rx="3" style="fill:var(--bg)"/>
+    <rect id="btn2b" class="btn" x="218" y="32" width="28" height="14" rx="3" style="fill:var(--bg)"/>
+  </g>
+
+  <!-- headset -->
+  <g transform="translate(292 350)">
+    <path d="M4 20 A 24 24 0 0 1 52 20" fill="none" stroke="var(--ink-soft)" stroke-width="3"/>
+    <rect class="lp" x="0" y="18" width="12" height="20" rx="4"/>
+    <rect class="lp" x="44" y="18" width="12" height="20" rx="4"/>
+    <path d="M12 34 q 14 16 18 16" fill="none" stroke="var(--ink-soft)" stroke-width="2.5"/>
+    <circle cx="30" cy="50" r="3" fill="var(--accent)"/>
+    <g class="talk"><path class="wave" d="M34 50 q 5 -4 10 0"/><path class="wave" d="M34 50 q 9 -8 18 0"/></g>
+  </g>
+  <text class="label" x="360" y="392">USB-C 5 V</text>
+</svg>
+<div class="cap">
+  <span class="step">DEMO</span>
+  <span class="capline">
+    <span>1 · Conecte os 4 notebooks (P2/P3) e o seu headset ao MeetingHub-4.</span>
+    <span>2 · Ligue o cabo USB-C. A caixa acende <b>já em mudo</b> — nenhum notebook recebe seu microfone ainda.</span>
+    <span>3 · Toque <b>SELECT&nbsp;1</b>. O microfone do headset passa a falar <b>só no notebook 1</b>.</span>
+    <span>4 · Gire os potes: um volume por notebook + o volume <b>GERAL</b>. Direita = mais alto.</span>
+    <span>5 · Toque <b>SELECT&nbsp;3</b>. O microfone troca para o notebook 3 — <b>sem cortar</b> o que você ouve.</span>
+    <span>6 · <b>SELECT 1 + SELECT 2 juntos</b> = mudo total. Continua mudo até você tocar um botão sozinho.</span>
+  </span>
+</div>
+</div>
+<p><small>A animação repete em ciclo. Ela mostra o comportamento real validado por simulação:
+mudo no boot (janela de 139 ms), seleção one-hot exclusiva, e comutação de microfone sem
+glitch no áudio de monitoração (variação &lt; 0,02%).</small></p>
+
+<h2>O que este aparelho faz</h2>
+<p>Numa reunião em que você precisa acompanhar <b>quatro notebooks</b> ao mesmo tempo — tradução,
+suporte, operação de transmissão, salas simultâneas — o MeetingHub-4 resolve dois problemas:</p>
+<div class="grid2">
+  <div class="mini"><h3>Ouvir todos</h3><p>O áudio dos 4 notebooks é somado num mixer. Cada um tem
+  seu próprio volume; um pote <b>GERAL</b> controla o conjunto. Você ouve tudo no seu único headset.</p></div>
+  <div class="mini"><h3>Falar em um</h3><p>Seu microfone vai para <b>um</b> notebook por vez, escolhido
+  por botão. Os relés garantem que nunca há dois ao mesmo tempo, e a caixa liga sempre em mudo.</p></div>
+</div>
+<div class="callout">Por que analógico e não USB? Um plugue P2 não some, não "re-enumera" e não troca
+o dispositivo padrão do Windows no meio da chamada. É exatamente a falha do headset USB que some
+da reunião — e que este aparelho existe para nunca ter.</div>
+
+<h2>No painel</h2>
+<div class="scroll"><table>
+<tr><th>Controle</th><th>Onde</th><th>Função</th></tr>
+<tr><td><b>RV1 – RV4</b> (4 potes)</td><td>frente, à esquerda</td><td>Volume individual do que você ouve de cada notebook (1 a 4). <span class="m">Direita = mais alto · tudo à esquerda = canal mudo.</span></td></tr>
+<tr><td><b>GERAL</b> (RV5)</td><td>frente, ao centro</td><td>Volume geral do headset. Afeta todos os canais de uma vez.</td></tr>
+<tr><td><b>SELECT 1 – 4</b> (4 botões)</td><td>frente, à direita</td><td>Manda o seu microfone para o notebook 1, 2, 3 ou 4. Só um fica ativo.</td></tr>
+<tr><td><b>PC 1 – PC 4</b> (4 jacks P2)</td><td>traseira</td><td>Um cabo P2–P2 (4 vias / TRRS) para cada notebook.</td></tr>
+<tr><td><b>HEADSET</b> (1 jack P2)</td><td>frente</td><td>Seu headset com microfone (padrão CTIA / celular).</td></tr>
+<tr><td><b>USB-C</b></td><td>traseira</td><td>Alimentação apenas (5 V). Qualquer fonte USB de 5 V / ≥ 0,5 A.</td></tr>
+</table></div>
+<div class="callout warn">Não há botão de "mudo" dedicado e não há LED. O estado "mudo" é o estado
+de partida (nada selecionado) ou o gesto de dois botões. "Qual notebook está ativo" é o último
+<b>SELECT</b> que você tocou.</div>
+
+<h2>Ligando (primeira vez)</h2>
+<ol class="steps">
+  <li><b>Conecte os notebooks.</b> Um cabo P2–P2 de 4 vias (TRRS) de cada notebook para
+  <span class="m">PC 1…PC 4</span> na traseira. Use a entrada de <b>headset</b> do notebook (o jack
+  único com ícone de fone+microfone), não entradas separadas.</li>
+  <li><b>Conecte o headset</b> ao jack <span class="m">HEADSET</span> na frente.</li>
+  <li><b>Ligue o USB-C.</b> A caixa energiza. Por cerca de <span class="m">0,14 s</span> ela se
+  mantém deliberadamente em mudo — depois disso continua em mudo até você escolher um notebook.
+  Nenhum relé deve clicar ainda.</li>
+  <li><b>Confira o áudio.</b> Toque algo em um notebook e ajuste o pote daquele canal e o
+  <b>GERAL</b>. Girando para a <b>direita</b> aumenta.</li>
+  <li><b>Entre numa chamada</b> em um notebook e toque o <b>SELECT</b> correspondente. Você ouve
+  um clique de relé — o microfone do headset agora fala nesse notebook.</li>
+</ol>
+
+<h2>No dia a dia</h2>
+
+<h3>Falar em um notebook</h3>
+<p>Toque o <b>SELECT</b> do notebook (1–4). O relé daquele canal fecha e os outros três abrem —
+<b>na mesma tocada</b>. O microfone do seu headset passa a ser o microfone daquele notebook. O
+outro lado da chamada ouve você normalmente.</p>
+
+<h3>Trocar de notebook</h3>
+<p>Toque outro <b>SELECT</b>. A troca é imediata e <b>não interrompe</b> o áudio que você está
+ouvindo dos quatro notebooks (validado: variação &lt; 0,02% no fone durante a comutação). Durante
+alguns milissegundos o microfone não está em nenhum notebook — inaudível para o outro lado.</p>
+
+<h3>Mudo</h3>
+<p>Segure <b>dois SELECT quaisquer ao mesmo tempo</b> (ex.: 1 + 2). Todos os relés abrem e o
+microfone não vai para nenhum notebook. <b>Permanece mudo</b> mesmo depois que você solta —
+até tocar um único botão de novo.</p>
+<div class="callout">Um notebook do qual você "saiu" continua enxergando o headset como
+<b>presente, porém em silêncio</b> (a placa mantém ~1,25 V na linha de microfone). O app de
+reunião não cai para o microfone interno do notebook nem mostra "microfone desconectado".</div>
+
+<h3>Ajustar o que você ouve</h3>
+<p>Cada notebook tem seu pote (RV1–RV4); o <b>GERAL</b> mexe em tudo. Tudo à esquerda em um pote
+= aquele canal fica em silêncio total (não é "baixinho", é silêncio de verdade — foi o ponto mais
+testado do projeto).</p>
+
+<h2>Especificações</h2>
+<div class="scroll"><table>
+<tr><td>Alimentação</td><td class="m">USB-C, 5 V, ~50 mA (só um relé por vez). Fusível rearmável 500 mA + proteção contra surto.</td></tr>
+<tr><td>Entradas</td><td class="m">4 × P2 3,5 mm TRRS (4 vias) — fone L/R + microfone por notebook</td></tr>
+<tr><td>Saída</td><td class="m">1 × P2 3,5 mm TRRS — headset CTIA (fone + microfone electret)</td></tr>
+<tr><td>Nível no headset</td><td class="m">≈ 0,5× do nível de linha do notebook em fones de 32 Ω (≈ 96 dB SPL em intra-auriculares)</td></tr>
+<tr><td>Banda de áudio</td><td class="m">plana ±1 dB de 100 Hz a 20 kHz · −3 dB em 44 Hz (voz: ótimo)</td></tr>
+<tr><td>Seleção de microfone</td><td class="m">relés, lógica one-hot exclusiva, liga em mudo</td></tr>
+<tr><td>Placa</td><td class="m">192 × 156 mm · 2 camadas · 100% componentes através-furo · 6 furos M3</td></tr>
+<tr><td>Fixação</td><td class="m">gabinete de acrílico topo + base, laterais abertas; controles rentes à borda frontal</td></tr>
+</table></div>
+
+<h2>Perguntas frequentes</h2>
+<dl class="faq">
+<dt>Preciso instalar driver ou app?</dt>
+<dd>Não. Cada notebook enxerga apenas um headset analógico comum no seu jack. Nada enumera por USB.</dd>
+<dt>O Windows vai mostrar "microfone mudo"?</dt>
+<dd>Não — o mudo aqui é <b>funcional</b>, não sinalizado: quando você não está selecionado, o
+endpoint de microfone do notebook continua presente e ativo, só não recebe áudio nenhum.
+Não existe sinal num jack P2 que diga "mudo" para um sistema operacional.</dd>
+<dt>Posso deixar os 4 notebooks conectados o tempo todo?</dt>
+<dd>Sim — essa é a ideia. O plugue nunca sai do jack, então o notebook nunca "perde" o headset.</dd>
+<dt>Dois notebooks podem receber meu microfone juntos?</dt>
+<dd>Não. A lógica garante um de cada vez. Segurar dois botões = nenhum (mudo).</dd>
+<dt>Uso fones de estúdio de alta impedância (250 Ω). Serve?</dt>
+<dd>Funciona, mas fica mais baixo. O aparelho é dimensionado para headsets de reunião de 16–32 Ω.</dd>
+<dt>Caiu a energia no meio da reunião. O que acontece?</dt>
+<dd>Ao voltar, a caixa religa <b>em mudo</b>. Toque o <b>SELECT</b> do notebook para retomar.
+O áudio que você ouve volta sozinho.</dd>
+</dl>
+
+<h2>Segurança e cuidados</h2>
+<ul>
+<li>Alimente só por USB-C 5 V. A entrada tem fusível rearmável e supressor de surto, mas não é
+para tensões acima de 5 V.</li>
+<li>Não conecte as entradas <span class="m">PC 1–4</span> a saídas de potência (amplificadores,
+saída de alto-falante) — são entradas de nível de linha / headset.</li>
+<li>Placa com componentes expostos (gabinete de laterais abertas): mantenha longe de líquidos e
+superfícies metálicas.</li>
+<li>Primeiro artigo: confirme com um multímetro que, com um pote todo à esquerda, o canal fica
+em silêncio — e o sentido dos potes (direita = mais alto).</li>
+</ul>
+
+<p class="foot">MeetingHub-4 v2 · rev-10 · 2026-09-04. Comportamento descrito neste manual verificado
+por simulação elétrica (27/27 testes) e inspeção de placa (DRC 0 erros). Ver o dossiê de validação
+para métodos e números.</p>
+</div>

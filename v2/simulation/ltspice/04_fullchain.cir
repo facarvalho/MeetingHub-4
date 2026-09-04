@@ -1,6 +1,6 @@
 MeetingHub-4 v2 - full monitor chain, one laptop  (Jn.T -> RVn -> U1A -> RV5 -> U2A -> J6.T)
 * Requirement (v2-DESIGN sec.4): ~0.66x system gain, audio band flat.
-* FINDING: 0.66x is the UNLOADED figure. With R16 = 47 ohm feeding a 32 ohm
+* FINDING: 0.66x is the UNLOADED figure. With R16 = 10 ohm (rev-10) feeding a 32 ohm
 * headset the loaded gain is ~0.27x (-11 dB).  Set Rhp = 1e6 to see 0.66x.
 .include opamp.sub
 
@@ -28,7 +28,7 @@ R14  inn   fbg   1k
 C16  fbg   0     10u
 XU2  ho    inp inn p5 0  OPAMP1 params: A0=1e5 GBW=9e6 ROUT=25 VSAT=1.2
 C17  ho    n1    220u
-R16  n1    j6t   47
+R16  n1    j6t   10
 Rhp  j6t   0     32
 
 .ac dec 40 2 200k

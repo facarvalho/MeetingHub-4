@@ -1,0 +1,37 @@
+MeetingHub-4 v3 - power entry  (USB-C CC pull-downs, PTC, TVS, current)
+* J1 VBUS -- F1 (RXEF050 PTC, ~1 ohm hot) -- +5V ;  D1 (P6KE6.8A TVS) on VBUS
+* pre-fuse ;  R1/R2 = 5k1 CC pull-downs so any USB-C source applies 5 V.
+.include models.lib
+
+* --- USB-C source: a DFP that senses Rd on CC then ramps VBUS ---
+VCC1 cc1src 0 3.3        ; source Rp pull-up rail (illustrative)
+RpCC cc1src cc1 56k      ; a "Default USB" Rp; the sink Rd divides it
+R1   cc1 0 5.1k          ; sink Rd on CC1
+R2   cc2 0 5.1k          ; sink Rd on CC2  (only one CC used per cable orientation)
+* Vsense = the voltage the source sees on CC1: Rd/(Rp+Rd) * Vrp
+* 5.1k/(56k+5.1k)*3.3 = 0.275 V  -> in the "sink attached, Default USB" band
+* (0.25-0.61 V) -> source turns VBUS on at 5 V / >=500 mA.
+
+Vbus vbus 0 PWL(0 0 4m 5 1 5)
+D1   vbus 0 DP6KE68           ; TVS pre-fuse
+RF1  vbus p5 1                ; PTC hot resistance (nuisance-trip check is arithmetic)
+C1   p5 0 100n
+C2   p5 0 10u
+C3   p5 0 47u
+
+* --- steady load: one relay coil + CD4043B + one active gate + CC pull-downs ---
+Rcoil p5 0 178                ; G5V-1 5 VDC coil (one energised)
+Icd   p5 0 4u                ; CD4043B static Icc
+Rgate p5 0 101k              ; one QOn -> R12 (1k) -> R16 (100k) -> GND
+* (R1/R2 already draw 2 x 5/5.1k from the CC rail, not from +5V)
+
+.control
+op
+print v(p5) v(cc1)
+* total +5V current
+let itot = i(vbus)
+print itot
+* surge: 15 V / 2 us spike on VBUS -> TVS clamp
+tran 10n 3u
+.endc
+.end

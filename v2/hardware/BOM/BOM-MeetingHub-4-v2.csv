@@ -24,8 +24,9 @@ K4,1,Select NB4,Relay_SPDT_Omron_G5V-1
 "R3, R4",2,3k3,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
 "R13, R17, R21, R22, R23, R24, R25, R26, R27, R28, R33, R34, R35, R36, R37",15,100k,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
 "R14, R15, R18, R19, R29, R30, R31, R32",8,1k,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
-"R16, R20",2,47,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
+"R16, R20",2,10,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
 R38,1,47R,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
+"R39, R40, R41, R42",4,2k2,R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal
 RV1,1,10k Vol NB1,Potentiometer_Alps_RK097_Dual_Horizontal
 RV2,1,10k Vol NB2,Potentiometer_Alps_RK097_Dual_Horizontal
 RV3,1,10k Vol NB3,Potentiometer_Alps_RK097_Dual_Horizontal

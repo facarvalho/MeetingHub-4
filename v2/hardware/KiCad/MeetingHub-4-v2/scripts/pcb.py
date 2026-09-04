@@ -100,6 +100,9 @@ block(["K1","K2"], 138, 36, 2, 26, 0, 0)
 block(["K3","K4"], 138, 54, 2, 26, 0, 0)
 block(["D2","D3"], 150, 38, 2, 26, 0, 90)
 block(["D4","D5"], 150, 56, 2, 26, 0, 90)
+# R39-R42: de-selected-laptop mic hold-up, 2k2 NC->GND (SCH-P). Horizontal
+# stack in the open area below the Q-column / right of the R21-R37 array.
+block(["R39","R40","R41","R42"], 168, 102, 1, 0, 6, 0)
 
 # ---- SELECT LOGIC ----
 place("U4", 148, 76, 90)                                       # CD4043B, long axis in X

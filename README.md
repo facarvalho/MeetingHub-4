@@ -7,14 +7,14 @@ Bluetooth, no firmware.
 
 ## Versions
 
-| | [`v1/`](v1/) — fabricated | [`v2/`](v2/) — respin |
-|---|---|---|
-| PCB | 4-layer (GND + 5 V planes), 265 × 160 mm | **2-layer**, GND pour both sides, **192 × 156 mm** |
-| Assembly | 3 SMD groups + jack SMD pads | **100 % through-hole**, 0 SMD pads |
-| Mic selector | latching push-locks driving relays | **on-board one-hot latch** (CD4043B + diode matrix + 2N7000), momentary buttons, power-on = muted |
-| VBIAS | unbuffered (bug) | buffered (LM358) |
-| Mixer op-amp | NE5532 (out of spec at 5 V) | NJM4580 |
-| Status | fabricated (JLCPCB lot `W2026080810364558`); first article found 3 schematic bugs | routed, DRC-clean; **not yet fabricated** — open in KiCad, run native ERC/DRC, verify the "verify" LCSC codes first |
+| | [`v1/`](v1/) — fabricated | [`v2/`](v2/) — respin | [`v3/`](v3/) — mic selector only |
+|---|---|---|---|
+| Scope | monitor 4 + talk on 1 | monitor 4 + talk on 1 | **talk on 1 only** (audio → external mixer + Y-cables) |
+| PCB | 4-layer, 265 × 160 mm | **2-layer**, 192 × 156 mm | **4-layer** (GND + 5 V planes), ~**106 × 86 mm** |
+| Assembly | 3 SMD groups + jack SMD pads | **100 % through-hole** | **100 % through-hole** (vertical passives) |
+| Mic selector | latching push-locks driving relays | **on-board one-hot latch** (CD4043B + diode matrix + 2N7000), momentary buttons, power-on = muted | **same one-hot latch**; relay NC pulled to GND via 2k2 so a de-selected notebook still reads "mic present" |
+| Audio path | mixer + headphone amp + pots + VBIAS | mixer + headphone amp + pots + VBIAS (LM358) | **none** |
+| Status | fabricated (JLCPCB lot `W2026080810364558`); first article found 3 schematic bugs | routed, DRC-clean; **not yet fabricated** | routed, DRC-clean, sim 22/22; **not yet fabricated** — open in KiCad, run native ERC/DRC first |
 
 Each folder is **self-contained** (its own `hardware/`, `docs/`, scripts, BOM,
 gerbers). Start with the `README.md` / `CLAUDE.md` inside the folder you want.
@@ -24,6 +24,8 @@ gerbers). Start with the `README.md` / `CLAUDE.md` inside the folder you want.
   became v2).
 - **v2 design & build:** `v2/README.md`, `v2/docs/v2-DESIGN.md`,
   `v2/docs/v1-vs-v2.md`, `v2/CHANGELOG.md`.
+- **v3 (mic selector only):** `v3/README.md`, `v3/docs/v3-DESIGN.md`,
+  `v3/CHANGELOG.md`.
 
 ## License
 

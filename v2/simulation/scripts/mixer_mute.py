@@ -63,7 +63,7 @@ def chain(fracs, master=1.0, load=32.0, src=None, rend=REND, swap_pot=False):
     c.C("C15","m_w","u2p",1e-6); c.R("R13","u2p","vbias",100e3)
     c.R("R15","u2n","u2o",1e3); c.R("R14","u2n","fbg",1e3); c.C("C16","fbg","0",10e-6)
     c.opamp("U2","u2o","u2p","u2n","p5","0",A0=1e5,gbw=9e6,rout=25.0)
-    c.C("C17","u2o","n1",220e-6); c.R("R16","n1","j6t",47.0); c.R("Rl","j6t","0",load)
+    c.C("C17","u2o","n1",220e-6); c.R("R16","n1","j6t",10.0); c.R("Rl","j6t","0",load)
     return c
 
 VIN = 0.316          # -10 dBV laptop line level, rms

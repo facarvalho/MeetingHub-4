@@ -1,0 +1,156 @@
+[
+  {
+    "check": "S power on",
+    "require": "mic MUTED (no relay)",
+    "measure": "mic MUTED (no relay)",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "S tap NB1 (SW1)",
+    "require": "mic -> NOTEBOOK 1",
+    "measure": "mic -> NOTEBOOK 1",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "S tap NB2 (SW2)",
+    "require": "mic -> NOTEBOOK 2",
+    "measure": "mic -> NOTEBOOK 2",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "S tap NB3 (SW3)",
+    "require": "mic -> NOTEBOOK 3",
+    "measure": "mic -> NOTEBOOK 3",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "S tap NB4 (SW4)",
+    "require": "mic -> NOTEBOOK 4",
+    "measure": "mic -> NOTEBOOK 4",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "S (idle - stays on NB4)",
+    "require": "mic -> NOTEBOOK 4",
+    "measure": "mic -> NOTEBOOK 4",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "S hold SW2 + SW3",
+    "require": "mic MUTED (no relay)",
+    "measure": "mic MUTED (no relay)",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "S release",
+    "require": "mic MUTED (no relay)",
+    "measure": "mic MUTED (no relay)",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "P1 POR window (RST held high after VBUS settles)",
+    "require": ">= 5 ms  (covers the CD4043B Vdd rise + a slow soft-start with margin)",
+    "measure": "93 ms",
+    "pass": true,
+    "note": "R_eff ~20 k (R11 || the diode-clamped RST pull-downs) x C5 10 uF; once PORN < ~3 V the diodes stop conducting and the tail runs on R11 alone (tau ~1 s)"
+  },
+  {
+    "check": "P2 no residual reset once settled",
+    "require": "PORN well below the CD4043B RST threshold (2.5 V) and still falling",
+    "measure": "0 mV at t = 3 s (tau ~1 s -> continues to 0)",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "P3 muted through a slow 50 ms power ramp",
+    "require": "PORN still holds RST high when VBUS reaches 5 V  ->  Q1-4 = 0 at power-on",
+    "measure": "PORN = 4.42 V at t = 50 ms (RST high)",
+    "pass": true,
+    "note": "the CD4043B latch powers up in an undefined state; POR forcing every RST high is what makes 'power-on = muted' deterministic"
+  },
+  {
+    "check": "PW1 total supply current (one relay latched, idle)",
+    "require": "<< 500 mA  (RXEF050 hold current, and USB-C Default-power minimum)",
+    "measure": "30.1 mA  (6 % of 500 mA)",
+    "pass": true,
+    "note": "coil 28.1 mA + CC pull-downs 2.0 mA + gate 50 uA + CD4043B 4 uA"
+  },
+  {
+    "check": "PW2 PTC fuse margin (F1 = RXEF050)",
+    "require": "load < I_hold (0.5 A) with headroom; I_trip ~ 1 A",
+    "measure": "load 30 mA = 6 % of I_hold -> no nuisance trip; ~1 ohm series -> ~30 mV drop",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "PW3 VBUS transient clamp (D1 = P6KE6.8A on VBUS, pre-fuse)",
+    "require": "V_standoff > 5.5 V (USB-C max), V_BR 6-8 V, single discrete TVS to GND",
+    "measure": "P6KE6.8A: V_RWM 5.8 V, V_BR 6.45-7.14 V, V_C 10.5 V @ 57 A, 600 W - a surge is shunted by D1, not forced through F1",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "PW4 USB-C source turns VBUS on (R1/R2 = 5k1 CC pull-downs)  [NEW vs v2]",
+    "require": "Rd in the 4.08-6.12 k sink window on CC1 and CC2",
+    "measure": "Rd = 5.1 k (1% or 5% part is in spec) -> any USB-C source (charger, PD, PC port, power bank) detects a sink and applies 5 V",
+    "pass": true,
+    "note": "v2 left CC floating, so it only powered up from a legacy USB-A->C cable (Rp built into the A plug). v3 works with any USB-C cable/source."
+  },
+  {
+    "check": "MIC1 DC bias delivered to the headset electret",
+    "require": "0.5 - 1.8 V across the electret (its normal operating window)",
+    "measure": "1.10 V  (from the selected notebook's 2.2 V / 2.2 k bias)",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "MIC7 a de-selected / muted notebook still reads 'headset mic present'",
+    "require": "mic-pin DC in ~0.8 - 2.0 V (a codec keeps the headset mic; no fallback to the internal mic)",
+    "measure": "1.10 V with R_NC 2.2k  (vs 2.20 V = open = 'no mic' before the fix); selected-path electret sits at 1.10 V, so the two look alike to the codec",
+    "pass": true,
+    "note": "R20-R23 (2k2 on each relay NC pin) - added per the v2 bom_mic_deselect_detect.cir review"
+  },
+  {
+    "check": "MIC2 through-path loss (relay contact vs an ideal switch)",
+    "require": "< 0.02 dB  (contact R negligible vs the k-ohm mic impedances)",
+    "measure": "-0.0002 dB  (R_contact 100 m-ohm in 2.2 k // 2.2 k)",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "MIC3 crosstalk to an un-selected notebook (K NO contact open)",
+    "require": "< -50 dB across the voice band",
+    "measure": "-83 dB @1 kHz, -63 dB @10 kHz  (only path = ~10 pF stray into 2k2//2k2; the de-selected COM is on NC, not HS_MIC)",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "MIC4 routed-path bandwidth",
+    "require": "-3 dB well above 20 kHz (flat across the voice band)",
+    "measure": "-3 dB at 1.76 MHz  (2.2k//2.2k with 80 pF stray)",
+    "pass": true,
+    "note": ""
+  },
+  {
+    "check": "MIC5 P2 jack wiring: pin 3 (tip) = mic, pins 2 & 4 (ring/sleeve) = GND  (HX PJ-320A-3P DIP, LCSC C17701689)",
+    "require": "no plug wiring can short the mic for a CTIA Y-splitter; robust to the ring-vs-sleeve pin ambiguity",
+    "measure": "Datasheet terminal 3 is the tip leaf-spring contact -> mic. Terminals 2 and 4 are ring & sleeve; a CTIA TRRS->2x3.5 splitter's mic plug ties both to ground, so wiring BOTH pin 2 and pin 4 to GND is universal (mono, CTIA and PC-pink mic-on-tip plugs all work, nothing shorts) and makes the 2/4 order irrelevant. Bring-up: meter pin 3 to the plug tip to confirm.",
+    "pass": true,
+    "note": "tying pin 3 to GND (if it turned out not to be tip) is the only failure mode -> obvious dead mic, one-line schematic swap"
+  },
+  {
+    "check": "MIC6 mute states carry no headset audio to any notebook",
+    "require": "power-on and 2-button-held -> every relay de-energised -> no NBn_MIC <-> HS_MIC path",
+    "measure": "all four relays de-energised: every NBn_MIC is on NC (2k2 -> GND), none on HS_MIC -> the headset electret reaches no notebook (silent), yet each notebook still reads ~1.10 V = 'headset mic present, muted' (no disconnect, no internal-mic fallback). Verified by the S checks.",
+    "pass": true,
+    "note": ""
+  }
+]

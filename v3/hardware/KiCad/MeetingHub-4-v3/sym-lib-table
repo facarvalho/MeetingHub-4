@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "MeetingHub-4-v3")(type "KiCad")(uri "${KIPRJMOD}/MeetingHub-4-v3.kicad_sym")(options "")(descr "Local project symbols: CD4043B, 2N7000"))
+)

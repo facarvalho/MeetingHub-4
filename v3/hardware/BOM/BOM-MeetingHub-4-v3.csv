@@ -1,0 +1,30 @@
+Designators,Quantity,Value,Footprint
+"C1, C4",2,100nF,C_Disc_D5.0mm_W2.5mm_P5.00mm
+"C2, C5",2,10uF,CP_Radial_D5.0mm_P2.00mm
+C3,1,47uF,CP_Radial_D5.0mm_P2.00mm
+D1,1,P6KE6.8A (TVS 5V uni),D_DO-15_P3.81mm_Vertical_AnodeUp
+"D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13, D14, D15, D16, D17, D18, D19, D20, D21, D22, D23, D24, D25",24,1N4148,D_DO-35_SOD27_P2.54mm_Vertical_AnodeUp
+F1,1,500mA,Fuse_Bourns_MF-RG500
+J1,1,USB-C 5V IN,USB_C_Receptacle_GCT_USB4085
+J2,1,Mic NB1,Jack_3.5mm_3pole_THT_Horizontal
+J3,1,Mic NB2,Jack_3.5mm_3pole_THT_Horizontal
+J4,1,Mic NB3,Jack_3.5mm_3pole_THT_Horizontal
+J5,1,Mic NB4,Jack_3.5mm_3pole_THT_Horizontal
+J6,1,Headset MIC,Jack_3.5mm_3pole_THT_Horizontal
+K1,1,Route NB1,Relay_SPDT_Omron_G5V-1
+K2,1,Route NB2,Relay_SPDT_Omron_G5V-1
+K3,1,Route NB3,Relay_SPDT_Omron_G5V-1
+K4,1,Route NB4,Relay_SPDT_Omron_G5V-1
+"MH1, MH2, MH3, MH4",4,M3 mounting hole,MountingHole_3.2mm_M3
+"Q1, Q2, Q3, Q4",4,2N7000,TO-92_Inline
+"R1, R2",2,5k1,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+"R3, R4, R5, R6, R7, R8, R9, R10, R11, R16, R17, R18, R19",13,100k,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+"R12, R13, R14, R15",4,1k,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+"R20, R21, R22, R23",4,2k2,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical
+SW1,1,Select NB1,SW_Tactile_SPST_Angled_PTS645Vx39-2LFS
+SW2,1,Select NB2,SW_Tactile_SPST_Angled_PTS645Vx39-2LFS
+SW3,1,Select NB3,SW_Tactile_SPST_Angled_PTS645Vx39-2LFS
+SW4,1,Select NB4,SW_Tactile_SPST_Angled_PTS645Vx39-2LFS
+TP1,1,+5V,TestPoint_THTPad_D1.5mm
+TP2,1,GND,TestPoint_THTPad_D1.5mm
+U1,1,CD4043B,DIP-16_W7.62mm

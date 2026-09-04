@@ -17,8 +17,8 @@ U4 CD4043B = 4x NOR R/S latch, OE (pin5) = +5V so Qn always driven:
 
 Driver+relay:  Qn -> R29-32 (1k) -> GATEn -> 2N7000 (R33-36 100k pulldown)
   Qn=1 -> 2N7000 on -> COILn to GND -> Kn energises
-  Kn energised -> HEADSET_MIC (COM 5/6) tied to NBn_MIC (NO 10) -> laptop n mic
-  Kn idle      -> NC(1) open -> headset mic disconnected from laptop n
+  Kn energised -> NBn_MIC (COM 5/6) tied to HEADSET_MIC (NO 10) -> laptop n mic  [rev-9 wiring]
+  Kn idle      -> NBn_MIC on NC(1) -> R39..R42 2k2 -> GND (de-selected hold-up, SCH-P)
 """
 import os, numpy as np
 import matplotlib; matplotlib.use("Agg")

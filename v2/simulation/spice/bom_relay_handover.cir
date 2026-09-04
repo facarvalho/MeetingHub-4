@@ -1,0 +1,53 @@
+MeetingHub-4 v2 - relay hand-over timing: is the headset mic ever routed to
+* BOTH laptops (or to neither) during a select-button press?
+*
+* CURRENT-sensing relay model: the contact follows coil current through the
+* pull-in / drop-out thresholds (SW hysteresis), so the free-wheel diode D2-D5
+* slowing the RELEASE is captured (the voltage-sensing model in models.lib is
+* not - it opens the instant the driver turns off).
+*
+* G5V-1: coil 167 ohm, ~0.5 H (L/R ~ 3 ms). Rated 30 mA. Pull-in ~22 mA (75%),
+* drop-out ~10 mA (33%).  Driver = ideal switch (2N7000 detail not the point).
+.include models.lib
+
+.subckt RELAY_I coilp coiln com no
+Rc coilp cm 167
+Vsense cm cx 0
+Lc cx coiln 0.5
+* coil current (through Vsense) sensed as a voltage on node 'ic'
+Bic ic 0 V = i(Vsense)
+Ric ic 0 1meg
+Scon com no ic 0 CTAK
+.model CTAK SW(VT=0.016 VH=0.006 RON=0.1 ROFF=100meg)
+.ends
+
+VDD p5 0 5
+
+* K1 ON at t=0 ; single button press flips both drivers at t = 10 ms
+VG1 g1 0 PWL(0 5   0.01 5   0.0100005 0)
+VG2 g2 0 PWL(0 0   0.01 0   0.0100005 5)
+SQ1 c1 0 g1 0 SWQ
+SQ2 c2 0 g2 0 SWQ
+.model SWQ SW(VT=2.5 VH=0.3 RON=2 ROFF=100meg)
+XK1 p5 c1 hmic nb1 RELAY_I
+XK2 p5 c2 hmic nb2 RELAY_I
+D2 c1 p5 D1N4148
+D3 c2 p5 D1N4148
+
+* headset electret (AC 1 to trace routing) + the two laptop mic-input loads
+Vmic hmic 0 DC 2.0 AC 1
+Rl1 nb1 0 2.2k
+Rl2 nb2 0 2.2k
+
+.options gmin=1e-9 reltol=2e-3 method=gear
+.control
+tran 10u 60m uic
+meas tran k1_release WHEN v(xk1.ic)=0.010 FALL=1
+meas tran k2_pullin  WHEN v(xk2.ic)=0.022 RISE=1
+meas tran nb1_before RMS v(nb1) FROM=2m TO=9m
+meas tran nb1_after  RMS v(nb1) FROM=45m TO=59m
+meas tran nb2_before RMS v(nb2) FROM=2m TO=9m
+meas tran nb2_after  RMS v(nb2) FROM=45m TO=59m
+wrdata relay_handover.dat v(xk1.ic) v(xk2.ic) v(nb1) v(nb2)
+.endc
+.end

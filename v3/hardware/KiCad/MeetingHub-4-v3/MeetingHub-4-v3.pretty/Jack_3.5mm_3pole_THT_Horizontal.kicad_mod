@@ -1,0 +1,42 @@
+(footprint "Jack_3.5mm_3pole_THT_Horizontal" (version 20211014) (generator pcbnew)
+  (layer "F.Cu")
+  (descr "P2 (3.5 mm) 3-conductor audio jack, right-angle THROUGH-HOLE. Part: SHOU HAN / HANXIA HX PJ-320A-3P DIP, LCSC C17701689. Pad geometry from the LCSC/EasyEDA library data for C17701689 (uuid c718c744) and the manufacturer datasheet (szlcsc 76D2D42B). Terminals numbered 2 / 3 / 4 exactly as the datasheet: pin 3 = TIP (leaf-spring contact = mic on a CTIA Y-splitter mic plug); pins 2 and 4 = ring and sleeve, both wired to GND in this design so their order does not matter. Two 1.0 mm NPTH locating posts 6.0 mm apart. Barrel points -Y and overhangs the -Y board edge. On bring-up confirm pin 3 is the tip contact (insert a 3.5 mm plug, check continuity plug-tip to pin 3); if it is pin 4, swap the mic net onto pin 4 in the schematic.")
+  (tags "3.5mm P2 jack trs 3-conductor stereo audio through-hole PJ-320A-3P PJ320A SHOU-HAN HANXIA C17701689 PJ-320")
+  (attr through_hole)
+  (fp_text reference "REF**" (at 0 7.6) (layer "F.SilkS")
+    (effects (font (size 1 1) (thickness 0.15))))
+  (fp_text value "Jack_3.5mm_3pole_THT_Horizontal" (at 0 -10.0) (layer "F.Fab")
+    (effects (font (size 1 1) (thickness 0.15))))
+  (fp_text user "${REFERENCE}" (at 0 0) (layer "F.Fab")
+    (effects (font (size 1 1) (thickness 0.15))))
+
+  (fp_line (start -3.0 -5.8) (end  3.0 -5.8) (layer "F.Fab") (width 0.1))
+  (fp_line (start  3.0 -5.8) (end  3.0  5.8) (layer "F.Fab") (width 0.1))
+  (fp_line (start  3.0  5.8) (end -3.0  5.8) (layer "F.Fab") (width 0.1))
+  (fp_line (start -3.0  5.8) (end -3.0 -5.8) (layer "F.Fab") (width 0.1))
+  (fp_line (start -1.6 -5.8) (end -1.6 -8.3) (layer "F.Fab") (width 0.1))
+  (fp_line (start  1.6 -5.8) (end  1.6 -8.3) (layer "F.Fab") (width 0.1))
+  (fp_line (start -1.6 -8.3) (end  1.6 -8.3) (layer "F.Fab") (width 0.1))
+
+  (fp_line (start -4.2 -6.4) (end  4.2 -6.4) (layer "F.SilkS") (width 0.12))
+  (fp_line (start  4.2 -6.4) (end  4.2  6.4) (layer "F.SilkS") (width 0.12))
+  (fp_line (start  4.2  6.4) (end -4.2  6.4) (layer "F.SilkS") (width 0.12))
+  (fp_line (start -4.2  6.4) (end -4.2 -6.4) (layer "F.SilkS") (width 0.12))
+  (fp_line (start -4.2 -2.7) (end -3.6 -2.7) (layer "F.SilkS") (width 0.15))
+  (fp_line (start -3.6 -2.7) (end -3.6 -4.3) (layer "F.SilkS") (width 0.15))
+
+  (fp_line (start -4.5 -8.6) (end  4.5 -8.6) (layer "F.CrtYd") (width 0.05))
+  (fp_line (start  4.5 -8.6) (end  4.5  6.7) (layer "F.CrtYd") (width 0.05))
+  (fp_line (start  4.5  6.7) (end -4.5  6.7) (layer "F.CrtYd") (width 0.05))
+  (fp_line (start -4.5  6.7) (end -4.5 -8.6) (layer "F.CrtYd") (width 0.05))
+
+  (pad "3" thru_hole rect  (at -2.4 -3.5) (size 2.0 1.5) (drill oval 1.2 0.6) (layers *.Cu *.Mask))
+  (pad "4" thru_hole oval  (at -2.4  3.5) (size 2.0 1.5) (drill oval 1.2 0.6) (layers *.Cu *.Mask))
+  (pad "2" thru_hole oval  (at  2.4 -1.5) (size 2.0 1.5) (drill oval 1.2 0.6) (layers *.Cu *.Mask))
+
+  (pad "" np_thru_hole circle (at 0 -4.0) (size 1.2 1.2) (drill 1.0) (layers *.Cu *.Mask))
+  (pad "" np_thru_hole circle (at 0  2.0) (size 1.2 1.2) (drill 1.0) (layers *.Cu *.Mask))
+
+  (model "${KICAD6_3DMODEL_DIR}/Connector_Audio.3dshapes/Jack_3.5mm_PJ320E_Horizontal.wrl"
+    (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 90)))
+)

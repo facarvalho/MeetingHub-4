@@ -77,7 +77,7 @@ def opamp_mix(c, ref, outp, inp, inn):
 def opamp_hp(c, ref, outp, inp, inn):
     c.opamp(ref, outp, inp, inn, "p5", "0", A0=1e5, gbw=9e6, rout=25.0)   # NJM4556A
 
-def build_chain(nsrc=1, rv_frac=1.0, master_frac=1.0, load=32.0, src_ac=None, rser=47.0):
+def build_chain(nsrc=1, rv_frac=1.0, master_frac=1.0, load=32.0, src_ac=None, rser=10.0):
     """Full L path: nsrc laptop inputs -> RVn -> U1A mixer -> RV5 -> U2A -> J6.
        src_ac: list of complex AC amplitudes per source (len nsrc)."""
     c = Circuit()
@@ -135,8 +135,8 @@ def B_monitor():
           "design note v2-DESIGN sec.4 states ~0.66x",
           f"{g1k_hiZ:.3f}x into hi-Z ; {g1k:.3f}x into 32 ohm  ({db(g1k):+.1f} dB)",
           0.60 <= g1k_hiZ <= 0.72,
-          "FINDING: the 0.66x holds only unloaded. R16/R20=47 ohm in series "
-          "with a 16-32 ohm headset drops it to ~0.27x (-11 dB).")
+          "rev-10: R16/R20 = 10 ohm. Unloaded still ~0.66x; into 32 ohm now ~0.50x "
+          "(-6 dB) instead of 0.27x (-11.5 dB) with the old 47 ohm.")
     c0 = build_chain(nsrc=1, rv_frac=0.0, master_frac=1.0, src_ac=[1.0])
     gmin = np.abs(np.interp(1e3, f, c0.ac(FSWP)[1]["j6t"]))
     check("B2 pot direction (CW = louder, full-CCW = mute)", "CCW gain << CW gain",
@@ -217,9 +217,9 @@ def D_hpamp():
     f, r = c.ac(FSWP)
     # gain of just the HP stage = v(j6t)/v(mix_l), take at 1 kHz
     g = np.abs(np.interp(1e3, f, r["j6t"]) / np.interp(1e3, f, r["mix_l"]))
-    check("D1 HP-amp AC gain (mix_l -> J6.T)", "~2x minus 47R/(47R+32R) divider",
-          f"{g:.3f}x  ({db(g):+.2f} dB)", 0.7 <= g <= 0.95,
-          "closed-loop 2x, then 47R series into 32R = 0.405 divider -> ~0.81x")
+    check("D1 HP-amp AC gain (mix_l -> J6.T)", "~2x minus 10R/(10R+32R) divider (rev-10)",
+          f"{g:.3f}x  ({db(g):+.2f} dB)", 1.30 <= g <= 1.70,
+          "closed-loop 2x, then 10R series into 32R = 0.762 divider -> ~1.52x")
     # DC at the headphone terminal must be ~0 (C17 blocks)
     op = c.op()
     check("D2 DC on headphone terminal J6.T", "|V| < 20 mV (C17 blocks DC)",
@@ -242,8 +242,7 @@ def D_hpamp():
     check("D4 headset drive level", "> 0.5 mW into 32 ohm from a -10 dBV (0.316 Vrms) source",
           f"{vheadset*1e3:.0f} mVrms -> {p_mw:.2f} mW into 32 ohm  (~{93+10*np.log10(max(p_mw,1e-3)):.0f} dB SPL @100 dB/mW IEM)",
           p_mw > 0.5,
-          "FINDING: marginal. Loud enough for sensitive IEMs, quiet for 32 ohm over-ears. "
-          "Dropping R16/R20 47->10 ohm recovers ~5 dB (still safe for stability/shorts).")
+          "rev-10: R16/R20 = 10 ohm (was 47 ohm). Finding 1 applied -> passes.")
     # AC plot: hp-amp stage response into 32 ohm vs hi-Z
     f2, r2 = build_chain(1,1.0,1.0,load=32.0,src_ac=[1.0]).ac(FSWP)
     f3, r3 = build_chain(1,1.0,1.0,load=1e6,src_ac=[1.0]).ac(FSWP)
@@ -252,13 +251,13 @@ def D_hpamp():
     ax.semilogx(f3, db(np.abs(r3["j6t"])), lw=1.3, ls="--", label="J6.T into hi-Z")
     ax.axhline(db(0.66), color="g", ls=":", lw=1, label="0.66x design target")
     ax.set_xlabel("Hz"); ax.set_ylabel("dB (V/V from laptop in)"); ax.set_ylim(-25,2)
-    ax.set_title("D. Full chain gain — loaded vs unloaded (R16/R20 = 47 ohm)")
+    ax.set_title("D. Full chain gain — loaded vs unloaded (R16/R20 = 10 ohm, rev-10)")
     ax.legend(loc="lower center"); ax.grid(True, which="both", alpha=.3); fig.tight_layout()
     fig.savefig(f"{PLT}/D_hpamp_gain.png", dpi=110); plt.close(fig)
-    g10 = np.abs(build_chain(1,1.0,1.0,load=32.0,src_ac=[1.0],rser=10.0).ac([1e3])[1]["j6t"][0])
-    p10 = (g10*vin_rms)**2/32.0*1e3
-    check("D5 what-if: R16/R20 = 10 ohm", "quantify the recommended change",
-          f"gain {g10:.3f}x  ->  {p10:.2f} mW into 32 ohm  (+{10*np.log10(p10/max(p_mw,1e-6)):.1f} dB vs as-built)",
+    g47 = np.abs(build_chain(1,1.0,1.0,load=32.0,src_ac=[1.0],rser=47.0).ac([1e3])[1]["j6t"][0])
+    p47 = (g47*vin_rms)**2/32.0*1e3
+    check("D5 back-check: R16/R20 = 47 ohm (the old value)", "confirm the rev-10 change is what buys the level",
+          f"old gain {g47:.3f}x -> {p47:.2f} mW ; rev-10 (10 ohm) is +{10*np.log10(p_mw/max(p47,1e-6)):.1f} dB",
           True)
 
 # ---------------------------------------------------------------- F. POR

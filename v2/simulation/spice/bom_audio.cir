@@ -1,7 +1,7 @@
 MeetingHub-4 v2 - BOM monitor/audio chain, L channel (ngspice, datasheet models)
 * Jn.T -> Cn(1u) -> RVn(10k) -> Rn(10k) -> U1A(NJM4580) mixer, Rf=R3 3k3
 *       -> C13(1u) -> RV5(10k master) -> C15(1u) -> U2A(NJM4556A) x2 -> C17(220u)
-*       -> R16(47) -> J6.T -> 32 ohm headset
+*       -> R16(10) -> J6.T -> 32 ohm headset   (rev-10: was 47, lowered per sim finding 1)
 * Pots: signal on term 3, VBIAS on term 1, wiper -> Rn.  {kA..kD,kM} = rotation
 * fraction (1 = full CW = loud, 0 = full CCW = min).  Set on the .param line.
 .include models.lib
@@ -59,7 +59,7 @@ R14  u2n fbg 1k
 C16  fbg 0 10u
 XU2  u2o u2p u2n p5 0 NJM4556A
 C17  u2o n1 220u
-R16  n1 j6t 47
+R16  n1 j6t 10
 Rhp  j6t 0 32
 
 .control

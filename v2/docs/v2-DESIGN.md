@@ -16,12 +16,43 @@ Requested: a **new project in `v2/`**, same function as v1, but
    built onto the main board,
 5. **no mute button**.
 
+### 1a. Why analog jacks and not USB audio to each laptop
+
+A recurring question. Presenting the box as a **USB headset to each of the 4
+laptops** would let the box command a real Windows mic-mute (see
+`v2-simulation-validation.md` §P) and do the mixing in DSP — but it trades one
+small, fixable analog quirk for a whole class of USB-audio reliability problems:
+
+- **USB is host-centric.** One device has one upstream port. Four laptops = four
+  independent USB device controllers (four "virtual sound cards") + a
+  mixer/router MCU. That is a serious embedded product with QFN/BGA USB-audio
+  SoCs — not a THT, hand-solderable board.
+- **The box must stay enumerated on all four laptops 100 % of the time** — idle,
+  across laptop sleep/wake, forever. USB **selective suspend**, hub power hiccups,
+  enumeration races and **default-communication-device** churn all cause the
+  endpoint to drop; the meeting app then scrambles, a chime fires, and on
+  switch-back the device may not regain "default". This is exactly the "Windows
+  loses my USB headset mid-call" failure the requester has hit with ordinary USB
+  headphones.
+- **A firmware hang or a power blip kills all four laptops' audio at once.**
+- **Latency:** USB-audio buffering adds ~5–40 ms round trip — audible as sidetone
+  delay on your own voice and in the monitor path. Analog is ~0.
+- Per-laptop volume, mute and selection all become firmware instead of a pot and
+  a relay.
+
+**An analog TRRS plug cannot re-enumerate, suspend, or change the default
+device.** As long as it is physically in the jack, Windows sees a static
+endpoint. The only dynamic state is headset/mic detection, and the §P 2.2 kΩ fix
+makes even that constant. For a box whose one job is *never drop the mic in a
+meeting*, analog is the correct architecture. USB audio would be a different
+product built around a different set of risks.
+
 ## 2. The three v1 bugs — status in v2
 
 | # | v1 bug | v2 |
 |---|---|---|
 | 1 | Volume pots wired backwards (signal & VBIAS on swapped terminals) → reversed direction, wouldn't fully mute | **Fixed.** Signal on terminal 3/6, VBIAS on terminal 1/4, wiper 2/5 → output. Alps datasheet: terminal 1 = full-CCW end, terminal 3 = full-CW end. So **CW = wiper toward signal = louder**, full-CCW = wiper at VBIAS = silent. Matches "aumentar à direita". |
-| 2 | Mic relays K1–K4: coil and contacts swapped → coils never energised, mic dead | **Fixed + re-architected for one-hot.** Coil = pins 2 (+5 V) & 9 (MOSFET drain); COM = 5/6 → `HEADSET_MIC`; NO = 10 → `NBx_MIC`; NC = 1 open. D2–D5 are the coil free-wheel diodes, cathode → +5 V. |
+| 2 | Mic relays K1–K4: coil and contacts swapped → coils never energised, mic dead | **Fixed + re-architected for one-hot.** Coil = pins 2 (+5 V) & 9 (MOSFET drain); D2–D5 are the coil free-wheel diodes, cathode → +5 V. **rev-9 contacts (SCH-P):** COM 5/6 → `NBx_MIC`; NO 10 → `HEADSET_MIC`; NC 1 → `R39…R42` 2.2 kΩ → GND (de-selected-laptop mic hold-up). |
 | 3 | VBIAS unbuffered (10k/10k + 10 µF) → bleed at min volume | **Fixed.** `R1/R2` (10k/10k) + `C3` (10 µF) make `VBIAS_REF` (2.5 V); `U3A` (LM358) buffers it, `R38` (47 Ω) isolates the `C26` (1 µF) load with feedback taken *after* R38 so DC is exact and the LM358 stays stable. `VBIAS` now has < 1 Ω source impedance. |
 
 ## 3. What else changed (review findings, see §6)
@@ -56,21 +87,33 @@ all four summed. Out (U1.1 / U1.7) → C13/C14 (1 µF) → `RV5.3/6` (master),
 `RV5.1/4` = VBIAS, wiper → `MIX_L` / `MIX_R`.
 `MIX_x` → C15/C18 (1 µF) → `U2.3` / `U2.5` (+in), biased to VBIAS via R13/R17.
 `U2A/B` (NJM4556A) non-inverting, gain = 1 + R15/R14 = **2** at audio, 1 at DC
-(C16/C19 block the feedback divider at DC). Out → C17/C20 (1 µF) → R16/R20
-(47 Ω series, stability + short protection) → `J6.T` / `J6.R1` (headset L/R).
-`J6.R2` = GND.
+(C16/C19 block the feedback divider at DC). Out → C17/C20 (**220 µF**) → R16/R20
+(**10 Ω** series — rev-10; was 47 Ω — stability + short protection) →
+`J6.T` / `J6.R1` (headset L/R). `J6.R2` = GND.
 
-Overall monitor gain ≈ 0.33 × 1 (master max) × 2 ≈ **0.66×**. A −10 dBV line
-source (0.32 V rms) → ~0.21 V rms into the headset → ~1.4 mW into 32 Ω
-(≈ 100 dB SPL in phone-style earbuds). Loud enough for 16–32 Ω CTIA headsets;
-**high-impedance (>150 Ω) headphones will be noticeably quieter** — if that
-matters, raise R3/R4 to 4k7.
+Overall monitor gain ≈ 0.33 × 1 (master max) × 2 ≈ 0.66× **unloaded**. Into a
+16–32 Ω headset the R16/R20 series drop applies: **rev-10 loaded gain ≈ 0.50×
+(−6 dB)** (was 0.27× / −11.5 dB at 47 Ω — sim finding 1). A −10 dBV line source
+(0.32 V rms) → ~0.145 V rms into 32 Ω → **~0.7 mW** (≈ 96 dB SPL in phone-style
+earbuds). Comfortable for 16–32 Ω CTIA headsets; **high-impedance (>150 Ω)
+headphones will still be quieter** — if that matters, raise R3/R4 to 4k7.
 
-### Mic path
-`J6.S` (`HEADSET_MIC`) → K1–K4 COM (pins 5/6). `Kn` NO (pin 10) → `NBn_MIC` →
-`Jn.S` → laptop n mic input. `Kn` NC (pin 1) is open, so a de-energised relay
-leaves the mic **disconnected** from that laptop. The electret in the headset
-is biased by whichever laptop is selected (passive switching, as v1).
+### Mic path (rev-9 wiring, SCH-P)
+`Jn.S` (laptop *n* mic pin, `NBn_MIC`) → K1–K4 **COM (pins 5/6)**. `Kn` **NO
+(pin 10)** → `HEADSET_MIC` → `J6.S` (headset electret), commoned across K1–K4.
+`Kn` **NC (pin 1)** → `R39…R42` (2.2 kΩ) → GND.
+
+- **Energised Kn:** laptop *n* ↔ headset electret (talk). The electret is biased
+  by laptop *n* (passive switching, as v1).
+- **De-energised Kn:** laptop *n* ↔ 2.2 kΩ → GND. That is the DC an idle electret
+  presents (§P: 1.25 V on the sleeve vs 1.19 V live), so laptop *n*'s codec keeps
+  the *Headset Microphone* endpoint alive and the far end just hears **silence** —
+  it does **not** read "mic unplugged" and fall back to the internal mic. Only one
+  Kn is ever energised, so `HEADSET_MIC` reaches exactly one laptop.
+
+*(rev-8 and earlier had COM=`HEADSET_MIC`, NO=`NBn_MIC`, NC open → a de-selected
+laptop saw its mic pin float to the bias rail = "no mic". See `v2-simulation-validation.md`
+§P and CHANGELOG rev-9.)*
 
 ### One-hot select logic (SELECT_LOGIC sheet)
 - 4 momentary buttons: `SW2→BTN1 … SW5→BTN4`, other side +5 V.
@@ -207,11 +250,45 @@ is biased by whichever laptop is selected (passive switching, as v1).
 - Board is **192 × 156 mm, R6 corners, 6× M3** (the rev-2 "286 × 157 / 4× M3"
   note below is stale).
 
+### rev-9 (2026-09-03) — de-selected-laptop mic hold-up (SCH-P)
+
+Validation §P: as-built, switching the mic away from a laptop left its mic-jack
+sleeve **open** = "no microphone" to a Windows codec → risk of the endpoint being
+dropped and the app falling back to the internal mic.
+
+- **K1–K4 contacts re-wired:** COM 5/6 → `NBn_MIC`, NO 10 → `HEADSET_MIC`
+  (commoned), NC 1 → **R39–R42 (2.2 kΩ) → GND**. A de-selected laptop now sees
+  2.2 kΩ (≈ idle electret, 1.25 V on the sleeve) → codec keeps the mic endpoint,
+  far end hears silence. Coil / D2–D5 side unchanged.
+- **+4 parts:** R39–R42, 2.2 kΩ 1/4 W axial THT, YAGEO CFR-25JB-52-2K2, LCSC
+  **C1364486**. BOM 117 → **121**.
+- Re-routed (Freerouting `--random 0`): **902 seg / 35 vias, 0 unconnected, 0 SMD
+  pads**, DRC unchanged (8 J1-internal + 5 silk). Board still 192 × 156 mm.
+- Full sim suite re-run, **all reproduces** (`v2-simulation-validation.md` §P now
+  "applied"; `bom_selector.cir` updated for the swap — one-hot routing unchanged).
+- **Still bench-verify the OS behaviour on the target laptops** (codec firmware).
+
+### rev-10 (2026-09-04) — headphone drive level, FABRICATION AUTHORIZED
+- **R16 / R20: 47 Ω → 10 Ω** (sim finding 1). They sit outside the U2A loop, so
+  into 32 Ω the old 47 Ω made a 0.4 divider → 0.27× / 0.22 mW. 10 Ω → 0.50× /
+  ~0.7 mW / +5.5 dB. Same footprint, same pads/position/rotation, **netlist
+  byte-identical, no re-route** — gerbers/drill/CPL unchanged, only the
+  schematic PDF + 3 BOMs. R38 (VBIAS isolation) stays 47 Ω.
+  Part: **UNI-ROYAL MFR0W4F100JA50 = LCSC C57437** — 10 Ω 1/4 W metal film ±1%
+  ±50 ppm, D2.2×6.5 mm, ~10 800 in JLC stock (restores the metal-film ±1% tier
+  the 47R5 it replaces had). Alt: Yageo MFR-25JT-52-10R (C176452).
+- **Both sim engines re-run:** MNA §A–§G **21/21** (was 20/21), §M 6/6, §E 8/8,
+  §O < 80 µV, §P 1.25 V — all reproduce. See CHANGELOG rev-10 +
+  `v2-simulation-validation.md`.
+- **Authorized for fabrication** subject to the 3 bench items below (Alps pot
+  convention, 10 Ω LCSC code, de-selected-mic OS check).
+
 ### Open items / limitations (not blocking)
 1. **No runtime "none selected".** Once a laptop is chosen the mic stays on it
    until power-cycle or a deliberate 2-button press. Accepted trade-off for
    having no mute button. SCH-010 §3.5 adds a 5th "mute/reset" button if wanted.
-2. **High-Z headphones** are quiet at 0.66× system gain — raise R3/R4 to 4k7.
+2. **High-Z headphones (>150 Ω)** are still quieter — raise R3/R4 to 4k7 if the
+   box will drive studio headphones (not the conference-headset use case).
 3. **Board 192 × 156 mm** — the SELECT_LOGIC block can still be tightened.
 4. **Silkscreen** ref designators overlap on dense clusters (cosmetic DRC
    warnings) — reposition/scale in the KiCad GUI before fab.

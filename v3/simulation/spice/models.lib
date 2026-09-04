@@ -1,0 +1,65 @@
+* ==========================================================================
+* MeetingHub-4 v3 - device models for the mic-selector BOM parts (ngspice / LTspice)
+*   D1N4148   : Vishay 1N4148 published card (LCSC C402212 is a 1N4148 equiv.)
+*   M2N7000   : ON-Semi 2N7000 level-1 card + body diode (LCSC C9114)
+*   DP6KE68   : P6KE6.8A TVS as a breakdown diode, V(BR) 6.8 V (LCSC C152132)
+*   CD4043LATCH : behavioural NOR R/S latch, CD4000B 5 V logic thresholds,
+*                 ~660 ohm output source/sink, 3-state OE (LCSC C22390239)
+*   RELAY_G5V1 : Omron G5V-1 5 VDC - coil 178 ohm / 0.46 H, pick-up 3.75 V,
+*                drop-out 0.4 V, SPDT gold contact 50 mohm (LCSC C28695)
+*   ELECTRET  : generic 2-terminal back-electret, JFET source-follower,
+*                ~2.2 k output impedance, 1 kHz test tone
+* Pin order is kept identical to the KiCad symbols so a vendor model drops in.
+* ==========================================================================
+
+.model D1N4148 D(IS=4.352e-9 N=1.906 RS=0.6458 BV=110 IBV=1e-4 CJO=7.048e-13
++ VJ=0.869 M=0.03 FC=0.5 TT=5.771e-9)
+.model DP6KE68 D(IS=1e-12 RS=0.09 N=1.0 BV=6.8 IBV=1e-3 CJO=1500p TT=1n)
+
+* --------------------------------------------------------- 2N7000  (Q1-Q4)
+.model M2N7000 NMOS(VTO=2.0 KP=0.155 GAMMA=0 PHI=0.6 LAMBDA=1e-3 RD=1.2 RS=0.35
++ RG=250 RDS=1e7 IS=1e-14 CBD=35p CGSO=27p CGDO=6p)
+.subckt Q2N7000 D G S
+M1 D G S S M2N7000 L=1u W=1u
+DBODY S D D1N4148
+.ends
+
+* --------------------------------------------------------- CD4043B  NOR R/S latch
+* one latch of the quad.  NOR truth table: R=1 -> Q=0 (dominant); S=1,R=0 -> Q=1;
+* S=R=0 -> hold.  qint holds the state through a 1 us RC so the loop is stable;
+* the output is a 3-state buffer (OE = en) behind ~660 ohm (CD4000B @ 5 V).
+.subckt CD4043LATCH q s r en vdd vss
+Bset  sd 0   V = (V(s) > 2.5) ? 1 : 0
+Brst  rd 0   V = (V(r) > 2.5) ? 1 : 0
+Btgt  tg 0   V = (V(rd) > 0.5) ? 0 : ( (V(sd) > 0.5) ? 1 : V(qint) )
+Rtg   tg qint 1k
+Cqi   qint 0 1n
+Bqo   qo 0   V = (V(en) > 2.5) ? ( (V(qint) > 0.5) ? V(vdd) : V(vss) ) : V(q)
+Rqo   qo q   660
+Cq    q  vss 5p
+.ends
+
+* --------------------------------------------------------- Omron G5V-1 relay
+* coil c1..c2 ; SPDT contact com / no / nc.
+*   energised  (|V(coil)| rises past 3.75 V) : com-no closed, com-nc open
+*   de-energised (falls below 0.4 V)         : com-nc closed, com-no open
+.subckt RELAY_G5V1 c1 c2 com no nc
+Rcoil c1 cm 178
+Lcoil cm c2 0.46
+Bdrv  drv 0  V = abs(V(c1) - V(c2))
+Binv  inv 0  V = 5 - abs(V(c1) - V(c2))
+Sno com no drv 0 SW_MK
+Snc com nc inv 0 SW_MK
+* on when Vctrl > 3.5 (pick-up ~3.75), off when Vctrl < 0.5 (drop-out ~0.4)
+.model SW_MK SW(VT=2.0 VH=1.5 RON=0.05 ROFF=1e9)
+.ends
+
+* --------------------------------------------------------- electret mic capsule
+* 2-terminal back-electret: internal JFET source-follower, biased by the load.
+* d -> HS_MIC (drain, pulled up by the selected notebook's bias), s -> GND.
+* ~1 kHz 5 mV-ish acoustic tone injected at the gate.  Output Z ~ 2 k.
+.subckt ELECTRET d s
+Vsig g s DC 0 AC 1 SIN(0 5m 1k)
+J1 d g s JFETMIC
+.model JFETMIC NJF(VTO=-0.8 BETA=1m LAMBDA=5m RD=50 RS=50 CGS=3p CGD=2p)
+.ends

@@ -24,10 +24,13 @@ DB = {
  '500mA':  ('Fuse_Bourns_MF-RG500','Littelfuse','RXEF050','C76399','RXEF050 resettable PTC fuse, 500mA hold (5.1mm radial)'),
  '10k':    ('R_Axial_DIN0207_P10.16mm','Yageo','CFR-25JB-52-10K','C5618323','10k 1/4W axial resistor, THT'),
  '3k3':    ('R_Axial_DIN0207_P10.16mm','CCO','MF1/4W-3.3K-1%','C119335','3k3 1/4W metal-film axial resistor, THT +/-1% (mixer feedback)'),
+ '2k2':    ('R_Axial_DIN0207_P10.16mm','YAGEO','CFR-25JB-52-2K2','C1364486','2.2k 1/4W carbon-film axial resistor, THT (K1-K4 NC de-selected-laptop mic hold-up, SCH-P)'),
  '1k':     ('R_Axial_DIN0207_P10.16mm','CCO','CF1/4W-1KR-J','C120055','1k 1/4W axial resistor, THT'),
  '100k':   ('R_Axial_DIN0207_P10.16mm','Yageo','MFR-25FBF52-100K','C1364475','100k 1/4W axial resistor, THT'),
  '47':     ('R_Axial_DIN0207_P10.16mm','Yageo','MFR-25FBF52-47R5','C3373549','47R5 (47.5 ohm 1%) 1/4W metal-film axial resistor, THT - series/isolation, exact value not critical'),
  '47R':    ('R_Axial_DIN0207_P10.16mm','Yageo','MFR-25FBF52-47R5','C3373549','47R5 (47.5 ohm 1%) 1/4W metal-film axial resistor, THT - series/isolation, exact value not critical'),
+ '10':     ('R_Axial_DIN0207_P10.16mm','UNI-ROYAL','MFR0W4F100JA50','C57437','10 ohm 1/4W (250mW) metal-film axial resistor, THT +/-1% +/-50ppm, D2.2x6.5mm (U2A/U2B headphone output series R16/R20). rev-10: was 47R5 (C3373549) - lowered 47->10 ohm for +5.5 dB drive into 16-32 ohm headsets (sim finding 1). LCSC C57437 (JLC Extended, ~10800 in stock). Alt: YAGEO MFR-25JT-52-10R C176452 (metal film +/-5%, ~12000 stock). Value not critical.'),
+ '10R':    ('R_Axial_DIN0207_P10.16mm','UNI-ROYAL','MFR0W4F100JA50','C57437','10 ohm 1/4W (250mW) metal-film axial resistor, THT +/-1% +/-50ppm, D2.2x6.5mm (U2A/U2B headphone output series R16/R20). rev-10: was 47R5 (C3373549) - lowered 47->10 ohm for +5.5 dB drive into 16-32 ohm headsets (sim finding 1). LCSC C57437 (JLC Extended, ~10800 in stock). Alt: YAGEO MFR-25JT-52-10R C176452 (metal film +/-5%, ~12000 stock). Value not critical.'),
  'USB-C POWER IN': ('USB_C_Receptacle_GCT_USB4085','GCT','USB4085-GF-A','C7095263','USB Type-C receptacle, power only (VBUS/GND)'),
 }
 POT  = ('Potentiometer_Alps_RK097_Dual_Horizontal','Alps Alpine','RK09712200HA','C470545',

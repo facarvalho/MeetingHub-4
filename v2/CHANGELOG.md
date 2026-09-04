@@ -1,5 +1,108 @@
 # MeetingHub-4 v2 — changelog
 
+## 2026-09-04 — v2 rev-10 (headphone drive level — sim finding 1 applied) · FABRICATION AUTHORIZED
+
+**Problem (validation finding 1, carried since 2026-09-03):** `R16`/`R20` = 47 Ω
+sit **outside** the U2A feedback loop, so with a 16–32 Ω headset they form a
+47/(47+32) ≈ 0.4 divider — loaded system gain **0.27×** (−11.5 dB), ~0.22 mW into
+32 Ω. Fine for voice/IEMs, quiet for 32 Ω over-ear headsets. This was the single
+failing automated check (D4).
+
+**Fix — two resistor values, nothing else:**
+
+| ref | was | now |
+|---|---|---|
+| R16, R20 (U2A / U2B headphone output series) | 47 Ω (Yageo MFR-25FBF52-47R5, C3373549) | **10 Ω** 1/4 W metal-film THT axial — UNI-ROYAL MFR0W4F100JA50, **LCSC C57437** (±1% ±50 ppm, D2.2×6.5 mm, JLC ~10 800 in stock) |
+| R38 (VBIAS buffer isolation) | 47 Ω | **unchanged** — still 47R5 / C3373549 |
+
+- **Same footprint** (`R_Axial_DIN0207_…P10.16mm`), same pads, same position,
+  same rotation. **Netlist connectivity byte-identical to rev-9** (95 nets, node
+  sets verified equal). **No re-route.** Gerbers, drill and CPL are unchanged;
+  only the schematic PDF and the 3 BOM files change.
+- **Result (both engines re-run):** MNA §A–§G now **21/21** (was 20/21); loaded
+  system gain **0.50×** (−6 dB) MNA / **0.456×** (−6.8 dB) ngspice+BOM-models;
+  **0.65–0.79 mW into 32 Ω** (was 0.22 mW) → **+5.5 dB**, D4 passes. §M mute
+  6/6, §E one-hot 8/8, §O mic-switch glitch < 80 µV, §P 1.25 V hold-up — all
+  still reproduce. Full artifact set regenerated (`plots/*.png`,
+  `validation_results.json`, `audio_*.wav`, 3 MP4s).
+- **Short-circuit safety:** NJM4556A is a 70 mA line driver with internal
+  current limit; 10 Ω still limits a dead-short at the jack and keeps the stage
+  unconditionally stable (checked in `.ac`, no peaking).
+- Files: `HPAMP.kicad_sch` (R16/R20 = 10), `hardware/PCB/*.net` (regenerated),
+  3 BOM CSVs, `bomcpl.py` (10 Ω DB entry), sim scripts + `spice/bom_audio.cir`
+  + `spice/bom_mic_switch_glitch*.cir` + `ltspice/03_hpamp.cir` +
+  `ltspice/04_fullchain.cir`.
+
+**Pre-order checklist that still stands (not design issues):**
+1. **Bench-check the Alps RK09712200HA terminal convention** — knob full-CCW ⇒
+   wiper (term 2) ↔ term 1 ≈ 0 Ω. Netlist is wired correctly for that
+   convention; a reversed pot is a wire swap, not a respin. This is the exact
+   class of the v1 bug — do not skip it.
+2. **R16/R20 part (resolved 2026-09-04):** the first pick (Yageo CFR-25JB-52-10R,
+   C1364480) had only ~9 pcs of JLC stock. Replaced with **UNI-ROYAL
+   MFR0W4F100JA50 / LCSC C57437** — 10 Ω 1/4 W **metal film ±1% ±50 ppm**,
+   D2.2×6.5 mm, **~10 800 in JLC stock**. This *restores* the metal-film ±1% tier
+   the position originally had (the 47R5 it replaces was Yageo MFR-25FBF52, also
+   metal film ±1%) — a step up from the ±5% carbon-film first pick. Same
+   DIN0207 P10.16 mm footprint. Drop-in alt if ever needed: Yageo MFR-25JT-52-10R
+   (C176452, metal film ±5%, ~12 000 stock).
+3. **Bench-verify de-selected-mic OS behaviour** on the target laptops (codec
+   firmware — the board side is correct, §P).
+
+**JLCPCB stock snapshot (2026-09-04, full BOM re-checked via the assembly API):**
+all 25 lines / 121 parts in assembly stock. Five low-stock lines cap the batch
+size and should be pre-reserved / re-checked at order:
+`RK09712200HA` C470545 **175** (×5/board → ~35 boards, the limiter) ·
+`NJM4556AD` C2838125 **169** · `P6KE6.8A` C152132 **33** (any 600 W uni TVS
+V_BR 6–8 V DO-15 substitutes, e.g. 1.5KE6.8A) · `CD4043BE` C22390239 488 ·
+`NJM4580DD` C5184871 491. Everything else > 1000.
+
+## 2026-09-03 — v2 rev-9 (de-selected-laptop mic hold-up, SCH-P)
+
+**Problem (validation §P):** switching the mic away from a laptop left that
+laptop's mic-jack sleeve **open**, which a Windows audio codec reads as "no
+microphone" — it can drop the *Headset Microphone* endpoint and the conferencing
+app can fall back to the laptop's **internal mic** (room audio) instead of going
+silent.
+
+**Fix — K1–K4 contact re-wire + 4 resistors:**
+
+| relay pin | was | now |
+|---|---|---|
+| COM (5/6) | `HEADSET_MIC` | **`NBn_MIC`** (laptop *n*'s mic pin) |
+| NO (10) | `NBn_MIC` | **`HEADSET_MIC`** (headset electret, commoned K1–K4) |
+| NC (1) | *unconnected* | **`R39…R42` (2.2 kΩ) → GND**, one per relay |
+
+Energised Kn still ties laptop *n* to the headset electret (talk). De-energised
+Kn now ties laptop *n* to **2.2 kΩ → GND** — the DC of an idle electret
+(sim §P: 1.25 V on the sleeve vs 1.19 V for a live mic) — so the codec keeps the
+mic endpoint alive and the far end just hears silence. Also removes the same
+"mic gone" ambiguity at power-on and during a 2-button mute.
+
+- **New parts:** R39–R42, 2.2 kΩ 1/4 W carbon-film axial THT, YAGEO
+  CFR-25JB-52-2K2, **LCSC C1364486** (JLCPCB in stock). BOM: 117 → **121 parts**,
+  24 PCBA lines.
+- **Coil / free-wheel-diode side (K1–K4 pins 2, 9; D2–D5) unchanged.** Audio
+  path, one-hot logic (U4), POR, VBIAS — all untouched.
+- **Layout:** R39–R42 placed as a horizontal stack at (168, 102…120) mm, open
+  area right of the R21–R37 array. Board stays **192 × 156 mm**.
+- **Re-routed** (Freerouting 2.2.4, `--random 0`): 902 seg / 35 vias, **0
+  unconnected, 0 SMD pads**. DRC unchanged: the 8 J1 USB-C internal pad-pitch
+  clearances (documented, pass in the GUI at netclass 0.15) + 5 cosmetic
+  `silk_over_copper`.
+- **Simulation re-run — nothing broke:** §A–§G 20/21 (the 1 = finding 1, R16/R20,
+  pre-existing), §M 6/6, §E 8/8, §N ngspice all reproduce (`bom_selector.cir`
+  updated for the swap: one-hot routing still 37 mV selected / 0.4 µV others),
+  §O mic-switch glitch < 80 µV, §P now 1.25 V on a de-selected sleeve.
+  **All artifacts regenerated** for rev-9: `plots/*.png`, `validation_results.json`,
+  `audio_*.wav`, and the three MP4s (`…-full-simulation`, `…-simulation`,
+  `…-mic-selector`). Rebuildable toolchain: `bash /home/fac/.simtools/regen_sim.sh`
+  (micromamba env: ngspice 41 + ffmpeg + numpy/scipy/matplotlib — the previous
+  session's `/tmp` env was lost to a reboot and rebuilt outside `/tmp`).
+- Files: `gen.py` (MICSW), `pcb.py` (R39–R42 placement), `bomcpl.py` (2k2 part),
+  `simulation/spice/bom_selector.cir`. Still **bench-verify the OS behaviour on
+  the target laptops** — the codec half is firmware.
+
 ## 2026-09-03 — v2 rev-8 (JLCPCB stock substitutions)
 
 Audited **every** BOM LCSC code against JLCPCB's assembly library

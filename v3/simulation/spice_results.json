@@ -1,0 +1,177 @@
+[
+ {
+  "check": "S power-on",
+  "require": "relay none energised (mic muted)",
+  "measure": "relay 0 (mic muted)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "S tap SW1",
+  "require": "relay 1 energised (mic -> NB1)",
+  "measure": "relay 1 (mic -> NB1)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "S tap SW2",
+  "require": "relay 2 energised (mic -> NB2)",
+  "measure": "relay 2 (mic -> NB2)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "S tap SW3",
+  "require": "relay 3 energised (mic -> NB3)",
+  "measure": "relay 3 (mic -> NB3)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "S tap SW4",
+  "require": "relay 4 energised (mic -> NB4)",
+  "measure": "relay 4 (mic -> NB4)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "S hold SW2+SW3",
+  "require": "relay none energised (mic muted)",
+  "measure": "relay 0 (mic muted)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "S stays muted after 2-btn release",
+  "require": "no relay after the SW2+SW3 hold is released (~2.75->2.9 s)",
+  "measure": "relay 0 at t=2.95 s",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "S POR holds mute during ramp",
+  "require": "PORN tracks VBUS on the way up (>3 V) so every RST is high while the rail rises",
+  "measure": "PORN = 4.60 V at t=20 ms (VBUS still mid-ramp)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "P VBUS ramp 0.05 ms",
+  "require": "no relay ever latches; PORN holds RST high until the rail is up",
+  "measure": "max Q = 0.00 V over the run; PORN = 2.26 V when VBUS settles",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "P VBUS ramp 0.5 ms",
+  "require": "no relay ever latches; PORN holds RST high until the rail is up",
+  "measure": "max Q = 0.00 V over the run; PORN = 4.92 V when VBUS settles",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "P VBUS ramp 2 ms",
+  "require": "no relay ever latches; PORN holds RST high until the rail is up",
+  "measure": "max Q = 0.00 V over the run; PORN = 4.97 V when VBUS settles",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "P VBUS ramp 10 ms",
+  "require": "no relay ever latches; PORN holds RST high until the rail is up",
+  "measure": "max Q = 0.00 V over the run; PORN = 4.84 V when VBUS settles",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "P VBUS ramp 50 ms",
+  "require": "no relay ever latches; PORN holds RST high until the rail is up",
+  "measure": "max Q = 0.00 V over the run; PORN = 4.26 V when VBUS settles",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "P VBUS ramp 100 ms",
+  "require": "no relay ever latches; PORN holds RST high until the rail is up",
+  "measure": "max Q = 0.00 V over the run; PORN = 3.70 V when VBUS settles",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "MIC1 electret DC bias (selected)",
+  "require": "0.5 - 1.8 V at the capsule from the notebook's 2.2 V / 2.2 k",
+  "measure": "0.89 V at HS_MIC; selected NB2 pin at 0.89 V",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "MIC7 de-selected notebook reads 'mic present'",
+  "require": "de-selected NB mic pin DC in 0.8 - 2.0 V (codec keeps the headset mic)",
+  "measure": "1.10 V via NC -> 2k2 -> GND  (vs ~2.2 V = open = 'no mic' before the fix)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "MIC2 routed-path response (selected)",
+  "require": "flat across the 300 Hz - 3.4 kHz voice band, -3 dB well above 20 kHz",
+  "measure": "ripple 0.00 dB in-band; -3 dB at 200 kHz",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "MIC3 crosstalk to a de-selected notebook",
+  "require": "< -50 dB across the voice band",
+  "measure": "-83 dB @1 kHz, -63 dB @10 kHz  (10 pF across the open NO contact into 2k2//2k2)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "MIC4 mic reads 'present' across the notebook bias spread",
+  "require": "both the live electret and the de-selected 2k2 sit at 30-75% of the codec's bias rail for every rail 1.0-2.7 V / source R 1.0-2.7 k (never near 0 = short, never near the rail = 'no mic')",
+  "measure": "1.0V/1k: electret 0.50 V, de-sel 0.69 V (69% rail); 2.2V/2.2k: electret 0.89 V, de-sel 1.10 V (50% rail); 2.7V/2.7k: electret 1.09 V, de-sel 1.21 V (45% rail); 2.0V/1.5k: electret 1.11 V, de-sel 1.19 V (59% rail); 1.6V/2.2k: electret 0.50 V, de-sel 0.80 V (50% rail)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "MIC5 jack wiring: pin 3 (tip) = mic, pins 2 & 4 = GND (HX PJ-320A-3P, C17701689)",
+  "require": "datasheet terminal 3 is the tip leaf-spring; grounding both 2 and 4 is robust to a CTIA Y-splitter and to the ring/sleeve pin-order question",
+  "measure": "verified against the LCSC/EasyEDA pad data (uuid c718c744) + datasheet schematic",
+  "pass": true,
+  "note": "bring-up: meter pin 3 to the plug tip"
+ },
+ {
+  "check": "MIC6 mute states carry no headset audio, every NB still 'mic present'",
+  "require": "power-on / 2-btn: all COMs on NC (2k2->GND), none on HS_MIC",
+  "measure": "de-selected NB pin 0.80 V while HS_MIC reaches no notebook (verified by S checks)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "PW1 total supply current (one relay latched, idle)",
+  "require": "<= 60 mA (well inside the RXEF050 500 mA hold and USB-C 100 mA default)",
+  "measure": "28.4 mA  (coil 27.6 + 2x CC 1.3 + Iq ~0.1)",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "PW2 PTC (RXEF050) margin",
+  "require": "load << I_hold; a fault clamps well under 500 mA",
+  "measure": "28.4 mA = 6% of I_hold; ~1 ohm hot -> ~28 mV drop",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "PW3 VBUS transient clamp (P6KE6.8A, cathode->VBUS, pre-fuse)",
+  "require": "a positive VBUS surge is clamped below the CD4043B / USB abs-max before F1",
+  "measure": "V_bus clamps at 6.5 V under a 15 A surge (600 W TVS; the surge current returns through D1 to GND, not through F1) - well under the ~18 V CD4043B abs-max",
+  "pass": true,
+  "note": ""
+ },
+ {
+  "check": "PW4 any USB-C source turns VBUS on (R1/R2 = 5k1 Rd)",
+  "require": "Rd 5.1 k is inside the 4.08-6.12 k sink-detect window",
+  "measure": "5.1 k -> a DFP/charger detects a sink and applies 5 V (v2 left CC floating)",
+  "pass": true,
+  "note": ""
+ }
+]

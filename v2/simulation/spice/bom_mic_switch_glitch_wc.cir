@@ -1,0 +1,110 @@
+MeetingHub-4 v2 - does selecting a mic disturb the monitor (mixer) audio?
+* Requirement (user, 2026-09-04): pressing a select button to route HEADSET_MIC
+* to a laptop must NOT interrupt or glitch what you hear in the headset.
+*
+* The mic path and the monitor path are only coupled through:
+*   (a) the shared +5V rail  (a relay coil is a ~30 mA load that switches)
+*   (b) the shared GND pour
+*   (c) VBIAS, derived from +5V (R1/R2) and buffered by U3
+* This netlist runs a 1 kHz monitor tone through the real audio chain while it
+* switches the mic from K1 (laptop 1) to K2 (laptop 2) at t = 320 ms, on a rail
+* model with finite trace R/L between the bulk caps, the relay coils and the
+* op-amp supply pins.  It measures the disturbance at J6.T (headphone output).
+.include models.lib
+
+* ============================ POWER RAIL (with trace parasitics) ============
+VBUS   vbus 0   PWL(0 0  4m 5  1 5)
+RF1    vbus pbulk 0.4                 ; RXEF050 PTC, ~0.4 ohm cold
+D1     0 pbulk DP6KE68
+C2     pbulk 0 10u
+C1     pbulk 0 100n
+* --- rail branch to the logic / relay coils (C23 = 100 uF sits here)
+RRL    pbulk plog 0.30
+LRL    plog  plogc 80n
+C23    plogc 0 47u
+* --- rail branch to the analog supply pins of U1/U2/U3 (C21/C22/C25 local)
+RRA    pbulk paud 0.45
+LRA    paud  paudc 120n
+C21_25 paudc 0 300n
+
+* ============================ VBIAS (buffered, v1 bug #3 fix) ===============
+R1   paudc vref 10k
+R2   vref  0    10k
+C3   vref  0    10u
+XU3  vbout vref vbias paudc 0  LM358
+R38  vbout vbias 47
+C26  vbias 0 1u
+Rvb  vbias 0 3k                       ; representative downstream DC load
+
+* ============================ MONITOR AUDIO CHAIN (L, 1 laptop) =============
+* -10 dBV line level = 0.316 Vrms = 0.447 Vpk ; all pots at max (loudest).
+Vin   in 0  SIN(0 0.447 1k)
+C5    in p1top 1u
+RV1s  p1top p1w 10                    ; pot @ max: wiper at signal end
+RV1b  p1w   vbias 10k
+R5    p1w   u1n 10k
+R3    u1n   u1o 3k3
+XU1   u1o vbias u1n  paudc 0  NJM4580 ; 4-input summing mixer (only ch.1 driven)
+C13   u1o rv5top 1u
+RV5s  rv5top mixl 10
+RV5b  mixl   vbias 10k
+C15   mixl u2p 1u
+R13   u2p  vbias 100k
+R15   u2n  u2o 1k
+R14   u2n  fbg 1k
+C16   fbg  0 10u
+XU2   u2o u2p u2n  paudc 0  NJM4556A  ; headphone driver, AC gain 2
+C17   u2o r16n 220u
+R16   r16n j6t 10
+Rhp   j6t 0 32                        ; 32 ohm headset load
+
+* ============================ MIC SELECTOR (K1 -> K2 at t = 320 ms) =========
+* Q1 is ON (K1 = laptop 1 selected), Q2 OFF.  At 320 ms the one-hot latch
+* flips: Q1 -> OFF, Q2 -> ON.  Gate drive comes via R29/R30 (1k) from the
+* CD4043B output, modelled here as an ideal 0/5 V edge.
+VG1   g1 0  PWL(0 5      0.32 5        0.320001 0)
+VG2   g2 0  PWL(0 0      0.32 0        0.320001 5)
+R29   g1 gate1 1k
+R33   gate1 0 100k
+R30   g2 gate2 1k
+R34   gate2 0 100k
+XQ1   coil1 gate1 0  Q2N7000
+XQ2   coil2 gate2 0  Q2N7000
+XK1   plogc coil1 hmic nb1  RELAY_G5V1
+XK2   plogc coil2 hmic nb2  RELAY_G5V1
+D2    coil1 plogc D1N4148             ; free-wheel clamp to +5V (correct polarity)
+D3    coil2 plogc D1N4148
+* headset electret + the two laptop mic-input loads
+Vmic  hmic 0 DC 2.0
+Rl1   nb1 0 2.2k
+Rl2   nb2 0 2.2k
+
+.control
+tran 1u 0.36 0.30 uic
+* --- baseline monitor output, well before the switch (steady 1 kHz)
+meas tran vpp_base   PP  v(j6t)  FROM=0.305 TO=0.315
+meas tran vavg_base  AVG v(j6t)  FROM=0.305 TO=0.315
+* --- during / right after the switch event
+meas tran vpp_event  PP  v(j6t)  FROM=0.3195 TO=0.3235
+meas tran vavg_event AVG v(j6t)  FROM=0.320 TO=0.324
+meas tran vmax_event MAX v(j6t)  FROM=0.3199 TO=0.322
+meas tran vmin_event MIN v(j6t)  FROM=0.3199 TO=0.322
+* --- fully settled again
+meas tran vpp_after  PP  v(j6t)  FROM=0.345 TO=0.355
+meas tran vavg_after AVG v(j6t)  FROM=0.345 TO=0.355
+* --- rail + VBIAS deviation caused by the coil switch
+meas tran plog_min   MIN v(plogc) FROM=0.3199 TO=0.328
+meas tran plog_base  AVG v(plogc) FROM=0.305 TO=0.315
+meas tran paud_min   MIN v(paudc) FROM=0.3199 TO=0.328
+meas tran paud_base  AVG v(paudc) FROM=0.305 TO=0.315
+meas tran vbias_min  MIN v(vbias) FROM=0.3199 TO=0.33
+meas tran vbias_max  MAX v(vbias) FROM=0.3199 TO=0.33
+meas tran vbias_base AVG v(vbias) FROM=0.305 TO=0.315
+* --- mic actually moved from nb1 to nb2
+meas tran mic_nb1_before AVG v(nb1) FROM=0.31 TO=0.319
+meas tran mic_nb1_after  AVG v(nb1) FROM=0.34 TO=0.355
+meas tran mic_nb2_before AVG v(nb2) FROM=0.31 TO=0.319
+meas tran mic_nb2_after  AVG v(nb2) FROM=0.34 TO=0.355
+wrdata mic_switch_glitch_wc.dat v(j6t) v(plogc) v(paudc) v(vbias) v(coil1) v(coil2) v(nb1) v(nb2)
+.endc
+.end

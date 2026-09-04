@@ -84,12 +84,24 @@ XQ2 coil2 gate2 0 Q2N7000
 XQ3 coil3 gate3 0 Q2N7000
 XQ4 coil4 gate4 0 Q2N7000
 
-* ---- relays K1-4 : coil p5..COILn ; COM = HEADSET_MIC ; NO = NBn_MIC
-* freewheel diodes D2-5 : anode = COILn, cathode = +5V
-XK1 p5 coil1 hmic nb1 RELAY_G5V1
-XK2 p5 coil2 hmic nb2 RELAY_G5V1
-XK3 p5 coil3 hmic nb3 RELAY_G5V1
-XK4 p5 coil4 hmic nb4 RELAY_G5V1
+* ---- relays K1-4 (SCH-P wiring): coil p5..COILn ; COM(5/6) = NBn_MIC (laptop) ;
+* NO(10) = HEADSET_MIC (commoned) ; NC(1) = Rncn 2k2 -> GND (de-selected hold-up).
+* RELAY_G5V1(coilp coiln com no): put NBn on com, HEADSET_MIC on no -> energised
+* Kn ties laptop n to the headset electret.  Sncn adds the NC contact: closed
+* (laptop n -> 2k2 -> GND) whenever Kn is de-energised.  freewheel D2-5 unchanged.
+XK1 p5 coil1 nb1 hmic RELAY_G5V1
+XK2 p5 coil2 nb2 hmic RELAY_G5V1
+XK3 p5 coil3 nb3 hmic RELAY_G5V1
+XK4 p5 coil4 nb4 hmic RELAY_G5V1
+.model SNC SW(VT=-2.5 VH=1.0 RON=0.2 ROFF=100meg)
+Sk1 nb1 ncg1 coil1 p5 SNC
+Sk2 nb2 ncg2 coil2 p5 SNC
+Sk3 nb3 ncg3 coil3 p5 SNC
+Sk4 nb4 ncg4 coil4 p5 SNC
+Rnc1 ncg1 0 2200
+Rnc2 ncg2 0 2200
+Rnc3 ncg3 0 2200
+Rnc4 ncg4 0 2200
 D2 coil1 p5 D1N4148
 D3 coil2 p5 D1N4148
 D4 coil3 p5 D1N4148

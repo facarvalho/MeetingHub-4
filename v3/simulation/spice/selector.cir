@@ -1,0 +1,107 @@
+MeetingHub-4 v3 one-hot selector (component-level)
+.include models.lib
+VBUS vbus 0 PWL(0 0 0.004000 5 100 5)
+RF1  vbus p5 1
+C1 p5 0 100n
+C2 p5 0 10u
+C3 p5 0 47u
+C4 p5 0 100n
+
+Vpr1 pr1 0 PWL(0 0 0.4000 0 0.4010 5 0.5210 5 0.5220 0)
+Vpr2 pr2 0 PWL(0 0 0.9000 0 0.9010 5 1.0210 5 1.0220 0 2.5000 0 2.5010 5 2.6210 5 2.6220 0)
+Vpr3 pr3 0 PWL(0 0 1.4000 0 1.4010 5 1.5210 5 1.5220 0 2.5000 0 2.5010 5 2.6210 5 2.6220 0)
+Vpr4 pr4 0 PWL(0 0 1.9000 0 1.9010 5 2.0210 5 2.0220 0)
+SB1 p5 btn1 pr1 0 SWB
+SB2 p5 btn2 pr2 0 SWB
+SB3 p5 btn3 pr3 0 SWB
+SB4 p5 btn4 pr4 0 SWB
+.model SWB SW(VT=2.5 VH=0.2 RON=25 ROFF=1G)
+Rb1 btn1 0 1meg
+Rb2 btn2 0 1meg
+Rb3 btn3 0 1meg
+Rb4 btn4 0 1meg
+
+D6  btn1 set1 D1N4148
+D7  btn1 rst2 D1N4148
+D8  btn1 rst3 D1N4148
+D9  btn1 rst4 D1N4148
+D10 btn2 set2 D1N4148
+D11 btn2 rst1 D1N4148
+D12 btn2 rst3 D1N4148
+D13 btn2 rst4 D1N4148
+D14 btn3 set3 D1N4148
+D15 btn3 rst1 D1N4148
+D16 btn3 rst2 D1N4148
+D17 btn3 rst4 D1N4148
+D18 btn4 set4 D1N4148
+D19 btn4 rst1 D1N4148
+D20 btn4 rst2 D1N4148
+D21 btn4 rst3 D1N4148
+R3 set1 0 100k
+R4 set2 0 100k
+R5 set3 0 100k
+R6 set4 0 100k
+R7 rst1 0 100k
+R8 rst2 0 100k
+R9 rst3 0 100k
+R10 rst4 0 100k
+
+C5  p5 porn 10u
+R11 porn 0 100k
+D22 porn rst1 D1N4148
+D23 porn rst2 D1N4148
+D24 porn rst3 D1N4148
+D25 porn rst4 D1N4148
+
+XL1 qo1 set1 rst1 p5 p5 0 CD4043LATCH
+XL2 qo2 set2 rst2 p5 p5 0 CD4043LATCH
+XL3 qo3 set3 rst3 p5 p5 0 CD4043LATCH
+XL4 qo4 set4 rst4 p5 p5 0 CD4043LATCH
+
+R12 qo1 gate1 1k
+R13 qo2 gate2 1k
+R14 qo3 gate3 1k
+R15 qo4 gate4 1k
+R16 gate1 0 100k
+R17 gate2 0 100k
+R18 gate3 0 100k
+R19 gate4 0 100k
+XQ1 coil1 gate1 0 Q2N7000
+XQ2 coil2 gate2 0 Q2N7000
+XQ3 coil3 gate3 0 Q2N7000
+XQ4 coil4 gate4 0 Q2N7000
+
+XK1 p5 coil1 nb1 hmic ncb1 RELAY_G5V1
+XK2 p5 coil2 nb2 hmic ncb2 RELAY_G5V1
+XK3 p5 coil3 nb3 hmic ncb3 RELAY_G5V1
+XK4 p5 coil4 nb4 hmic ncb4 RELAY_G5V1
+RNC1 ncb1 0 2.2k
+RNC2 ncb2 0 2.2k
+RNC3 ncb3 0 2.2k
+RNC4 ncb4 0 2.2k
+D2 coil1 p5 D1N4148
+D3 coil2 p5 D1N4148
+D4 coil3 p5 D1N4148
+D5 coil4 p5 D1N4148
+
+XMIC hmic 0 ELECTRET
+Vb1 vb1 0 2.2
+Vb2 vb2 0 2.2
+Vb3 vb3 0 2.2
+Vb4 vb4 0 2.2
+Rn1 vb1 nb1 2200.0
+Rn2 vb2 nb2 2200.0
+Rn3 vb3 nb3 2200.0
+Rn4 vb4 nb4 2200.0
+.options reltol=2e-3 abstol=1e-9 vntol=1e-5 method=gear
+
+.control
+ tran 100u 3.0 uic
+ meas tran porn_20ms FIND v(porn) AT=0.02
+ meas tran q1_on FIND v(qo1) AT=0.75
+ meas tran q4_on FIND v(qo4) AT=2.35
+ meas tran q_mute FIND v(qo2) AT=2.75
+ plot v(porn) v(qo1) v(qo2) v(qo3) v(qo4)
+ plot v(nb1) v(nb2) v(nb3) v(nb4) v(hmic)
+.endc
+.end

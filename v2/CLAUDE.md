@@ -36,6 +36,15 @@ right-angle THT C285519, U1→C5184871, U3→C5213, U4→C22390239, 100nF→C216
 acrylic, sides open: front controls repositioned (RV1-5 y=FRONT-5.5, SW2-5
 y=FRONT-3). CPL rotation corrected per footprint vs the LCEDA parts. Re-routed
 850 seg / 30 vias. New `BOM-JLC-*.csv` (native format). See CHANGELOG rev-8.
+**rev-9 (2026-09-03):** de-selected-laptop mic hold-up (sim §P). K1-K4 contacts
+re-wired: COM 5/6→`NBn_MIC`, NO 10→`HEADSET_MIC` (commoned), NC 1→**R39-R42 2k2→GND**
+(YAGEO CFR-25JB-52-2K2, LCSC C1364486). A laptop switched *away* from now reads
+as a live-but-silent mic (1.25 V sleeve) instead of "mic unplugged" → no
+internal-mic fallback. Coil/D2-D5 side, audio, one-hot, POR unchanged. BOM 117→121.
+Re-routed (Freerouting `--random 0`) **902 seg / 35 vias, 0 unconnected, 0 SMD**,
+DRC unchanged (8 J1 + 5 silk). Full sim suite re-run, all reproduces
+(`bom_selector.cir` updated for the swap). See CHANGELOG rev-9. Bench-verify OS
+behaviour on real laptops (codec firmware).
 
 ## Files
 
@@ -55,7 +64,17 @@ y=FRONT-3). CPL rotation corrected per footprint vs the LCEDA parts. Re-routed
 
 ## State
 
-Fully routed, 2-layer, **850 seg / 30 vias, 0 unconnected, 0 SMD pads**
+**rev-10 (2026-09-04) — FABRICATION AUTHORIZED.** R16/R20 47 Ω → 10 Ω (sim
+finding 1: +5.5 dB headphone drive; netlist byte-identical, no re-route,
+gerbers/drill/CPL unchanged). Full sim suite re-run both engines: **§A–§G
+21/21**, §M 6/6, §E 8/8, §O < 80 µV, §P 1.25 V. Headless DRC with the project
+loaded (`SETTINGS_MANAGER.LoadProject`) = **0 errors, 0 unconnected, 5 cosmetic
+`silk_over_copper` on RV1–5** (clipped at plot time). Deliverables: validation
+report + user manual + usage animation (artifacts). Pre-order bench items:
+(1) Alps RK097 terminal convention, (2) 10 Ω R16/R20 LCSC code, (3) de-selected
+mic OS behaviour on target laptops.
+
+Fully routed, 2-layer, **902 seg / 35 vias, 0 unconnected, 0 SMD pads** (rev-9)
 (rev-8). **DRC 0 errors** in the GUI (the 8 J1 pad-pitch clearances pass at the
 netclass **0.15 mm** that v1 also used — set in `.kicad_pro`; headless
 `WriteDRCReport` still lists them). Remaining: ~10 cosmetic `silk_over_copper`
