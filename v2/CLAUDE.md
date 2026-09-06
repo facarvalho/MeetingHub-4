@@ -64,6 +64,18 @@ behaviour on real laptops (codec firmware).
 
 ## State
 
+**rev-11 (2026-09-05) — J2–J6 footprint rebuilt after a JLC SMT DFM reject.**
+The rev-8 hand-drawn `Jack_3.5mm_PJ-3200B-4A_Horizontal` had the Sleeve pad and
+both Ø1.3 locating posts in the wrong places; JLC could not assemble J2–J6 and
+the fabricated boards from that order are scrap. The footprint is now rebuilt
+from JLC's own LCEDA land pattern for C136687 (`easyeda2kicad`): slotted pads
+0.9×1.8, T–R1–R2 at 4.00/3.34, offset Sleeve, 2× Ø1.5 NPTH 7.0 mm apart. Pin
+mapping (T/R1/R2/S) and the netlist are unchanged. Board re-placed (jacks at
+REAR+8.0 / FRONT−8.0), re-routed, **DRC 0 errors / 0 unconnected** (project
+loaded), gerbers+BOM+CPL regenerated. Reply **C** to JLC and re-upload rev-11.
+Bench-confirm the jack pinout (plug continuity) and the CPL rotation in JLC's
+preview. See CHANGELOG rev-11. Everything below is still current.
+
 **rev-10 (2026-09-04) — FABRICATION AUTHORIZED.** R16/R20 47 Ω → 10 Ω (sim
 finding 1: +5.5 dB headphone drive; netlist byte-identical, no re-route,
 gerbers/drill/CPL unchanged). Full sim suite re-run both engines: **§A–§G

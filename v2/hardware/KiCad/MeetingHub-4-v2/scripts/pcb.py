@@ -73,12 +73,13 @@ place("F1", 56, REAR+22, 0)
 place("C1", 70, REAR+22, 0)
 place("TP1", 84, REAR+7, 0)
 place("C2", 96, REAR+22, 0)
-# J2-J5: rot 0. The local PJ-3200B-4A footprint is pre-rotated so the insertion
-# barrel points -Y; at rot 0 that barrel overhangs the REAR edge and the plug
-# faces out. y = REAR+10.2 puts the jack body face ~at the board edge, the 2.0 mm
-# barrel nose overhanging, and the O1.30 locating posts ~2.5 mm inside the edge
+# J2-J5: rot 0. The local PJ-3200B-4A footprint (rev-11, rebuilt from the LCEDA
+# land pattern) is pre-rotated so the insertion barrel points -Y; at rot 0 that
+# barrel overhangs the REAR edge and the plug faces out. y = REAR+8.0 puts the
+# jack body face ~at the board edge, the ~1.4 mm barrel nose overhanging, and the
+# O1.50 NPTH locating posts ~2.3 / 9.3 mm inside the edge
 # (verify the overhang vs the acrylic panel in the GUI / 3D view).
-block(["J2","J3","J4","J5"], 112, REAR+10.2, 4, 23, 0, 0)
+block(["J2","J3","J4","J5"], 112, REAR+8.0, 4, 23, 0, 0)
 
 # ---- MIXER (left lane x18..76) ----
 place("U1", 44, 38, 0)
@@ -126,7 +127,7 @@ block(["RV1","RV2","RV3","RV4","RV5"], 30, FRONT-5.5, 5, 15, 0, 90)
 # press (or a button cap).
 block(["SW2","SW3","SW4","SW5"], 124, FRONT-3, 4, 14, 0, 180)
 # J6: rot 180 -> the PJ-3200B-4A barrel (-Y end) points to the FRONT edge, plug out.
-place("J6", 182, FRONT-10.2, 180)
+place("J6", 182, FRONT-8.0, 180)
 
 tp2 = place("TP2", 118, 44, 0, "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm")
 if tp2:
@@ -146,6 +147,19 @@ for i,(mx,my) in enumerate([(x1+8,y1+8),(x2-8,y1+8),(x1+8,y2-30),(x2-8,y2-30),
                             (x1+9,y2-12),(x2-9,y2-12)],1):
     place(f"MH{i}", mx, my, 0, MH)
 print("board mm: %.1f x %.1f   (%.1f,%.1f)-(%.1f,%.1f)" % (x2-x1, y2-y1, x1, y1, x2, y2))
+
+# GND corner stitching vias: the rounded-corner pinch in the GND pour can leave a
+# thin lobe near a corner that the router doesn't tie back (-> 1 "unconnected"
+# DRC item). One pre-placed GND via just inside each corner keeps both pours and
+# both lobes bonded there. Kept clear of the corner MountingHoles.
+gnd_ni = nets["GND"]
+for cx, cy in [(x1+4, y1+4), (x2-4, y1+4), (x1+4, y2-4), (x2-4, y2-4)]:
+    v = pcbnew.PCB_VIA(board)
+    v.SetPosition(VECTOR2I(FromMM(cx), FromMM(cy)))
+    v.SetDrill(FromMM(0.4)); v.SetWidth(FromMM(0.8))
+    v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu); v.SetNet(gnd_ni)
+    board.Add(v)
+print("4 GND corner stitching vias placed")
 
 pcbnew.SaveBoard(OUT, board)
 s = open(OUT).read()
@@ -173,6 +187,12 @@ edge += gr_arc(x2-R, y2, x2-k, y2-k, x2, y2-R, 2)   # bottom-right
 edge += gr_arc(x1, y2-R, x1+k, y2-k, x1+R, y2, 3)   # bottom-left
 
 gnd_code = re.search(r'\(net (\d+) "GND"\)', s).group(1)
+# zone outline follows the rounded rectangle: chamfer each corner by R so the
+# pour never pokes outside Edge.Cuts (a sharp-corner sliver there ends up as an
+# isolated island -> 1 "unconnected" DRC item).
+zpts = [(x1+R, y1), (x2-R, y1), (x2, y1+R), (x2, y2-R),
+        (x2-R, y2), (x1+R, y2), (x1, y2-R), (x1, y1+R)]
+zpoly = " ".join(f"(xy {px} {py})" for px, py in zpts)
 zones = ""
 for i, ly in enumerate(("F.Cu", "B.Cu")):
     zones += (f'  (zone (net {gnd_code}) (net_name "GND") (layer "{ly}") '
@@ -180,7 +200,7 @@ for i, ly in enumerate(("F.Cu", "B.Cu")):
               f'    (connect_pads (clearance 0.3))\n'
               f'    (min_thickness 0.25) (filled_areas_thickness no)\n'
               f'    (fill (thermal_gap 0.3) (thermal_bridge_width 0.4))\n'
-              f'    (polygon (pts (xy {x1} {y1}) (xy {x2} {y1}) (xy {x2} {y2}) (xy {x1} {y2})))\n'
+              f'    (polygon (pts {zpoly}))\n'
               f'  )\n')
 
 s = s.rstrip()[:-1] + edge + zones + ")\n"

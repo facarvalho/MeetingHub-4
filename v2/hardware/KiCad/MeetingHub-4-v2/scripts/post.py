@@ -25,11 +25,13 @@ try:
     b.GetDesignSettings().m_MinClearance = pcbnew.FromMM(0.15)
 except Exception as e: print("minclr warn",e)
 
-# --- shrink all reference text to 0.8mm ---
+# --- shrink all reference text to 0.8mm; hide the F.Fab value (= footprint name,
+#     KiCad-script default) so it doesn't clutter assembly renders ---
 for f in b.GetFootprints():
     r = f.Reference()
     r.SetTextSize(pcbnew.VECTOR2I(pcbnew.FromMM(0.8), pcbnew.FromMM(0.8)))
     r.SetTextThickness(pcbnew.FromMM(0.12))
+    f.Value().SetVisible(False)
 
 pcbnew.ZONE_FILLER(b).Fill(b.Zones())
 pcbnew.SaveBoard(PCB, b)
